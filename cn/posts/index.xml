@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on life journey</title>
-    <link>https://example.com/cn/posts/</link>
+    <link>https://iohub.github.io/cn/posts/</link>
     <description>Recent content in Posts on life journey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Mar 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://example.com/cn/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://iohub.github.io/cn/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>深圳日记 2020-3</title>
-      <link>https://example.com/cn/posts/cn/</link>
+      <link>https://iohub.github.io/cn/posts/cn/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/cn/posts/cn/</guid>
+      <guid>https://iohub.github.io/cn/posts/cn/</guid>
       <description>烟 最近烟越抽越多，鼻炎开始抗议，是该戒掉了，只是日子实在是慌闷得想找个出口。公司里的码畜们都是一屁股坐上工位就生根的样子，实在是久坐伤身，找个空子出去逛逛吧。烟还是别抽了，没啥屁瘾，还染了屁病。
 车 看了三个月的车，最后还是选了第一眼看上的沃尔沃xc40，有时候生活就这样兜兜转转挑来挑去，还是很久之前都注定的事情。焦急的等着驾校开门，估摸着很快就过了科目三。车价也谈了差不多，比预期的少一些，估计是看了xc60心里可接受的阈值暗暗提高了。早买早了庄心事，很久没有买买买的冲动了，以后回家会方便不少吧。</description>
     </item>
