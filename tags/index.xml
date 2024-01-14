@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Seven的个人网站</title>
+    <link>https://seven-demo.supcat.cn/tags/</link>
+    <description>Recent content in Tags on Seven的个人网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Jan 2024 22:02:42 +0800</lastBuildDate>
+    <atom:link href="https://seven-demo.supcat.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>go</title>
+      <link>https://seven-demo.supcat.cn/tags/go/</link>
+      <pubDate>Tue, 09 Jan 2024 22:02:42 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>go.work</title>
+      <link>https://seven-demo.supcat.cn/tags/go.work/</link>
+      <pubDate>Tue, 09 Jan 2024 22:02:42 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/go.work/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>multi module</title>
+      <link>https://seven-demo.supcat.cn/tags/multi-module/</link>
+      <pubDate>Tue, 09 Jan 2024 22:02:42 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/multi-module/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>doc</title>
+      <link>https://seven-demo.supcat.cn/tags/doc/</link>
+      <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/doc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>配置参数</title>
+      <link>https://seven-demo.supcat.cn/tags/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>etcd</title>
+      <link>https://seven-demo.supcat.cn/tags/etcd/</link>
+      <pubDate>Tue, 27 Jun 2023 20:57:59 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/etcd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>raft</title>
+      <link>https://seven-demo.supcat.cn/tags/raft/</link>
+      <pubDate>Tue, 27 Jun 2023 20:57:59 +0800</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/raft/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Istio</title>
+      <link>https://seven-demo.supcat.cn/tags/istio/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/istio/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>service Mesh</title>
+      <link>https://seven-demo.supcat.cn/tags/service-mesh/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/service-mesh/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ubuntu</title>
+      <link>https://seven-demo.supcat.cn/tags/ubuntu/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Microservice</title>
+      <link>https://seven-demo.supcat.cn/tags/microservice/</link>
+      <pubDate>Wed, 23 May 2018 18:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/microservice/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>https://seven-demo.supcat.cn/tags/security/</link>
+      <pubDate>Wed, 23 May 2018 15:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>https://seven-demo.supcat.cn/tags/kubernetes/</link>
+      <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Helm</title>
+      <link>https://seven-demo.supcat.cn/tags/helm/</link>
+      <pubDate>Mon, 16 Apr 2018 15:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/helm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>API Gateway</title>
+      <link>https://seven-demo.supcat.cn/tags/api-gateway/</link>
+      <pubDate>Wed, 11 Apr 2018 09:32:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/api-gateway/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://seven-demo.supcat.cn/tags/docker/</link>
+      <pubDate>Tue, 13 Mar 2018 18:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tips</title>
+      <link>https://seven-demo.supcat.cn/tags/tips/</link>
+      <pubDate>Tue, 13 Mar 2018 18:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/tips/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vim</title>
+      <link>https://seven-demo.supcat.cn/tags/vim/</link>
+      <pubDate>Fri, 09 Feb 2018 11:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/vim/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>nginmesh</title>
+      <link>https://seven-demo.supcat.cn/tags/nginmesh/</link>
+      <pubDate>Tue, 02 Jan 2018 12:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/tags/nginmesh/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

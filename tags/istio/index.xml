@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Istio on Seven的个人网站</title>
+    <link>https://seven-demo.supcat.cn/tags/istio/</link>
+    <description>Recent content in Istio on Seven的个人网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://seven-demo.supcat.cn/tags/istio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio v1aplha3 routing API介绍（译文）</title>
+      <link>https://seven-demo.supcat.cn/2018/06/04/introducing-the-istio-v1alpha3-routing-api/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2018/06/04/introducing-the-istio-v1alpha3-routing-api/</guid>
+      <description>&lt;p&gt;到目前为止，Istio 提供了一个简单的 API 来进行流量管理，该 API 包括了四种资源：RouteRule，DestinationPolicy，EgressRule 和 Ingress（直接使用了 Kubernets 的 Ingress 资源）。借助此 API，用户可以轻松管理 Istio 服务网格中的流量。该 API 允许用户将请求路由到特定版本的服务，为弹性测试注入延迟和失败，添加超时和断路器等等，所有这些功能都不必更改应用程序本身的代码。&lt;/p&gt;&#xA;&lt;p&gt;虽然目前 API 的功能已被证明是 Istio 非常引人注目的一部分，但用户的反馈也表明，这个 API 确实有一些缺点，尤其是在使用它来管理包含数千个服务的非常大的应用程序，以及使用 HTTP 以外的协议时。 此外，使用 Kubernetes Ingress 资源来配置外部流量的方式已被证明不能满足需求。&lt;/p&gt;&#xA;&lt;p&gt;为了解决上述缺陷和其他的一些问题，Istio 引入了新的流量管理 API v1alpha3，新版本的 API 将完全取代之前的 API。 尽管 v1alpha3 和之前的模型在本质上是基本相同的，但它并不向后兼容的，基于旧 API 的模型需要进行手动转换。 Istio 接下来的几个版本中会提供一个新旧模型的转换工具。&lt;/p&gt;&#xA;&lt;p&gt;为了证明该非兼容升级的必要性，v1alpha3 API 经历了漫长而艰苦的社区评估过程，以希望新的 API 能够大幅改进，并经得起时间考验。 在本文中，我们将介绍新的配置模型，并试图解释其后面的一些动机和设计原则。&lt;/p&gt;&#xA;&lt;h2 class=&#34;group head-tag&#34; id=&#34;设计原则&#34;&gt;设计原则&lt;a data-title-of-head class=&#34;group-hover:after:content-[&#39;__#&#39;] no-underline hover:text-blue-700&#34; href=&#34;#%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;路由模型的重构过程中遵循了一些关键的设计原则：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;除支持声明式（意图）配置外，也支持显式指定模型依赖的基础设施。例如，除了配置入口网关（的功能特性）之外，负责实现 入口网关功能的组件（Controller）也可以在模型指定。&lt;/li&gt;&#xA;&lt;li&gt;编写模型时应该“生产者导向”和“以 Host 为中心”，而不是通过组合多个规则来编写模型。 例如，所有与特定 Host 关联的规则被配置在一起，而不是单独配置。&lt;/li&gt;&#xA;&lt;li&gt;将路由与路由后行为清晰分开。&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Istio 0.8 Release发布</title>
+      <link>https://seven-demo.supcat.cn/2018/06/02/istio08/</link>
+      <pubDate>Sat, 02 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2018/06/02/istio08/</guid>
+      <description>在 6 月 1 日这一天的早上，Istio 社区宣布发布 0.8 Release，除了常规的故障修复和性能改进外，这个儿童节礼物里面还有什么值得期待内容呢？让</description>
+    </item>
+    <item>
+      <title>Istio Sidecar自动注入原理</title>
+      <link>https://seven-demo.supcat.cn/2018/05/23/istio-auto-injection-with-webhook/</link>
+      <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2018/05/23/istio-auto-injection-with-webhook/</guid>
+      <description>&lt;h2 class=&#34;group head-tag&#34; id=&#34;前言&#34;&gt;前言&lt;a data-title-of-head class=&#34;group-hover:after:content-[&#39;__#&#39;] no-underline hover:text-blue-700&#34; href=&#34;#%e5%89%8d%e8%a8%80&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;hr&gt;&#xA;&lt;p&gt;Kubernets 1.9 版本引入了 Admission Webhook(web 回调)扩展机制，通过 Webhook,开发者可以非常灵活地对 Kubernets API Server 的功能进行扩展，在 API Server 创建资源时对资源进行验证或者修改。&lt;/p&gt;&#xA;&lt;p&gt;使用 webhook 的优势是不需要对 API Server 的源码进行修改和重新编译就可以扩展其功能。插入的逻辑实现为一个独立的 web 进程，通过参数方式传入到 kubernets 中，由 kubernets 在进行自身逻辑处理时对扩展逻辑进行回调。&lt;/p&gt;&#xA;&lt;p&gt;Istio 0.7 版本就利用了 Kubernets webhook 实现了 sidecar 的自动注入。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>谈谈微服务架构中的基础设施：Service Mesh与Istio</title>
+      <link>https://seven-demo.supcat.cn/2018/03/29/what-is-service-mesh-and-istio/</link>
+      <pubDate>Thu, 29 Mar 2018 12:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2018/03/29/what-is-service-mesh-and-istio/</guid>
+      <description>微服务架构的演进作为一种架构模式，微服务将复杂系统切分为数十乃至上百个小服务，每个服务负责实现一个独立的业务逻辑。这些小服务易于被小型的软件</description>
+    </item>
+    <item>
+      <title>Nginx开源Service Mesh组件Nginmesh安装指南</title>
+      <link>https://seven-demo.supcat.cn/2018/01/02/nginmesh-install/</link>
+      <pubDate>Tue, 02 Jan 2018 12:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2018/01/02/nginmesh-install/</guid>
+      <description>&lt;h2 class=&#34;group head-tag&#34; id=&#34;前言&#34;&gt;前言&lt;a data-title-of-head class=&#34;group-hover:after:content-[&#39;__#&#39;] no-underline hover:text-blue-700&#34; href=&#34;#%e5%89%8d%e8%a8%80&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Nginmesh 是 NGINX 的 Service Mesh 开源项目，用于 Istio 服务网格平台中的数据面代理。它旨在提供七层负载均衡和服务路由功能，与 Istio 集成作为 sidecar 部署，并将以“标准，可靠和安全的方式”使得服务间通信更容易。Nginmesh 在今年底已经连续发布了 0.2 和 0.3 版本，提供了服务发现，请求转发，路由规则，性能指标收集等功能。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>采用Istio实现灰度发布(金丝雀发布)</title>
+      <link>https://seven-demo.supcat.cn/2017/11/08/istio-canary-release/</link>
+      <pubDate>Wed, 08 Nov 2017 15:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2017/11/08/istio-canary-release/</guid>
+      <description>灰度发布（又名金丝雀发布）介绍当应用上线以后，运维面临的一大挑战是如何能够在不影响已上线业务的情况下进行升级。做过产品的同学都清楚，不管在发</description>
+    </item>
+    <item>
+      <title>使用Istio实现应用流量转移</title>
+      <link>https://seven-demo.supcat.cn/2017/11/07/istio-traffic-shifting/</link>
+      <pubDate>Tue, 07 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://seven-demo.supcat.cn/2017/11/07/istio-traffic-shifting/</guid>
+      <description>&lt;p&gt;关于 Istio 的更多内容请参考&#xA;&lt;a&#xA;  class=&#34;after:content-[&#39;_↗&#39;]&#34;&#xA;  href=&#34;http://istio.doczh.cn/&#34;&#xA;  target=&#34;_blank&#34;&#xA;  &gt;istio 中文文档&lt;/a&#xA;&gt;&#xA;。&lt;/p&gt;&#xA;&lt;p&gt;原文参见&#xA;&lt;a&#xA;  class=&#34;after:content-[&#39;_↗&#39;]&#34;&#xA;  href=&#34;https://istio.io/docs/tasks/traffic-management/traffic-shifting.html&#34;&#xA;  target=&#34;_blank&#34;&#xA;  &gt;Traffic Shifting&lt;/a&#xA;&gt;&#xA;。&lt;/p&gt;&#xA;&lt;p&gt;本任务将演示如何将应用流量逐渐从旧版本的服务迁移到新版本。通过 Istio，可以使用一系列不同权重的规则（10%，20%，··· 100%）将流量平缓地从旧版本服务迁移到新版本服务。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

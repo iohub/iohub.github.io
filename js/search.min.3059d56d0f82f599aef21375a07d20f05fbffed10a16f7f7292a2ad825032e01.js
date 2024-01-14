@@ -1,0 +1,18 @@
+(()=>{d="995JRM5ZAU",u="4a1095e4b8c96d2baee42d4c64b16afa",r="title",l="hugo_theme_seven_demo",n="description",c=document.getElementById("search-icon"),a=document.getElementById("search-overlay"),t=document.getElementById("search-section"),s="";function i(){s=document.querySelector(".ais-SearchBox-input").value,s||o()}c.addEventListener("click",e=>{o();const t=document.querySelector(".ais-SearchBox-reset");"hidden"in t&&t.removeAttribute("hidden"),document.querySelector(".ais-SearchBox-resetIcon").removeEventListener("click",i,!1),document.querySelector(".ais-SearchBox-resetIcon").addEventListener("click",i,!1),document.querySelector(".ais-SearchBox-input").focus()}),document.addEventListener("keydown",function(e){if(e.code==="Escape"&&t.classList.contains("fixed")){const e=document.querySelector(".ais-SearchBox-form");e.reset(),o()}});function o(){a.classList.toggle("hidden"),t.classList.toggle("hidden"),t.classList.toggle("fixed"),document.body.classList.toggle("overflow-hidden"),document.body.classList.toggle("fixed")}var t,n,s,a,r,c,l,d,u,h=algoliasearch(d,u),e=instantsearch({searchClient:h,indexName:l,insights:!1,searchFunction(e){const n=document.querySelector("#searchResults"),t=document.querySelector("#NotSearchResults");e.state.query===""?(n.style.display="none",t.classList.remove("hidden"),t.classList.add("flex")):(n.style.display="",t.classList.add("hidden"),t.classList.remove("flex"),e.search())},onStateChange({uiState:e,setUiState:t}){g(),t(e)}}),{searchBox:m}=instantsearch.widgets,{configure:f}=instantsearch.widgets,{hits:p}=instantsearch.widgets,{poweredBy:v}=instantsearch.widgets;e.addWidgets([f({clickAnalytics:!1,enablePersonalization:!1,attributesToSnippet:[n]}),m({container:"#searchBox",placeholder:" Search for content",showReset:!1,showLoadingIndicator:!0,showSubmit:!0,searchAsYouType:!1,autofocus:!0,templates:{submit({cssClasses:e},{html:t}){return t`<svg
+          t="1687792593023"
+          class="${e.submitIcon}"
+          viewBox="0 0 1269 1024"
+          version="1.1"
+          width="10"
+          height="10"
+        >
+          <path
+            d="M990.28992 695.0912l254.19776 165.56032-83.39456 128.8192-246.784-160.768A511.09888 511.09888 0 0 1 512 1024C229.21216 1024 0 794.78784 0 512S229.21216 0 512 0 1024 229.21216 1024 512a510.7712 510.7712 0 0 1-33.71008 183.0912zM512 153.6a358.4 358.4 0 1 0 0 716.8 358.4 358.4 0 0 0 0-716.8z"
+            p-id="12490"
+          ></path>
+        </svg>`}}}),p({container:"#searchResults",templates:{item(e,{html:t,components:s}){return t`
+          <a href="${e.permalink}" class="flex flex-col justify-around space-y-2 hover:text-white">
+            <p class="text-lg">${s.Snippet({hit:e,attribute:n})}</p>
+            <p class="text-sm">${s.Highlight({hit:e,attribute:r})}</p>
+          </a>
+        `},empty(e,{html:t}){return t`No results for <q>${e.query}</q>`}}})]),e.start(),e.on("error",({error:e})=>{const n=document.querySelector("#searchResults"),t=document.getElementById("searchError");n.style.display="none",t.classList.remove("hidden"),t.classList.add("flex"),console.log(e)});function g(){const e=document.getElementById("searchError");if(!e.classList.contains("hidden")){const t=document.querySelector("#searchResults");t.style.display="",e.classList.add("hidden"),e.classList.remove("flex")}}e.on("render",()=>{const n=document.querySelector(".ais-SearchBox-submit"),s=document.querySelector(".ais-SearchBox-loadingIndicator"),t=document.querySelector("#searchLoading");e.status==="stalled"?(n.style.display="none",s.style.display="flex",t.classList.remove("hidden"),t.classList.add("flex")):(n.style.display="flex",s.style.display="none",t.classList.remove("flex"),t.classList.add("hidden"))})})()

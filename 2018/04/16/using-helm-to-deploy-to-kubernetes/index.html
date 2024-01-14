@@ -1,0 +1,1843 @@
+<!doctype html>
+<html class="scroll-smooth" lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>
+      Helm介绍 | Seven的个人网站
+    </title><meta name="application-name" content="Seven Demo" />
+<meta name="apple-mobile-web-app-title" content="Seven Demo" />
+
+
+  <meta name="title" content="Helm介绍" />
+
+
+
+  <meta name="description" content="Helm是Kubernetes生态系统中的一个软件包管理工具。本文将介绍为何要使用Helm进行Kubernetes软件包管理，澄清Helm中使用到的相关概念，并通过一个具体的示例学习如何使用Helm打包，分发，安装，升级及回退Kubernetes应用。" />
+<meta name="theme-color" content="#ffffff" /><link rel="icon" href="/favicon.svg" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+
+
+
+
+  
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.0.0/themes/reset-min.css"
+    integrity="sha256-2AeJLzExpZvqLUxMfcs+4DWcMwNfpnjUeAAvEtPr0wU="
+    crossorigin="anonymous" />
+
+  
+  
+  
+    
+  
+  <link href="/css/search.min.b8b96b3f3766af58232d6ad859aeb82e459903dd2a53ab357afbfa26d6b754b5.css" rel="stylesheet" />
+
+
+
+
+
+  <link
+    href="https://unpkg.com/@waline/client@v2/dist/waline.css"
+    rel="stylesheet" />
+
+
+
+
+
+
+
+  
+
+<link href="/css/styles.min.d82aa6c5e145c28042cf821ae2417694b3daec154f45b4172d1d549b7db3b62c.css" rel="stylesheet" />
+
+<link href="/css/custom.min.a3576bac66c3a82b69d83286136700cfa409d13273e51b6505482a06e6dd109d.css" rel="stylesheet" />
+  
+  
+  
+    
+  
+  <link href="/css/image-preview.min.efb5024b06063b21933b7f8d942a808f5ca19d586b6240f4472b144108b0e0f9.css" rel="stylesheet" /><script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+<script>
+  
+  if (
+    localStorage.getItem("color-theme") === "dark" ||
+    (!("color-theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+</script>
+
+  </head>
+  <body class="flex h-screen flex-col bg-white dark:bg-gray-900"><nav
+  id="navbar"
+  class="fixed start-0 top-0 z-20 flex w-full justify-center border-b border-gray-200 bg-white/85 backdrop-blur-md md:h-38 dark:border-gray-700 dark:bg-gray-900/85">
+  <div
+    class="mx-auto flex w-[1280px] flex-wrap items-center justify-between place-self-center object-center p-4">
+    
+    
+    <a
+      href="https://seven-demo.supcat.cn/"
+      class="flex items-center justify-start space-x-3 rtl:space-x-reverse">
+      
+      <p class="w-[120px]">
+        
+        
+          
+        
+        <img
+          id="logo-light-icon"
+          src="/images/logo.svg"
+          class="h-[56px]"
+          alt="Logo" />
+        <img
+          id="logo-dark-icon"
+          src="/images/logo-footer.svg"
+          class="hidden h-[56px]"
+          alt="Logo" />
+      </p></a>
+
+    
+    <div class="flex items-center space-x-3 md:order-2 rtl:space-x-reverse">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="h-10 w-10 p-2.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+        <svg
+          id="theme-toggle-dark-icon"
+          class="hidden h-5 w-5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg
+          id="theme-toggle-light-icon"
+          class="hidden h-5 w-5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+
+      
+      
+        <button
+          type="button"
+          id="search-icon"
+          class="bg-blue-700 p-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none md:p-5 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <svg
+            t="1702210633165"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4364"
+            width="16"
+            height="16">
+            <path
+              d="M426.666667 768a339.285333 339.285333 0 0 0 208.938666-72.021333l187.562667 187.562666 60.330667-60.330666-187.562667-187.562667A339.285333 339.285333 0 0 0 768 426.666667c0-188.202667-153.130667-341.333333-341.333333-341.333334s-341.333333 153.130667-341.333334 341.333334 153.130667 341.333333 341.333334 341.333333z m0-597.333333c141.184 0 256 114.816 256 256s-114.816 256-256 256-256-114.816-256-256 114.816-256 256-256z"
+              fill="#ffffff"
+              p-id="4365"></path>
+          </svg>
+        </button>
+      
+
+      
+      <button
+        data-collapse-toggle="navbar-sticky"
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none md:hidden dark:text-gray-400 dark:hover:bg-gray-700"
+        aria-controls="navbar-sticky"
+        aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14">
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15" />
+        </svg>
+      </button>
+    </div>
+
+    <div
+  class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
+  id="navbar-sticky">
+  <ul
+    class="mt-4 flex flex-col rounded-lg border border-gray-300 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800/50 md:dark:bg-transparent">
+    
+      <li>
+        
+          <a
+            aria-current="page"
+            class="block rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+            href="/doc/">
+            
+            Home
+          </a>
+        
+      </li>
+    
+      <li>
+        
+          <a
+            aria-current="page"
+            class="block rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+            href="/posts/">
+            
+            Posts
+          </a>
+        
+      </li>
+    
+      <li>
+        
+          <a
+            aria-current="page"
+            class="block rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+            href="/archive">
+            
+            Archive
+          </a>
+        
+      </li>
+    
+
+    
+      <button
+        id="dropdownNavbarLink-category"
+        data-dropdown-toggle="dropdownNavbar-category"
+        class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:w-auto md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500">
+        Category
+        <svg
+          class="ms-2.5 h-2.5 w-2.5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6">
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 4 4 4-4" />
+        </svg>
+      </button>
+
+      <div
+        id="dropdownNavbar-category"
+        class="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white font-normal shadow dark:divide-gray-600 dark:bg-gray-800">
+        <ul
+          class="py-2 text-sm text-gray-700 dark:text-gray-400"
+          aria-labelledby="dropdownLargeButton">
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/etcd%E5%AD%A6%E4%B9%A0/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >etcd学习</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/go-tutorial/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Go tutorial</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/tech/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Tech</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/technical/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Technical</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >使用文档</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >编程技术</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://seven-demo.supcat.cn/categories/%E8%B5%B5%E5%8C%96%E5%86%B0%E5%8D%9A%E5%AE%A2/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >赵化冰博客</a
+              >
+            </li>
+          
+        </ul>
+      </div>
+    
+  </ul>
+</div>
+</div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let navbarDom = document.getElementById("navbar");
+    let isNavScrolled = false;
+
+    if (window.innerWidth >= 768) {
+      navbarDom.classList.add("navbar-init");
+
+      var scrollTop = 0;
+
+      window.addEventListener("scroll", function () {
+        scrollTop = window.pageYOffset;
+
+        if (scrollTop >= 10 && !isNavScrolled) {
+          isNavScrolled = true;
+          navbarDom.classList.add("navbar-scroll");
+        } else if (scrollTop < 10 && isNavScrolled) {
+          isNavScrolled = false;
+          navbarDom.classList.remove("navbar-scroll");
+        }
+      });
+    } else {
+      navbarDom.classList.remove("navbar-init");
+    }
+  });
+</script>
+
+  
+  <div
+    id="single-page-container"
+    class="mx-auto my-5 mt-22 w-full rounded-b-lg border px-5 md:mt-[151px] md:max-w-5xl dark:border-gray-700">
+    <div class="flex w-full justify-between">
+      <div id="post-container" class="w-full">
+        
+        <div
+          id="post-title"
+          data-popover-target="popover-animation"
+          data-popover-offset="0"
+          data-popover-placement="bottom"
+          class="px-3 py-10 text-center text-3xl font-bold tracking-wide text-black dark:text-white">
+          Helm介绍
+        </div><div
+  data-popover
+  id="popover-animation"
+  role="tooltip"
+  class="invisible absolute z-10 inline-block w-full border border-gray-200 bg-white/90 text-sm text-gray-500 opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 md:max-w-5xl dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400">
+  <div
+    class="border-b border-gray-200 bg-gray-100 px-5 py-2 dark:border-gray-600 dark:bg-gray-700">
+    <h3 class="font-semibold text-gray-900 dark:text-white">
+      Meta info of this page
+    </h3>
+  </div>
+
+  
+  <ul class="px-3 py-2">
+    
+    
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M170.666667 469.333333h256a42.666667 42.666667 0 0 0 42.666666-42.666666V170.666667a42.666667 42.666667 0 0 0-42.666666-42.666667H170.666667a42.666667 42.666667 0 0 0-42.666667 42.666667v256a42.666667 42.666667 0 0 0 42.666667 42.666666z m426.666666 0h256a42.666667 42.666667 0 0 0 42.666667-42.666666V170.666667a42.666667 42.666667 0 0 0-42.666667-42.666667h-256a42.666667 42.666667 0 0 0-42.666666 42.666667v256a42.666667 42.666667 0 0 0 42.666666 42.666666zM170.666667 896h256a42.666667 42.666667 0 0 0 42.666666-42.666667v-256a42.666667 42.666667 0 0 0-42.666666-42.666666H170.666667a42.666667 42.666667 0 0 0-42.666667 42.666666v256a42.666667 42.666667 0 0 0 42.666667 42.666667z m554.666666 0c94.122667 0 170.666667-76.544 170.666667-170.666667s-76.544-170.666667-170.666667-170.666666-170.666667 76.544-170.666666 170.666666 76.544 170.666667 170.666666 170.666667z" />
+          </svg>
+
+          <div class="flew ms-3 flex items-center space-x-1 text-center">
+            
+              <a class="rounded-md border px-2" href="https://seven-demo.supcat.cn/categories/technical/"
+                ><span>Technical</span></a
+              >
+            
+              <a class="rounded-md border px-2" href="https://seven-demo.supcat.cn/categories/%E8%B5%B5%E5%8C%96%E5%86%B0%E5%8D%9A%E5%AE%A2/"
+                ><span>赵化冰博客</span></a
+              >
+            
+          </div>
+        </div>
+      </li>
+    
+
+    
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M773.2 178.1v91c0 49.5-40.3 89.8-89.8 89.8-24.1 0-46.7-9.4-63.7-26.5-16.8-17-26.1-39.4-26.1-63.2v-90.8-0.3H433.8v91.1c0 49.5-40.3 89.8-89.8 89.8-49.2 0-89.2-40.3-89.2-89.8v-90.8-0.2C163.6 180.2 90 255 90 346.7v379.9c0 93 75.6 168.6 168.6 168.6h510.7c93 0 168.6-75.6 168.6-168.6v-380c0-91.6-73.5-166.4-164.7-168.5zM408.7 739.4c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-141c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m169.4 281.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-141c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m169.4 281.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.5c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z" />
+            <path
+              d="M344.1 316.2c25.6 0 47-20.8 47-47v-90.8c0.5-26.2-20.8-47-46.5-47s-47 20.8-47 47v90.8c0 25.6 20.8 47 46.5 47zM683.4 316.2c25.6 0 47-20.8 47-47v-90.8c-0.5-26.2-21.4-47-47-47s-47 20.8-47 47v90.8c0 25.6 20.8 47 47 47z" />
+          </svg>
+          <span class="ms-3"
+            >Plublished on April 16 2018</span
+          >
+        </div>
+      </li>
+
+      <li>
+        
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M534.016 342.016l0 180.010667 148.010667 89.984-29.994667 52.010667-182.016-109.994667 0-212.010667 64 0zM896 432l-290.005333 0 118.016-120.021333q-88.021333-88.021333-210.986667-89.002667t-210.986667 84.992q-86.016 88.021333-86.016 208t86.016 208 210.005333 88.021333 212.010667-88.021333q86.016-86.016 86.016-208l86.016 0q0 157.994667-112 267.989333-112 112-272 112t-272-112q-112-109.994667-112-267.008t112-269.013333 269.994667-112 269.994667 112l116.010667-120.021333 0 304z"></path>
+          </svg>
+          <span class="ms-3"
+            >Updated on January 14 2024</span
+          >
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M760.744759 112.25055 267.815093 112.25055c-42.271756 0-76.659961 34.399461-76.659961 76.670194l0 91.080391 0 297.006438 0 232.745878c0 42.271756 34.388205 76.670194 76.659961 76.670194l401.851321 0c42.270732 0 76.658937-34.398438 76.658937-76.670194L746.325351 280.000112c0-42.271756-34.388205-76.671217-76.658937-76.671217L267.815093 203.328895c-11.085476 0-21.60404 2.424212-31.120788 6.670933l0-21.080108c0-17.165961 13.964036-31.131021 31.120788-31.131021l492.929666 0c17.156752 0 31.119765 13.96506 31.119765 31.131021l0 620.832707c0 12.586666 10.1952 22.77061 22.771633 22.77061 12.573363 0 22.76754-10.183943 22.76754-22.77061L837.403696 188.91972C837.403696 146.648988 803.018561 112.25055 760.744759 112.25055zM453.364043 397.762189l34.512025 0 83.119069 247.542886-39.646975 0-22.704095-72.100108-75.068719 0-21.225417 72.100108-37.279045 0L453.364043 397.762189zM479.225037 478.278991c-3.333932-10.773368-6.225795-20.557198-8.626471-29.262464-1.958608 8.516977-4.214998 16.98893-6.78145 25.360598l-19.790742 63.673182 53.589522 0L479.225037 478.278991z" />
+          </svg>
+          <span class="ms-3">3873 words</span>
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M502.784 75.264c-245.76 0-443.904 198.144-443.904 443.904S259.584 962.56 502.784 962.56c245.76 0 443.904-198.144 443.904-443.904s-200.192-443.392-443.904-443.392z m289.28 578.048c-6.656 13.824-18.432 20.48-31.744 20.48-4.608 0-9.216 0-13.824-2.048L484.864 552.96c-11.264-4.608-20.48-18.432-20.48-31.744v-245.76c0-18.432 15.872-34.304 34.304-34.304s34.304 15.872 34.304 34.304v225.28l241.152 109.056c17.92 6.656 24.576 25.088 17.92 43.52z" />
+          </svg>
+          <span class="ms-3">8 minutes</span>
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M455.68 404.032l91.264 529.152s67.456-69.44 123.136-117.888L792.512 979.2c4.928 6.656 15.68 7.104 23.872 1.088l52.288-38.208c8.256-6.016 10.944-16.32 5.952-22.976L755.52 759.68c62.208-25.088 164.672-53.632 164.672-53.632L455.68 404.032zM308.352 648.384L172.48 747.712c-20.544 15.04-24.256 43.968-8 65.408 16.256 21.376 46.272 27.008 66.752 12.032l135.872-99.328c20.992-15.36 24.512-45.504 8.256-66.88-16.192-21.44-46.016-25.92-67.008-10.56z m641.344-409.408C933.44 217.6 904.064 212.8 882.624 228.48l-134.912 98.688c-21.44 15.68-25.152 44.672-8.896 66.048 16.256 21.376 46.272 27.008 67.712 11.328l134.912-98.688c21.44-15.68 24.512-45.504 8.256-66.88z m-630.4-102.144c-15.936-20.928-45.248-25.728-66.752-10.048-20.096 14.72-24.256 43.968-8.32 64.896L349.76 330.496c15.936 20.992 45.696 25.408 65.792 10.688 21.44-15.68 25.216-44.608 9.28-65.6L319.296 136.832zM585.792 301.76c26.176 4.224 50.24-13.376 53.632-39.232L660.608 94.72c3.392-25.792-14.976-49.984-41.536-54.656-26.176-4.224-50.24 13.376-53.632 39.168l-21.248 167.872c-3.264 25.856 15.104 49.984 41.6 54.656zM329.728 489.024c2.56-25.92-15.808-50.048-41.536-54.656L118.144 406.4c-27.072-3.584-50.688 13.696-53.632 39.232-3.904 26.944 14.464 51.072 41.536 54.656l170.048 27.968c25.728 4.48 49.408-12.8 53.632-39.232z" />
+          </svg>
+          <p class="ms-3">
+            <span
+              id="twikoo_visitors"
+              class="page-info-pageview-count"
+              data-path="/2018/04/16/using-helm-to-deploy-to-kubernetes/"
+              >...</span
+            >
+            views
+          </p>
+        </div>
+      </li>
+    
+  </ul>
+
+  <div data-popper-arrow></div>
+</div>
+
+        
+          
+          
+            <div id="post-feature" class="-mx-5">
+              <img
+                class="h-60 w-full object-cover md:h-120"
+                src="https://seven-demo.supcat.cn/images/posts/13.jpg"
+                alt="preview image"
+                srcset="" />
+            </div>
+          
+        
+
+        
+        <div
+          id="single-content"
+          class="format mx-auto max-w-none px-1 py-5 md:format-base dark:format-invert format-figure:flex format-figure:flex-col format-figure:items-center format-img:cursor-zoom-in md:px-3 lg:px-10 dark:text-gray-300">
+          <h2 class="group head-tag" id="前言">前言<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%89%8d%e8%a8%80"></a></h2><hr>
+<p>Helm 是 Kubernetes 生态系统中的一个软件包管理工具。本文将介绍为何要使用 Helm 进行 Kubernetes 软件包管理，澄清 Helm 中使用到的相关概念，并通过一个具体的示例学习如何使用 Helm 打包，分发，安装，升级及回退 Kubernetes 应用。</p>
+<h2 class="group head-tag" id="kubernetes-应用部署的挑战">Kubernetes 应用部署的挑战<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#kubernetes-%e5%ba%94%e7%94%a8%e9%83%a8%e7%bd%b2%e7%9a%84%e6%8c%91%e6%88%98"></a></h2><hr>
+<p>让我们首先来看看 Kubernetes，kubernetes 提供了基于容器的应用集群管理，为容器化应用提供了部署运行、资源调度、服务发现和动态伸缩等一系列完整功能。</p>
+<p>kubernetes 的核心设计理念是: 用户定义应用程序的规格，而 kubernetes 则负责按照定义的规则部署并运行应用程序，如果应用系统出现问题导致偏离了定义的规格，kubernetes 负责对其进行自动修正。例如应用规格要求部署两个实例，其中一个实例异常终止了，kubernetes 会检查到并重新启动一个新的实例。</p>
+<p>用户通过使用 kubernetes API 对象来描述应用程序规格，包括 Pod，Service，Volume，Namespace，ReplicaSet，Deployment，Job 等等。一般这些对象需要写入一系列的 yaml 文件中，然后通过 kubernetes 命令行工具 kubectl 进行部署。</p>
+<p>以下面的 wordpress 应用程序为例，涉及到多个 kubernetes API 对象，这些 kubernetes API 对象分散在多个 yaml 文件中。</p>
+
+  <figure class="data-image-info ">
+    <img
+      class="data-image"
+      src="./wordpress.png"
+      alt="Wordpress 应用程序中涉及到的 kubernetes API 对象"
+      loading="lazy" />
+    <figcaption>图 1： Wordpress 应用程序中涉及到的 kubernetes API 对象</figcaption>
+  </figure>
+
+<p>可以看到，在进行 kubernetes 软件部署时，我们面临下述问题：</p>
+<ul>
+<li>如何管理，编辑和更新这些这些分散的 kubernetes 应用配置文件？</li>
+<li>如何把一套的相关配置文件作为一个应用进行管理？</li>
+<li>如何分发和重用 kubernetes 的应用配置？</li>
+</ul>
+<p>Helm 的引入很好地解决上面这些问题。</p>
+<h2 class="group head-tag" id="helm-是什么">Helm 是什么？<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#helm-%e6%98%af%e4%bb%80%e4%b9%88"></a></h2><hr>
+<p>很多人都使用过 Ubuntu 下的 ap-get 或者 CentOS 下的 yum, 这两者都是 Linux 系统下的包管理工具。采用 apt-get/yum,应用开发者可以管理应用包之间的依赖关系，发布应用；用户则可以以简单的方式查找、安装、升级、卸载应用程序。</p>
+<p>我们可以将 Helm 看作 Kubernetes 下的 apt-get/yum。Helm 是 Deis (
+<a
+  class="after:content-['_↗']"
+  href="https://deis.com/"
+  target="_blank"
+  >https://deis.com/</a
+>
+) 开发的一个用于 kubernetes 的包管理器。</p>
+<p>对于应用发布者而言，可以通过 Helm 打包应用，管理应用依赖关系，管理应用版本并发布应用到软件仓库。</p>
+<p>对于使用者而言，使用 Helm 后不用需要了解 Kubernetes 的 Yaml 语法并编写应用部署文件，可以通过 Helm 下载并在 kubernetes 上安装需要的应用。</p>
+<p>除此以外，Helm 还提供了 kubernetes 上的软件部署，删除，升级，回滚应用的强大功能。</p>
+<h2 class="group head-tag" id="helm-组件及相关术语">Helm 组件及相关术语<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#helm-%e7%bb%84%e4%bb%b6%e5%8f%8a%e7%9b%b8%e5%85%b3%e6%9c%af%e8%af%ad"></a></h2><hr>
+<p>开始接触 Helm 时遇到的一个常见问题就是 Helm 中的一些概念和术语非常让人迷惑，我开始学习 Helm 就遇到这个问题。</p>
+<p>因此我们先了解一下 Helm 的这些相关概念和术语。</p>
+<ul>
+<li>
+<p>Helm</p>
+<p>Kubernetes 的应用打包工具，也是命令行工具的名称。</p>
+</li>
+<li>
+<p>Tiller</p>
+<p>Helm 的服务端，部署在 Kubernetes 集群中，用于处理 Helm 的相关命令。</p>
+</li>
+<li>
+<p>Chart</p>
+<p>Helm 的打包格式，内部包含了一组相关的 kubernetes 资源。</p>
+</li>
+<li>
+<p>Repoistory</p>
+<p>Helm 的软件仓库，repository 本质上是一个 web 服务器，该服务器保存了 chart 软件包以供下载，并有提供一个该 repository 的 chart 包的清单文件以供查询。在使用时，Helm 可以对接多个不同的 Repository。</p>
+</li>
+<li>
+<p>Release</p>
+<p>使用 Helm install 命令在 Kubernetes 集群中安装的 Chart 称为 Release。</p>
+</li>
+</ul>
+<blockquote>
+<p>需要特别注意的是， Helm 中提到的 Release 和我们通常概念中的版本有所不同，这里的 Release 可以理解为 Helm 使用 Chart 包部署的一个应用实例。</p>
+<p>其实 Helm 中的 Release 叫做 Deployment 更合适。估计因为 Deployment 这个概念已经被 Kubernetes 使用了，因此 Helm 才采用了 Release 这个术语。</p>
+</blockquote>
+<p>下面这张图描述了 Helm 的几个关键组件 Helm（客户端），Tiller（服务器），Repository（Chart 软件仓库），Chart（软件包）之前的关系。</p>
+
+  <figure class="data-image-info ">
+    <img
+      class="data-image"
+      src="./helm-architecture.png"
+      alt="Helm 软件架构"
+      loading="lazy" />
+    <figcaption>图 2： Helm 软件架构</figcaption>
+  </figure>
+
+<h2 class="group head-tag" id="安装-helm">安装 Helm<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%ae%89%e8%a3%85-helm"></a></h2><hr>
+<p>下面我们通过一个完整的示例来介绍 Helm 的相关概念，并学习如何使用 Helm 打包，分发，安装，升级及回退 kubernetes 应用。</p>
+<p>可以参考 Helm 的帮助文档https://docs.helm.sh/using_helm/#installing-helm 安装 Helm</p>
+<p>采用二进制的方式安装 Helm</p>
+<ol>
+<li>下载 Helm 
+<a
+  class="after:content-['_↗']"
+  href="https://github.com/kubernetes/helm/releases"
+  target="_blank"
+  >https://github.com/kubernetes/helm/releases</a
+>
+</li>
+<li>解压 tar -zxvf helm-v2.0.0-linux-amd64.tgz</li>
+<li>拷贝到 bin 目录 mv linux-amd64/helm /usr/local/bin/helm</li>
+</ol>
+<p>然后使用下面的命令安装服务器端组件 Tiller</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Helm init
+</span></span></code></pre></div><h2 class="group head-tag" id="构建一个-helm-chart">构建一个 Helm chart<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%9e%84%e5%bb%ba%e4%b8%80%e4%b8%aa-helm-chart"></a></h2><hr>
+<p>让我们在实践中来了解 Helm。这里将使用一个 Go 测试小程序，让我们先为这个小程序创建一个 Helm chart。</p>
+<pre tabindex="0"><code>git clone https://github.com/zhaohuabing/testapi.git;
+cd testapi
+</code></pre><p>首先创建一个 chart 的骨架</p>
+<pre tabindex="0"><code>helm create testapi-chart
+</code></pre><p>该命令创建一个 testapi-chart 目录，该目录结构如下所示，我们主要关注目录中的这三个文件即可: Chart.yaml，values.yaml 和 NOTES.txt。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>testapi-chart
+</span></span><span style="display:flex;"><span>├── charts
+</span></span><span style="display:flex;"><span>├── Chart.yaml
+</span></span><span style="display:flex;"><span>├── templates
+</span></span><span style="display:flex;"><span>│   ├── deployment.yaml
+</span></span><span style="display:flex;"><span>│   ├── _helpers.tpl
+</span></span><span style="display:flex;"><span>│   ├── NOTES.txt
+</span></span><span style="display:flex;"><span>│   └── service.yaml
+</span></span><span style="display:flex;"><span>└── values.yaml
+</span></span></code></pre></div><ul>
+<li>Chart.yaml 用于描述这个 chart，包括名字，描述信息以及版本。</li>
+<li>values.yaml 用于存储 templates 目录中模板文件中用到的变量。 模板文件一般是 Go 模板。如果你需要了解更多关于 Go 模板的相关信息，可以查看 Hugo (
+<a
+  class="after:content-['_↗']"
+  href="https://gohugo.io"
+  target="_blank"
+  >https://gohugo.io</a
+>
+) 的一个关于 Go 模板的介绍 (
+<a
+  class="after:content-['_↗']"
+  href="https://gohugo.io/templates/go-templates/"
+  target="_blank"
+  >https://gohugo.io/templates/go-templates/</a
+>
+)。</li>
+<li>NOTES.txt 用于向部署该 chart 的用于介绍 chart 部署后的一些信息。例如介绍如何使用这个 chart，列出缺省的设置等。</li>
+</ul>
+<p>打开 Chart.yaml, 填写你部署的应用的详细信息，以 testapi 为例：</p>
+<pre tabindex="0"><code>apiVersion: v1
+description: A simple api for testing and debugging
+name: testapi-chart
+version: 0.0.1
+</code></pre><p>然后打开并根据需要编辑 values.yaml。下面是 testapi 应用的 values.yaml 文件内容。</p>
+<pre tabindex="0"><code>replicaCount: 2
+image:
+  repository: daemonza/testapi
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  name: testapi
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 80
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+</code></pre><p>在 testapi_chart 目录下运行下面命令以对 chart 进行校验。</p>
+<pre tabindex="0"><code>helm lint
+==&gt; Linting .
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, no failures
+</code></pre><p>如果文件格式错误，可以根据提示进行修改；如果一切正常，可以使用下面的命令对 chart 进行打包：</p>
+<pre tabindex="0"><code>helm package testapi-chart --debug
+</code></pre><p>这里添加了 &ndash;debug 参数来查看打包的输出，输出应该类似于：</p>
+<pre tabindex="0"><code>Saved /Users/daemonza/testapi/testapi-chart/testapi-chart-0.0.1.tgz to current directory
+Saved /Users/daemonza/testapi/testapi-chart/testapi-chart-0.0.1.tgz to /Users/daemonza/.helm/repository/local
+</code></pre><p>chart 被打包为一个压缩包 testapi-chart-0.0.1.tgz，该压缩包被放到了当前目录下，并同时被保存到了 helm 的本地缺省仓库目录中。</p>
+<h2 class="group head-tag" id="helm-repository">Helm Repository<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#helm-repository"></a></h2><hr>
+<p>虽然我们已经打包了 chart 并发布到了 helm 的本地目录中，但通过 Helm search 命令查找，并不能找不到刚才生成的 chart 包。</p>
+<pre tabindex="0"><code>helm search testapi
+No results found
+</code></pre><p>这是因为 repository 目录中的 chart 还没有被 Helm 管理。我们可以在本地启动一个 Repository Server，并将其加入到 Helm repo 列表中。</p>
+<p>通过 helm repo list 命令可以看到目前 helm 中只配置了一个名为 stable 的 repo，该 repo 指向了 google 的一个服务器。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm repo list
+</span></span><span style="display:flex;"><span>NAME    URL
+</span></span><span style="display:flex;"><span>stable  https://kubernetes-charts.storage.googleapis.com
+</span></span></code></pre></div><p>使用 helm serve 命令启动一个 repo server，该 server 缺省使用&rsquo;$HELM_HOME/repository/local&rsquo;目录作为 chart 存储，并在 8879 端口上提供服务。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm serve&amp;
+</span></span><span style="display:flex;"><span>Now serving you on 127.0.0.1:8879
+</span></span></code></pre></div><p>启动本地 repo server 后，将其加入 helm 的 repo 列表。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm repo add local http://127.0.0.1:8879
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;local&#34;</span> has been added to your repositories
+</span></span></code></pre></div><p>现在再查找 testapi chart 包，就可以找到了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm search testapi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+</span></span><span style="display:flex;"><span>local/testapi-chart     0.0.1                           A Helm chart <span style="color:#66d9ef">for</span> Kubernetes
+</span></span></code></pre></div><h2 class="group head-tag" id="在-kubernetes-中部署-chart">在 kubernetes 中部署 Chart<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%9c%a8-kubernetes-%e4%b8%ad%e9%83%a8%e7%bd%b2-chart"></a></h2><hr>
+<p>chart 被发布到仓储后，可以通过 Helm instal 命令部署 chart，部署时指定 chart 名及 Release（部署的实例）名：</p>
+<pre tabindex="0"><code> helm install local/testapi-chart --name testapi
+</code></pre><p>该命令的输出应类似:</p>
+<pre tabindex="0"><code>NAME:   testapi
+LAST DEPLOYED: Mon Apr 16 10:21:44 2018
+NAMESPACE: default
+STATUS: DEPLOYED
+
+RESOURCES:
+==&gt; v1/Service
+NAME                   TYPE       CLUSTER-IP    EXTERNAL-IP  PORT(S)  AGE
+testapi-testapi-chart  ClusterIP  10.43.121.84  &lt;none&gt;       80/TCP   0s
+
+==&gt; v1beta1/Deployment
+NAME                   DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
+testapi-testapi-chart  1        1        1           0          0s
+
+==&gt; v1/Pod(related)
+NAME                                   READY  STATUS   RESTARTS  AGE
+testapi-testapi-chart-9897d9f8c-nn6wd  0/1    Pending  0         0s
+
+
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace default -l &#34;app=testapi-testapi-chart&#34; -o jsonpath=&#34;{.items[0].metadata.name}&#34;)
+  echo &#34;Visit http://127.0.0.1:8080 to use your application&#34;
+  kubectl port-forward $POD_NAME 8080:80
+</code></pre><p>使用下面的命令列出所有已部署的 Release 以及其对应的 Chart。</p>
+<pre tabindex="0"><code>helm ls
+</code></pre><p>该命令的输出应类似:</p>
+<pre tabindex="0"><code>NAME    REVISION        UPDATED                         STATUS          CHART                   NAMESPACE
+testapi 1               Mon Apr 16 10:21:44 2018        DEPLOYED        testapi-chart-0.0.1     default
+</code></pre><p>可以看到在输出中有一个 Revision（更改历史）字段，该字段用于表示某一 Release 被更新的次数，可以用该特性对已部署的 Release 进行回滚。</p>
+<h2 class="group head-tag" id="升级和回退">升级和回退<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%8d%87%e7%ba%a7%e5%92%8c%e5%9b%9e%e9%80%80"></a></h2><hr>
+<p>修改 Chart.yaml，将版本号从 0.0.1 修改为 1.0.0, 然后使用 Helm package 命令打包并发布到本地仓库。</p>
+<p>查看本地库中的 Chart 信息，可以看到在本地仓库中 testapi-chart 有两个版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm search testapi -l
+</span></span><span style="display:flex;"><span>NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+</span></span><span style="display:flex;"><span>local/testapi-chart     0.0.1                           A Helm chart <span style="color:#66d9ef">for</span> Kubernetes
+</span></span><span style="display:flex;"><span>local/testapi-chart     1.0.0                           A Helm chart <span style="color:#66d9ef">for</span> Kubernetes
+</span></span></code></pre></div><p>现在用 helm upgrade 将已部署的 testapi 升级到新版本。可以通过参数指定需要升级的版本号，如果没有指定版本号，则缺省使用最新版本。</p>
+<pre tabindex="0"><code>helm upgrade testapi local/testapi-chart
+</code></pre><p>已部署的 testapi release 被升级到 1.0.0 版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm list
+</span></span><span style="display:flex;"><span>NAME    REVISION        UPDATED                         STATUS          CHART                   NAMESPACE
+</span></span><span style="display:flex;"><span>testapi <span style="color:#ae81ff">2</span>               Mon Apr <span style="color:#ae81ff">16</span> 10:43:10 <span style="color:#ae81ff">2018</span>        DEPLOYED        testapi-chart-1.0.0     default
+</span></span></code></pre></div><p>可以通过 Helm history 查看一个 Release 的多次更改。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm history testapi
+</span></span><span style="display:flex;"><span>REVISION        UPDATED                         STATUS          CHART                   DESCRIPTION
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>               Mon Apr <span style="color:#ae81ff">16</span> 10:21:44 <span style="color:#ae81ff">2018</span>        SUPERSEDED      testapi-chart-0.0.1     Install complete
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>               Mon Apr <span style="color:#ae81ff">16</span> 10:43:10 <span style="color:#ae81ff">2018</span>        DEPLOYED        testapi-chart-1.0.0     Upgrade complete
+</span></span></code></pre></div><p>如果更新后的程序由于某些原因运行有问题，我们则需要回退到旧版本的应用，可以采用下面的命令进行回退。其中的参数 1 是前面 Helm history 中查看到的 Release 的更改历史。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm rollback testapi <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>使用 Helm list 命令查看，部署的 testapi 的版本已经回退到 0.0.1</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>helm list
+</span></span><span style="display:flex;"><span>NAME    REVISION        UPDATED                         STATUS          CHART                   NAMESPACE
+</span></span><span style="display:flex;"><span>testapi <span style="color:#ae81ff">3</span>               Mon Apr <span style="color:#ae81ff">16</span> 10:48:20 <span style="color:#ae81ff">2018</span>        DEPLOYED        testapi-chart-0.0.1     default
+</span></span></code></pre></div><h2 class="group head-tag" id="总结">总结<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%80%bb%e7%bb%93"></a></h2><hr>
+<p>Helm 作为 kubernetes 应用的包管理以及部署工具，提供了应用打包，发布，版本管理以及部署，升级，回退等功能。Helm 以 Chart 软件包的形式简化 Kubernetes 的应用管理，提高了对用户的友好性。</p>
+<h2 class="group head-tag" id="qa">Q&amp;A<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#qa"></a></h2><hr>
+<p>昨天在 Docker.io 技术微信群里面进行了 Helm 的分享，下面是分享过程中得到的一些有意思的反馈，进一步启发了我自己的一些思考。</p>
+<p><strong>Q</strong>: Helm 结合 CD 有什么好的建议吗？<!-- raw HTML omitted -->
+<strong>A</strong>: 采用 Helm 可以把零散的 Kubernetes 应用配置文件作为一个 chart 管理，chart 源码可以和源代码一起放到 git 库中管理。Helm 还简了在 CI/CD pipeline 的软件部署流程。通过把 chart 参数化，可以在测试环境和生产环境可以采用不同的 chart 参数配置。</p>
+<p>下图是采用了 Helm 的一个 CI/CD 流程
+
+  <img src="./ci-cd-jenkins-helm-k8s.png" alt="Helm 的一个 CI/CD 流程" loading="lazy" />
+
+</p>
+<p><strong>Q</strong>: 感谢分享，请问下多环境(test,staging，production)的业务配置如何管理呢？通过 heml 打包 configmap 吗，比如配置文件更新，也要重新打 chats 包吗？谢谢，这块我比较乱<!-- raw HTML omitted -->
+<strong>A</strong>：Chart 是支持参数替换的，可以把业务配置相关的参数设置为模板变量。使用 Helm install Chart 的时候可以指定一个参数值文件，这样就可以把业务参数从 Chart 中剥离了。例子： helm install &ndash;values=myvals.yaml wordpress</p>
+<p><strong>Q</strong>: helm 能解决服务依赖吗？<!-- raw HTML omitted -->
+<strong>A</strong>：可以的，在 chart 可以通过 requirements.yaml 声明对其他 chart 的依赖关系。如下面声明表明 chart 依赖 apache 和 mysql 这两个第三方 chart。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">dependencies</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">apache</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">version</span>: <span style="color:#ae81ff">1.2.3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">repository</span>: <span style="color:#ae81ff">http://example.com/charts</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">mysql</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">version</span>: <span style="color:#ae81ff">3.2.1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">repository</span>: <span style="color:#ae81ff">http://another.example.com/charts</span>
+</span></span></code></pre></div><p><strong>Q</strong>: chart 的 reversion 可以自定义吗？比如跟 git 的 tag<!-- raw HTML omitted -->
+<strong>A</strong>: 这位朋友应该是把 chart 的 version 和 Release 的 reversion 搞混了，呵呵。 Chart 是没有 reversion 的，Chart 部署的一个实例（Release）才有 Reversion，Reversion 是 Release 被更新后自动生成的。</p>
+<p><strong>Q</strong>: 没有看到 helm 指向 k8s 的配置，怎么确认在哪个 K8s 集群运行的？<!-- raw HTML omitted -->
+<strong>A</strong>: 使用和 kubectl 相同的配置，在 ~/.kube/config 中。</p>
+<p><strong>Q</strong>: 这个简单例子并没有看出 Helm 相比 kubectl 有哪些优势，可以简要说一下吗？<!-- raw HTML omitted -->
+<strong>A</strong>： Helm 将 kubernetes 应用作为一个软件包整体管理，例如一个应用可能有前端服务器，后端服务器，数据库，这样会涉及多个 Kubernetes 部署配置文件，Helm 就整体管理了。另外 Helm 还提供了软件包版本，一键安装，升级，回退。Kubectl 和 Helm 就好比你手工下载安装一个应用 和 使用 apt-get 安装一个应用的区别。</p>
+<p><strong>Q</strong>: 如何在 helm install 时指定命名空间？<!-- raw HTML omitted -->
+<strong>A</strong>: helm install local/testapi-chart &ndash;name testapi &ndash;namespace mynamespace</p>
+<h2 class="group head-tag" id="参考">参考<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%8f%82%e8%80%83"></a></h2><hr>
+<ul>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://daemonza.github.io/2017/02/20/using-helm-to-deploy-to-kubernetes/"
+  target="_blank"
+  >Using Helm to deploy to Kubernetes</a
+>
+</li>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://docs.helm.sh/helm/"
+  target="_blank"
+  >Helm documentation</a
+>
+</li>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://www.slideshare.net/alexLM/helm-application-deployment-management-for-kubernetes"
+  target="_blank"
+  >Helm - Application deployment management for Kubernetes</a
+>
+</li>
+</ul>
+
+        </div>
+
+        
+        <hr class="mx-1 my-1 md:mx-3 lg:mx-10" />
+
+        
+        <div
+          class="flex flex-col justify-start px-1 pb-5 pt-1 md:px-3 lg:flex-row lg:justify-between lg:px-10">
+          
+          
+          
+            <div class="flex flex-row flex-wrap items-center">
+              
+                <a
+                  class="mx-1 my-0.5 rounded-lg border border-gray-200 px-1.5 py-1 text-center text-xs text-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600"
+                  href="https://seven-demo.supcat.cn/tags/kubernetes/"
+                  >Kubernetes</a
+                >
+              
+                <a
+                  class="mx-1 my-0.5 rounded-lg border border-gray-200 px-1.5 py-1 text-center text-xs text-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600"
+                  href="https://seven-demo.supcat.cn/tags/helm/"
+                  >Helm</a
+                >
+              
+            </div>
+          
+
+        </div>
+      </div>
+    </div>
+
+    
+    
+      <div id="post-comment">
+
+  <div
+    id="waline"
+    class="w-full px-0.5 py-5 md:px-2 lg:max-w-5xl lg:px-8 dark:text-gray-400"></div>
+
+  <script
+    defer
+    src="https://unpkg.com/@waline/client@v2/dist/waline.js"
+    crossorigin="anonymous"></script>
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <script
+    defer
+    type="module"
+    src="/js/comment-waline.min.200ac9665055cd84f1018c2a9669fd8ee37b9b164c27c52289852cd8d19d60c4.js"></script>
+
+
+
+
+
+
+
+  
+
+</div>
+    
+  </div>
+<div data-dial-init class="group fixed bottom-24 end-8 md:end-20">
+  <div
+    id="speed-dial-menu-bottom-right"
+    class="mb-4 flex hidden flex-col items-center space-y-2">
+    
+    
+      <button
+        id="to-top-button"
+        type="button"
+        data-tooltip-target="tooltip-top"
+        data-tooltip-placement="left"
+        class="flex hidden h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M629.333333 853.333333h-234.666666c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h234.666666c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32zM842.666667 360.533333L535.466667 113.066667c-12.8-8.533333-27.733333-8.533333-40.533334 0L183.466667 360.533333c-6.4 6.4-12.8 14.933333-12.8 23.466667 0 2.133333 0 6.4 2.133333 8.533333 2.133333 12.8 14.933333 21.333333 27.733333 21.333334h155.733334v236.8c0 19.2 12.8 29.866667 32 29.866666h249.6c21.333333 0 34.133333-12.8 34.133333-29.866666v-234.666667h151.466667c12.8 0 25.6-8.533333 27.733333-21.333333s0-25.6-8.533333-34.133334zM629.333333 746.666667h-234.666666c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h234.666666c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32z"></path>
+        </svg>
+        <span class="sr-only">Top</span>
+      </button>
+      <div
+        id="tooltip-top"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Top
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+    
+
+    
+      
+      <button
+        type="button"
+        data-tooltip-target="tooltip-toc"
+        data-tooltip-placement="left"
+        data-drawer-target="drawer-body-scrolling-toc"
+        data-drawer-show="drawer-body-scrolling-toc"
+        data-drawer-body-scrolling="true"
+        aria-controls="drawer-body-scrolling-toc"
+        class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1">
+          <path
+            d="M901.8 313.5H354.4c-32 0-58.2-26.2-58.2-58.2v-18.1c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 246.2m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+          <path
+            d="M901.8 579.3H354.4c-32 0-58.2-26.2-58.2-58.2V503c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 512m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+          <path
+            d="M901.8 845.1H354.4c-32 0-58.2-26.2-58.2-58.2v-18.1c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 777.8m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+        </svg>
+
+        <span class="sr-only">Catelog</span>
+      </button>
+      <div
+        id="tooltip-toc"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Catelog
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+
+      
+      
+        <button
+          id="to-comment-button"
+          type="button"
+          data-tooltip-target="tooltip-comment"
+          data-tooltip-placement="left"
+          class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+          <svg
+            class="h-5 w-5"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M940.373333 896H83.626667c-17.066667 0-32.426667 13.653333-32.426667 32.426667 0 17.066667 13.653333 32.426667 32.426667 32.426666h858.453333c17.066667 0 32.426667-13.653333 32.426667-32.426666-1.706667-17.066667-15.36-32.426667-34.133334-32.426667zM201.386667 752.64H341.333333c10.24 0 20.48-3.413333 27.306667-11.946667L839.68 273.066667c15.36-15.36 15.36-40.96 0-56.32L699.733333 75.093333c-6.826667-6.826667-17.066667-11.946667-27.306666-11.946666-10.24 0-20.48 3.413333-27.306667 11.946666L174.08 546.133333c-6.826667 6.826667-11.946667 17.066667-11.946667 27.306667v139.946667c0 22.186667 18.773333 39.253333 39.253334 39.253333z"></path>
+          </svg>
+          <span class="sr-only">Comment</span>
+        </button>
+        <div
+          id="tooltip-comment"
+          role="tooltip"
+          class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+          
+            <p id="speed-comment-count-id" class="whitespace-nowrap">
+              <span class="waline-comment-count" data-path="/2018/04/16/using-helm-to-deploy-to-kubernetes/"
+                >...</span
+              >
+              Comments
+            </p>
+          
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+      
+    
+
+
+    
+    <button
+      type="button"
+      data-drawer-target="drawer-body-scrolling"
+      data-drawer-show="drawer-body-scrolling"
+      data-drawer-body-scrolling="true"
+      aria-controls="drawer-body-scrolling"
+      data-tooltip-target="tooltip-tags"
+      data-tooltip-placement="left"
+      class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+      <svg
+        class="h-5 w-5"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M96.512 454.272h839.84a78.752 78.752 0 0 1 78.752 78.752v8.704a78.752 78.752 0 0 1-78.752 78.752H96.512a78.752 78.752 0 0 1-78.752-78.752v-8.704a78.752 78.752 0 0 1 78.752-78.752zM571.872 232.672H904.32a55.424 55.424 0 0 1 0 110.848H571.872a55.424 55.424 0 0 1 0-110.848zM350.208 731.36h332.448a55.424 55.424 0 0 1 0 110.848H350.208a55.424 55.424 0 0 1 0-110.848zM128.544 177.248h221.664a55.424 55.424 0 0 1 0 110.848H128.544a55.424 55.424 0 0 1 0-110.848z"
+          p-id="22696"></path>
+      </svg>
+      <span class="sr-only">Tags</span>
+    </button>
+    <div
+      id="tooltip-tags"
+      role="tooltip"
+      class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+      Tags
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+
+    
+    
+      <button
+        id="to-bottom-button"
+        type="button"
+        data-tooltip-target="tooltip-bottom"
+        data-tooltip-placement="left"
+        class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M635.733333 341.333333c19.2 0 32 12.8 32 29.866667v236.8h155.733334c12.8 0 25.6 8.533333 27.733333 21.333333 2.133333 4.266667 2.133333 6.4 2.133333 10.666667 0 8.533333-6.4 19.2-12.8 25.6L529.066667 910.933333c-12.8 8.533333-27.733333 8.533333-40.533334 0L181.333333 663.466667c-8.533333-8.533333-12.8-21.333333-8.533333-34.133334 2.133333-12.8 14.933333-21.333333 27.733333-21.333333h151.466667V371.2c0-19.2 12.8-29.866667 34.133333-29.866667h249.6z m-6.4-128c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32h-234.666666c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h234.666666z m0-106.666666c17.066667 0 32 14.933333 32 32S646.4 170.666667 629.333333 170.666667h-234.666666c-17.066667 0-32-14.933333-32-32S377.6 106.666667 394.666667 106.666667h234.666666z"></path>
+        </svg>
+        <span class="sr-only">Bottom</span>
+      </button>
+      <div
+        id="tooltip-bottom"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Bottom
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+    
+  </div>
+
+  <button
+    type="button"
+    data-dial-toggle="speed-dial-menu-bottom-right"
+    aria-controls="speed-dial-menu-bottom-right"
+    aria-expanded="false"
+    class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-700 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <svg
+      class="h-5 w-5 transition-transform group-hover:rotate-45"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 18 18">
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 1v16M1 9h16" />
+    </svg>
+    <span class="sr-only">Open actions menu</span>
+  </button>
+</div>
+<div
+  id="drawer-body-scrolling"
+  class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform md:w-80 lg:w-96 dark:bg-gray-800"
+  tabindex="-1"
+  aria-labelledby="drawer-body-scrolling-label">
+  <h5
+    id="drawer-body-scrolling-label"
+    class="text-base font-semibold uppercase text-gray-500 dark:text-gray-400">
+    TAGS
+  </h5>
+  <button
+    type="button"
+    data-drawer-hide="drawer-body-scrolling"
+    aria-controls="drawer-body-scrolling"
+    class="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg
+      class="h-3 w-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 14 14">
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+    </svg>
+    <span class="sr-only">Close tags</span>
+  </button>
+
+  <div class="overflow-y-auto py-3">
+    <div class="flex flex-wrap justify-center gap-2 p-3">
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/api-gateway/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">API Gateway</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/doc/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">doc</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/docker/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Docker</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >2</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/etcd/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">etcd</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/go/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">go</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >2</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/go.work/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">go.work</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >2</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/helm/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Helm</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/istio/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Istio</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >7</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/kubernetes/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Kubernetes</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >3</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/microservice/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Microservice</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >6</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/multi-module/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">multi module</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >2</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/nginmesh/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">nginmesh</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/raft/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">raft</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/security/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Security</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >3</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/service-mesh/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">service Mesh</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >11</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/tips/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Tips</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >3</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/ubuntu/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">ubuntu</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/vim/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">Vim</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://seven-demo.supcat.cn/tags/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">配置参数</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+<div
+  id="drawer-body-scrolling-toc"
+  class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800 md:w-80 lg:w-96"
+  tabindex="-1"
+  aria-labelledby="drawer-body-scrolling-toc-label">
+  <h5
+    id="drawer-body-scrolling-toc-label"
+    class="text-base font-semibold text-gray-500 dark:text-gray-400">
+    On this page
+  </h5>
+  <button
+    type="button"
+    data-drawer-hide="drawer-body-scrolling-toc"
+    aria-controls="drawer-body-scrolling-toc"
+    class="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg
+      class="h-3 w-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 14 14">
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+    </svg>
+    <span class="sr-only">Close menu</span>
+  </button>
+  <div class="overflow-y-auto py-4">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#kubernetes-应用部署的挑战">Kubernetes 应用部署的挑战</a></li>
+    <li><a href="#helm-是什么">Helm 是什么？</a></li>
+    <li><a href="#helm-组件及相关术语">Helm 组件及相关术语</a></li>
+    <li><a href="#安装-helm">安装 Helm</a></li>
+    <li><a href="#构建一个-helm-chart">构建一个 Helm chart</a></li>
+    <li><a href="#helm-repository">Helm Repository</a></li>
+    <li><a href="#在-kubernetes-中部署-chart">在 kubernetes 中部署 Chart</a></li>
+    <li><a href="#升级和回退">升级和回退</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#qa">Q&amp;A</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+
+
+  
+
+<script type="module" src="/js/to-top-or-bottom.min.38b6a1a23c3859c79a2a6eb832cb844e469e3832c6c820c96e1ee83522ad1c2d.js"></script>
+<script>
+  document.getElementById("to-comment-button").addEventListener("click", () => {
+    console.log("go to comments");
+    window.scrollTo({
+      top: document.getElementById("post-comment").offsetTop - 100,
+      behavior: "smooth",
+    });
+  });
+</script>
+
+<div
+  id="img-zoom"
+  class="m-h-screen fixed inset-0 left-0 top-0 z-30 mx-auto hidden h-full w-full cursor-zoom-out items-center justify-center bg-black/90"
+>
+  <div id="img-content" class="my-20 h-5/6 w-11/12 bg-contain bg-center bg-no-repeat opacity-100 md:w-10/12"></div>
+</div>
+
+
+
+
+    
+<div
+  id="search-overlay"
+  class="fixed inset-0 z-50 hidden bg-gray-900/90 backdrop-blur-lg dark:bg-gray-900/80"></div>
+<section id="search-section" class="z-50 flex hidden h-dvh w-full flex-col">
+  
+  <div
+    class="flex h-dvh w-full flex-col overflow-auto md:mx-auto md:w-2/3 lg:max-w-2xl">
+    
+    <div
+      id="searchBoxDiv"
+      class="sticky top-[-88px] z-50 flex flex-row justify-between px-8 pt-[88px]">
+      <div id="searchBox" class="my-6 flex w-full flex-row items-center"></div>
+    </div>
+
+    
+    <div class="h-[30rem] overflow-auto">
+      <div id="searchResults" class="my-3 px-6"></div>
+      <div
+        id="NotSearchResults"
+        class="hidden flex-col items-center justify-around space-y-4 px-6 py-10">
+        <p class="font-Oswald text-lg font-bold tracking-wide text-gray-500">
+          No search content
+        </p>
+      </div>
+      <div
+        id="searchError"
+        class="hidden flex-col items-center justify-around space-y-4 px-6 py-10 text-center ">
+        <p class="font-Oswald text-lg font-bold text-red-500">
+          Oop ! Error occur ...
+        </p>
+      </div>
+      <div
+        id="searchLoading"
+        class="hidden flex-col items-center justify-around px-6 py-10">
+        <svg
+          t="1689331200868"
+          class="icon animate-spin"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="51409"
+          width="128"
+          height="128">
+          <path
+            d="M512 170.666667v85.333333a256 256 0 1 1-223.573333 131.2L213.930667 345.6A341.333333 341.333333 0 1 0 512 170.666667z"
+            fill="#bfbfbf"
+            opacity=".3"
+            p-id="51410"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <div
+    class="bottom-0 flex flex-col items-center justify-center space-y-2 py-8 font-Oswald text-xs font-bold text-gray-600">
+    <div class="hidden md:block">Press ESC to cancle</div>
+    <div class="flex items-center">
+      <span class="">Powered by &nbsp;</span>
+      <img src="/images/default/algolia-logo.svg" alt="" class="h-4" />
+    </div>
+  </div>
+</section>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.2/dist/algoliasearch-lite.umd.js"
+  integrity="sha256-X2G+vjV8i6Jj2NSGFTvy6Z4q2AlmF5aH0HiIpWJ8eU4="
+  crossorigin="anonymous"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.56.3/dist/instantsearch.production.min.js"
+  integrity="sha256-mWvjWAfZylKMOg+S3HLq+wng1HHRnl2Idr2r8NsUzIU="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+
+<script src="/js/search.min.3059d56d0f82f599aef21375a07d20f05fbffed10a16f7f7292a2ad825032e01.js"></script>
+<footer
+  class="mx-auto flex w-full max-w-screen-xl flex-col-reverse items-center gap-y-3 border-t border-gray-200 py-6 dark:border-gray-700 md:px-12 lg:flex-row lg:justify-between">
+  
+  <div
+    class="flex flex-col items-center justify-between space-y-3 text-xs text-gray-500 dark:text-gray-200 lg:items-start">
+    
+    <div class="items-center font-Montserrat font-thin">
+      &copy;
+      
+      
+      
+        2022 -
+        2024
+      
+
+      Seven. All Rights Reserved
+    </div>
+  </div>
+
+  
+  <div
+    class="flex flex-row items-center font-Montserrat text-xs font-thin text-gray-500 dark:text-gray-200">
+    <span>Powered By</span>
+    <a href="https://gohugo.io/" aria-label="hugo link">
+      <img
+        src="/images/default/hugo-logo-wide.svg"
+        alt="Hugo"
+        class="mx-1 h-3" />
+    </a>
+    <span> &#8739; Based on Theme</span>
+    <a
+      href="https://github.com/mrhelloboy/seven"
+      aria-label="The github address of seven theme"
+      class="">
+      <img
+        id="footer-theme-light-logo"
+        src="/images/default/seven-logo.svg"
+        alt="seven theme logo"
+        class="mx-1 h-5" />
+
+      <img
+        id="footer-theme-dark-logo"
+        src="/images/default/seven-logo-dark.svg"
+        alt="seven theme logo"
+        class="mx-1 hidden h-5" />
+    </a>
+  </div>
+
+  
+  <div
+    class="mt-4 flex space-x-5 rtl:space-x-reverse sm:justify-center md:mt-0">
+    
+      
+      
+
+      
+
+      
+
+      
+    
+      
+        <a
+          href="mailto:linzhanqi123@gmail.com"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M513 583.8l448.5-448.5c-11.6-4.7-24.3-7.3-37.5-7.3H100c-12.7 0-24.9 2.4-36.1 6.7L513 583.8z"
+              p-id="88208"></path>
+            <path
+              d="M513 674.3L14.6 175.9C5.3 191.1 0 208.9 0 228v568c0 55.2 44.8 100 100 100h824c55.2 0 100-44.8 100-100V228c0-18.5-5.1-35.9-13.9-50.8L513 674.3z"
+              p-id="88209"></path>
+          </svg>
+          <span class="sr-only">Email page</span>
+        </a>
+      
+      
+
+      
+
+      
+
+      
+    
+      
+      
+        <a
+          href=""
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 8 19">
+            <path
+              fill-rule="evenodd"
+              d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
+              clip-rule="evenodd" />
+          </svg>
+          <span class="sr-only">Facebook page</span>
+        </a>
+      
+
+      
+
+      
+
+      
+    
+      
+      
+
+      
+
+      
+        <a
+          href="https://github.com/mrhelloboy/hugo-theme-seven-demo"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z"
+              clip-rule="evenodd" />
+          </svg>
+          <span class="sr-only">GitHub account</span>
+        </a>
+      
+
+      
+    
+      
+      
+
+      
+
+      
+
+      
+        <button
+          data-popover-target="wechat-popover-no-arrow"
+          type="button"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 1184 1024"
+            fill="currentColor"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="1495">
+            <path
+              d="M331.424 263.424q0-23.424-14.272-37.728t-37.728-14.272q-24.576 0-43.424 14.56t-18.848 37.44q0 22.272 18.848 36.864t43.424 14.56q23.424 0 37.728-14.016t14.272-37.44zM756 553.152q0-16-14.56-28.576t-37.44-12.576q-15.424 0-28.288 12.864t-12.864 28.288q0 16 12.864 28.864t28.288 12.864q22.848 0 37.44-12.576t14.56-29.152zM621.152 263.424q0-23.424-14.016-37.728t-37.44-14.272q-24.576 0-43.424 14.56t-18.848 37.44q0 22.272 18.848 36.864t43.424 14.56q23.424 0 37.44-14.016t14.016-37.44zM984 553.152q0-16-14.848-28.576t-37.152-12.576q-15.424 0-28.288 12.864t-12.864 28.288q0 16 12.864 28.864t28.288 12.864q22.272 0 37.152-12.576t14.848-29.152zM832 326.272q-17.728-2.272-40-2.272-96.576 0-177.728 44t-127.712 119.136-46.56 164.288q0 44.576 13.152 86.848-20 1.728-38.848 1.728-14.848 0-28.576-0.864t-31.424-3.712-25.44-4-31.136-6.016-28.576-6.016l-144.576 72.576 41.152-124.576q-165.728-116-165.728-280 0-96.576 55.712-177.728t150.848-127.712 207.712-46.56q100.576 0 190.016 37.728t149.728 104.288 78.016 148.864zM1170.272 646.848q0 66.848-39.136 127.712t-106.016 110.56l31.424 103.424-113.728-62.272q-85.728 21.152-124.576 21.152-96.576 0-177.728-40.288t-127.712-109.44-46.56-150.848 46.56-150.848 127.712-109.44 177.728-40.288q92 0 173.152 40.288t130.016 109.728 48.864 150.56z"
+              p-id="1496"></path>
+          </svg>
+        </button>
+
+        <div
+          data-popover
+          id="wechat-popover-no-arrow"
+          role="tooltip"
+          class="invisible absolute z-10 inline-block hidden w-52 overflow-hidden rounded-lg border border-gray-100 bg-white text-sm text-gray-500 opacity-0 shadow-sm transition-opacity duration-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
+          <ul class="text-sm text-gray-700 dark:text-gray-200">
+            
+              <li>
+                <img src="/images/society/wechat/wechat.jpg" alt="" />
+              </li>
+            
+          </ul>
+        </div>
+      
+    
+      
+      
+
+      
+        <a
+          href=""
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="M12.186 8.672 18.743.947h-2.927l-5.005 5.9-4.44-5.9H0l7.434 9.876-6.986 8.23h2.927l5.434-6.4 4.82 6.4H20L12.186 8.672Zm-2.267 2.671L8.544 9.515 3.2 2.42h2.2l4.312 5.719 1.375 1.828 5.731 7.613h-2.2l-4.699-6.237Z" />
+          </svg>
+
+          <span class="sr-only">X page</span>
+        </a>
+      
+
+      
+
+      
+    
+
+    
+    
+      <a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+  <svg
+    class="h-4 w-4"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 21 16">
+    <path
+      d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
+  </svg>
+  <span class="sr-only">Discord community</span>
+</a>
+
+<a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+  <svg
+    class="h-4 w-4"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 20 20">
+    <path
+      fill-rule="evenodd"
+      d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.094 20.094 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM8 1.707a8.821 8.821 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.758 45.758 0 0 0 8 1.707ZM1.642 8.262a8.57 8.57 0 0 1 4.73-5.981A53.998 53.998 0 0 1 9.54 7.222a32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.64 31.64 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM10 18.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 13.113 11a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z"
+      clip-rule="evenodd" />
+  </svg>
+  <span class="sr-only">Dribbble account</span>
+</a>
+
+    
+
+  </div>
+</footer>
+
+<script>
+  var matches = document.querySelectorAll("button[data-popover-target]");
+  for (var i = 0; i < matches.length; i++) {
+    let id = matches[i].getAttribute("data-popover-target");
+
+    matches[i].addEventListener("mouseenter", function () {
+      document.getElementById(id).classList.remove("hidden");
+    });
+
+    matches[i].addEventListener("mouseleave", function () {
+      document.getElementById(id).classList.add("hidden");
+    });
+  }
+</script>
+
+
+  
+
+<script src="/js/dark-mode.min.f4601e5679d2fc365123dbb2569483af6ba487a6873fd698326ba052b1868055.js" defer></script>
+
+  
+    
+    
+      
+    
+    <script src="/js/toc.min.5e217e8df7eeeecad3818ba808f44ec8bb744f6a71d6445164c1d804dab77b55.js"></script>
+  
+
+  
+
+  
+  
+    
+  
+  <script src="/js/zoom-img.min.b2135ae71b015677ea50e12f6b206c51a0530f747f50506c1db398dd410fcb49.js" defer></script>
+
+  
+  
+    
+  
+  <script src="/js/link-to-top.min.5076255797b394d888abffc233d1cc417a576c3908cd84108f0e0da6d48c2cc5.js" defer></script>
+
+  
+    <script>
+      document.querySelectorAll("pre > code").forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement("button");
+        copybutton.classList.add("copy-code");
+        copybutton.innerHTML = "Copy";
+
+        function copyingDone() {
+          copybutton.innerHTML = "Copied";
+          setTimeout(() => {
+            copybutton.innerHTML = "Copy";
+          }, 2000);
+        }
+
+        copybutton.addEventListener("click", (cb) => {
+          if ("clipboard" in navigator) {
+            navigator.clipboard.writeText(codeblock.textContent);
+            copyingDone();
+            return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+            document.execCommand("copy");
+            copyingDone();
+          } catch (e) {}
+          selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+          
+        } else if (
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode
+            .nodeName == "TABLE"
+        ) {
+          
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(
+            copybutton,
+          );
+        } else {
+          
+          codeblock.parentNode.appendChild(copybutton);
+        }
+      });
+    </script>
+  
+
+  <script
+    data-goatcounter="https://seven-demo.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
