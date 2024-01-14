@@ -1,6 +1,6 @@
-baseURL = 'https://seven-demo.supcat.cn/'
+baseURL = 'https://iohub.github.io/'
 languageCode = 'en-us'
-title = 'Seven的个人网站'
+title = 'LifeIO'
 
 hasCJKLanguage = true
 paginate = 18

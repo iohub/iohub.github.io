@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tech on Seven的个人网站</title>
-    <link>https://seven-demo.supcat.cn/categories/tech/</link>
-    <description>Recent content in Tech on Seven的个人网站</description>
+    <title>Tech on LifeIO</title>
+    <link>https://iohub.github.io/categories/tech/</link>
+    <description>Recent content in Tech on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 29 Mar 2018 12:00:00 +0000</lastBuildDate>
-    <atom:link href="https://seven-demo.supcat.cn/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>谈谈微服务架构中的基础设施：Service Mesh与Istio</title>
-      <link>https://seven-demo.supcat.cn/2018/03/29/what-is-service-mesh-and-istio/</link>
+      <link>https://iohub.github.io/2018/03/29/what-is-service-mesh-and-istio/</link>
       <pubDate>Thu, 29 Mar 2018 12:00:00 +0000</pubDate>
-      <guid>https://seven-demo.supcat.cn/2018/03/29/what-is-service-mesh-and-istio/</guid>
+      <guid>https://iohub.github.io/2018/03/29/what-is-service-mesh-and-istio/</guid>
       <description>微服务架构的演进作为一种架构模式，微服务将复杂系统切分为数十乃至上百个小服务，每个服务负责实现一个独立的业务逻辑。这些小服务易于被小型的软件</description>
     </item>
     <item>
       <title>如何从外部访问Kubernetes集群中的应用？</title>
-      <link>https://seven-demo.supcat.cn/2017/11/28/access-application-from-outside/</link>
+      <link>https://iohub.github.io/2017/11/28/access-application-from-outside/</link>
       <pubDate>Tue, 28 Nov 2017 12:00:00 +0000</pubDate>
-      <guid>https://seven-demo.supcat.cn/2017/11/28/access-application-from-outside/</guid>
+      <guid>https://iohub.github.io/2017/11/28/access-application-from-outside/</guid>
       <description>前言我们知道，kubernetes 的 Cluster Network 属于私有网络，只能在 cluster Network 内部才能访问部署的应用，那如何才能将 Kubernetes 集群中的应用暴露到外部网络，为外部用户</description>
     </item>
     <item>
       <title>采用Istio实现灰度发布(金丝雀发布)</title>
-      <link>https://seven-demo.supcat.cn/2017/11/08/istio-canary-release/</link>
+      <link>https://iohub.github.io/2017/11/08/istio-canary-release/</link>
       <pubDate>Wed, 08 Nov 2017 15:00:00 +0000</pubDate>
-      <guid>https://seven-demo.supcat.cn/2017/11/08/istio-canary-release/</guid>
+      <guid>https://iohub.github.io/2017/11/08/istio-canary-release/</guid>
       <description>灰度发布（又名金丝雀发布）介绍当应用上线以后，运维面临的一大挑战是如何能够在不影响已上线业务的情况下进行升级。做过产品的同学都清楚，不管在发</description>
     </item>
   </channel>

@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Seven的个人网站</title>
-    <link>https://seven-demo.supcat.cn/categories/</link>
-    <description>Recent content in Categories on Seven的个人网站</description>
+    <title>Categories on LifeIO</title>
+    <link>https://iohub.github.io/categories/</link>
+    <description>Recent content in Categories on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 09 Jan 2024 22:02:42 +0800</lastBuildDate>
-    <atom:link href="https://seven-demo.supcat.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go tutorial</title>
-      <link>https://seven-demo.supcat.cn/categories/go-tutorial/</link>
+      <link>https://iohub.github.io/categories/go-tutorial/</link>
       <pubDate>Tue, 09 Jan 2024 22:02:42 +0800</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/go-tutorial/</guid>
+      <guid>https://iohub.github.io/categories/go-tutorial/</guid>
       <description></description>
     </item>
     <item>
       <title>编程技术</title>
-      <link>https://seven-demo.supcat.cn/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/</link>
+      <link>https://iohub.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/</link>
       <pubDate>Tue, 09 Jan 2024 22:02:42 +0800</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/</guid>
+      <guid>https://iohub.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/</guid>
       <description></description>
     </item>
     <item>
       <title>使用文档</title>
-      <link>https://seven-demo.supcat.cn/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/</link>
+      <link>https://iohub.github.io/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/</link>
       <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/</guid>
+      <guid>https://iohub.github.io/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/</guid>
       <description></description>
     </item>
     <item>
       <title>etcd学习</title>
-      <link>https://seven-demo.supcat.cn/categories/etcd%E5%AD%A6%E4%B9%A0/</link>
+      <link>https://iohub.github.io/categories/etcd%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Tue, 27 Jun 2023 20:57:59 +0800</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/etcd%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>https://iohub.github.io/categories/etcd%E5%AD%A6%E4%B9%A0/</guid>
       <description></description>
     </item>
     <item>
       <title>赵化冰博客</title>
-      <link>https://seven-demo.supcat.cn/categories/%E8%B5%B5%E5%8C%96%E5%86%B0%E5%8D%9A%E5%AE%A2/</link>
+      <link>https://iohub.github.io/categories/%E8%B5%B5%E5%8C%96%E5%86%B0%E5%8D%9A%E5%AE%A2/</link>
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/%E8%B5%B5%E5%8C%96%E5%86%B0%E5%8D%9A%E5%AE%A2/</guid>
+      <guid>https://iohub.github.io/categories/%E8%B5%B5%E5%8C%96%E5%86%B0%E5%8D%9A%E5%AE%A2/</guid>
       <description></description>
     </item>
     <item>
       <title>Technical</title>
-      <link>https://seven-demo.supcat.cn/categories/technical/</link>
+      <link>https://iohub.github.io/categories/technical/</link>
       <pubDate>Mon, 16 Apr 2018 15:00:00 +0000</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/technical/</guid>
+      <guid>https://iohub.github.io/categories/technical/</guid>
       <description></description>
     </item>
     <item>
       <title>Tech</title>
-      <link>https://seven-demo.supcat.cn/categories/tech/</link>
+      <link>https://iohub.github.io/categories/tech/</link>
       <pubDate>Thu, 29 Mar 2018 12:00:00 +0000</pubDate>
-      <guid>https://seven-demo.supcat.cn/categories/tech/</guid>
+      <guid>https://iohub.github.io/categories/tech/</guid>
       <description></description>
     </item>
   </channel>

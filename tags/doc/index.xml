@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>doc on Seven的个人网站</title>
-    <link>https://seven-demo.supcat.cn/tags/doc/</link>
-    <description>Recent content in doc on Seven的个人网站</description>
+    <title>doc on LifeIO</title>
+    <link>https://iohub.github.io/tags/doc/</link>
+    <description>Recent content in doc on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 14 Jul 2023 20:59:47 +0800</lastBuildDate>
-    <atom:link href="https://seven-demo.supcat.cn/tags/doc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/tags/doc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Seven主题配置参数说明篇</title>
-      <link>https://seven-demo.supcat.cn/doc/2023-07-14-configuration-parameter-description/</link>
+      <link>https://iohub.github.io/doc/2023-07-14-configuration-parameter-description/</link>
       <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
-      <guid>https://seven-demo.supcat.cn/doc/2023-07-14-configuration-parameter-description/</guid>
+      <guid>https://iohub.github.io/doc/2023-07-14-configuration-parameter-description/</guid>
       <description>本篇文档是对 hugo.toml 中主要参数的说明。 1. 网站 Head 部分所需参数配置网站Head部分是指网站的 &amp;lt;head&amp;gt; 标签中，包括 &amp;lt;title&amp;gt;、&amp;lt;meta</description>
     </item>
   </channel>
