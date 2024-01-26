@@ -133,7 +133,7 @@ m4t_prepare_dataset --source_lang eng --target_lang cmn --split train --save_dir
 
 ```python
 # 写死加载dev元数据 
-meta = self.load_tsv_meta(f'{rpath}/{lang}/train.tsv')
+meta = self.load_tsv_meta(f'{rpath}/{lang}/dev.tsv')
 ```
 
    重新源码安装seamless_communication，然后执行数据处理

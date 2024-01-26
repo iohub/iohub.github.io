@@ -605,7 +605,7 @@
 <li>修改<code>datasets/huggingface.py</code> 加载<code>dev.tsv</code> 校验集元数据。</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 写死加载dev元数据 </span>
-</span></span><span style="display:flex;"><span>meta <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_tsv_meta(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>rpath<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>lang<span style="color:#e6db74">}</span><span style="color:#e6db74">/train.tsv&#39;</span>)
+</span></span><span style="display:flex;"><span>meta <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_tsv_meta(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>rpath<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>lang<span style="color:#e6db74">}</span><span style="color:#e6db74">/dev.tsv&#39;</span>)
 </span></span></code></pre></div><p>重新源码安装seamless_communication，然后执行数据处理</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 安装修改后的函数库</span>
 </span></span><span style="display:flex;"><span>cd seamless_communication
