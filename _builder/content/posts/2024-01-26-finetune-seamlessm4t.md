@@ -26,7 +26,7 @@ is_recommend: true
 
 
 
-## 环境安装
+## 1. 环境安装
 
 ```sh
 git clone https://github.com/facebookresearch/seamless_communication
@@ -36,9 +36,9 @@ pip install .
 ```
 
 
-## 数据处理
+## 2. 数据处理
 
-- 下载`google/fleurs`语料
+### 2.1 下载`google/fleurs`语料
 
 ```sh
 cd /media/ssd/
@@ -50,7 +50,7 @@ git lfs pull --include  data/en_us/audio/*.tar.gz
 git lfs pull --include  data/yue_hant_hk/audio/*.tar.gz
 ```
 
-- 处理训练语料
+### 2.2 处理训练语料
 
 **注意**：seamless_communication代码`未直接支持`粤语微调，需要`魔改代码`适配粤语处理。
 
@@ -185,7 +185,7 @@ python3 truncate-fleurs-corpus.py /media/ssd/m4t-traindata/validation_manifest.j
 
 
 
-## 执行微调
+## 3. 执行微调
 
 ```sh
 #!/bin/bash

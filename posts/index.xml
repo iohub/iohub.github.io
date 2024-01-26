@@ -6,14 +6,14 @@
     <description>Recent content in Posts on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Jan 2024 06:11:24 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jan 2024 06:17:21 +0800</lastBuildDate>
     <atom:link href="https://iohub.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SeamlessM4T语音翻译微调之路</title>
       <link>https://iohub.github.io/2024/01/26/finetune-seamlessm4t/</link>
       <pubDate>Wed, 13 Dec 2023 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/2024/01/26/finetune-seamlessm4t/</guid>
-      <description>TL;DR 训练脚本及推理WebUI 环境安装git clone https://github.com/facebookresearch/seamless_communication cd seamless_communication pip install . 数据处理 下载google/fleurs语料 cd /media/ssd/ GIT_LFS_SKIP_SMUDGE=1 git clone https://hf-mirror.com/google/fleurs cd fleurs # pull 英文语料 git lfs pull --include data/en_us/audio/*.tar.gz # pull 粤</description>
+      <description>TL;DR 训练脚本及推理WebUI 1. 环境安装git clone https://github.com/facebookresearch/seamless_communication cd seamless_communication pip install . 2. 数据处理2.1 下载google/fleurs语料cd /media/ssd/ GIT_LFS_SKIP_SMUDGE=1 git clone https://hf-mirror.com/google/fleurs cd fleurs # pull 英文语料 git lfs</description>
     </item>
     <item>
       <title>解决python自签名证书的 ssl.SSLError问题</title>

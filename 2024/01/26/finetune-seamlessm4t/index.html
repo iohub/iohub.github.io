@@ -435,7 +435,7 @@
             <path
               d="M760.744759 112.25055 267.815093 112.25055c-42.271756 0-76.659961 34.399461-76.659961 76.670194l0 91.080391 0 297.006438 0 232.745878c0 42.271756 34.388205 76.670194 76.659961 76.670194l401.851321 0c42.270732 0 76.658937-34.398438 76.658937-76.670194L746.325351 280.000112c0-42.271756-34.388205-76.671217-76.658937-76.671217L267.815093 203.328895c-11.085476 0-21.60404 2.424212-31.120788 6.670933l0-21.080108c0-17.165961 13.964036-31.131021 31.120788-31.131021l492.929666 0c17.156752 0 31.119765 13.96506 31.119765 31.131021l0 620.832707c0 12.586666 10.1952 22.77061 22.771633 22.77061 12.573363 0 22.76754-10.183943 22.76754-22.77061L837.403696 188.91972C837.403696 146.648988 803.018561 112.25055 760.744759 112.25055zM453.364043 397.762189l34.512025 0 83.119069 247.542886-39.646975 0-22.704095-72.100108-75.068719 0-21.225417 72.100108-37.279045 0L453.364043 397.762189zM479.225037 478.278991c-3.333932-10.773368-6.225795-20.557198-8.626471-29.262464-1.958608 8.516977-4.214998 16.98893-6.78145 25.360598l-19.790742 63.673182 53.589522 0L479.225037 478.278991z" />
           </svg>
-          <span class="ms-3">814 words</span>
+          <span class="ms-3">822 words</span>
         </div>
       </li>
     
@@ -517,23 +517,17 @@
   >训练脚本及推理WebUI</a
 >
 </p>
-<h2 class="group head-tag" id="环境安装">环境安装<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/facebookresearch/seamless_communication
+<h2 class="group head-tag" id="1-环境安装">1. 环境安装<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#1-%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/facebookresearch/seamless_communication
 </span></span><span style="display:flex;"><span>cd seamless_communication
 </span></span><span style="display:flex;"><span>pip install .
-</span></span></code></pre></div><h2 class="group head-tag" id="数据处理">数据处理<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86"></a></h2><ul>
-<li>下载<code>google/fleurs</code>语料</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd /media/ssd/
+</span></span></code></pre></div><h2 class="group head-tag" id="2-数据处理">2. 数据处理<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#2-%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86"></a></h2><h3 class="group head-tag" id="21-下载googlefleurs语料">2.1 下载<code>google/fleurs</code>语料<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#21-%e4%b8%8b%e8%bd%bdgooglefleurs%e8%af%ad%e6%96%99"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd /media/ssd/
 </span></span><span style="display:flex;"><span>GIT_LFS_SKIP_SMUDGE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> git clone https://hf-mirror.com/google/fleurs
 </span></span><span style="display:flex;"><span>cd fleurs
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># pull 英文语料</span>
 </span></span><span style="display:flex;"><span>git lfs pull --include  data/en_us/audio/*.tar.gz
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># pull 粤语语料</span>
 </span></span><span style="display:flex;"><span>git lfs pull --include  data/yue_hant_hk/audio/*.tar.gz
-</span></span></code></pre></div><ul>
-<li>处理训练语料</li>
-</ul>
-<p><strong>注意</strong>：seamless_communication代码<code>未直接支持</code>粤语微调，需要<code>魔改代码</code>适配粤语处理。</p>
+</span></span></code></pre></div><h3 class="group head-tag" id="22-处理训练语料">2.2 处理训练语料<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#22-%e5%a4%84%e7%90%86%e8%ae%ad%e7%bb%83%e8%af%ad%e6%96%99"></a></h3><p><strong>注意</strong>：seamless_communication代码<code>未直接支持</code>粤语微调，需要<code>魔改代码</code>适配粤语处理。</p>
 <ol>
 <li>修改<code>cli/m4t/finetune/dataset.py</code>  <code>UNITY_TO_FLEURS_LANG_MAPPING</code>  语言映射字典，添加<code>cmn</code>中文语言，并指向粤语的语料路径。</li>
 </ol>
@@ -644,7 +638,7 @@
 </span></span></code></pre></div><p>执行脚本过滤样本</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python3 truncate-fleurs-corpus.py /media/ssd/m4t-traindata/train_manifest.json <span style="color:#ae81ff">2030</span> 
 </span></span><span style="display:flex;"><span>python3 truncate-fleurs-corpus.py /media/ssd/m4t-traindata/validation_manifest.json <span style="color:#ae81ff">2030</span> 
-</span></span></code></pre></div><h2 class="group head-tag" id="执行微调">执行微调<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%89%a7%e8%a1%8c%e5%be%ae%e8%b0%83"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></code></pre></div><h2 class="group head-tag" id="3-执行微调">3. 执行微调<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#3-%e6%89%a7%e8%a1%8c%e5%be%ae%e8%b0%83"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>DATASET_DIR<span style="color:#f92672">=</span>/media/ssd/m4t-traindata
 </span></span><span style="display:flex;"><span>
@@ -1031,9 +1025,14 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#tldr">TL;DR</a></li>
-    <li><a href="#环境安装">环境安装</a></li>
-    <li><a href="#数据处理">数据处理</a></li>
-    <li><a href="#执行微调">执行微调</a></li>
+    <li><a href="#1-环境安装">1. 环境安装</a></li>
+    <li><a href="#2-数据处理">2. 数据处理</a>
+      <ul>
+        <li><a href="#21-下载googlefleurs语料">2.1 下载<code>google/fleurs</code>语料</a></li>
+        <li><a href="#22-处理训练语料">2.2 处理训练语料</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-执行微调">3. 执行微调</a></li>
   </ul>
 </nav>
   </div>
