@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on LifeIO</title>
-    <link>https://iohub.github.io/posts/</link>
-    <description>Recent content in Posts on LifeIO</description>
+    <title>huggingface on LifeIO</title>
+    <link>https://iohub.github.io/tags/huggingface/</link>
+    <description>Recent content in huggingface on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 13 Dec 2023 12:00:00 +0000</lastBuildDate>
-    <atom:link href="https://iohub.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/tags/huggingface/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>解决python自签名证书的 ssl.SSLError问题</title>
       <link>https://iohub.github.io/2018/05/22/authentication-and-authorization-of-microservice/</link>
