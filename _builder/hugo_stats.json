@@ -500,6 +500,7 @@
       "TableOfContents",
       "content-home-1",
       "content-home-2",
+      "content-home-3",
       "drawer-body-scrolling",
       "drawer-body-scrolling-label",
       "drawer-body-scrolling-toc",
@@ -510,6 +511,7 @@
       "footer-theme-light-logo",
       "home-1",
       "home-2",
+      "home-3",
       "home-tabs",
       "home-tabs-container",
       "img-content",
@@ -538,6 +540,7 @@
       "theme-toggle",
       "theme-toggle-dark-icon",
       "theme-toggle-light-icon",
+      "tldr",
       "to-bottom-button",
       "to-comment-button",
       "to-top-button",
@@ -550,6 +553,9 @@
       "twikoo_visitors",
       "viewport",
       "wechat-popover-no-arrow",
+      "执行微调",
+      "数据处理",
+      "环境安装",
       "解决方法",
       "问题现象"
     ]

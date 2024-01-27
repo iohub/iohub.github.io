@@ -1,2 +1,3 @@
 {"description":"对 Hugo 主题 Seven 需要配置到的参数进行说明","objectID":"0bdfdedb37d7b1cc0d0883351fc874fc","permalink":"https://iohub.github.io/doc/2023-07-14-configuration-parameter-description/","tags":["doc","配置参数"],"title":"Seven主题配置参数说明篇"}
 {"description":"","objectID":"ac73e10d7e4d285ed469790529258b30","permalink":"https://iohub.github.io/2018/05/22/authentication-and-authorization-of-microservice/","tags":["python","huggingface"],"title":"解决python自签名证书的 ssl.SSLError问题"}
+{"description":"粤语微调示例","objectID":"ba1131dad93db792119218a22be39959","permalink":"https://iohub.github.io/2024/01/26/finetune-seamlessm4t/","tags":["python","huggingface"],"title":"SeamlessM4T语音翻译微调之路"}
