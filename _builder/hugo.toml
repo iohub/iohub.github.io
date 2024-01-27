@@ -96,10 +96,10 @@ disqusShortname = ""  # "seven-demo"
 
     [Params.society.email]
       enable = true
-      url = "linzhanqi123@gmail.com"
+      url = "rickyang.pro@gmail.com"
     [Params.society.github]
       enable = true
-      url = "https://github.com/mrhelloboy/hugo-theme-seven-demo"
+      url = "https://github.com/iohub"
     [Params.society.facebook]
       enable = true
       url = ""
@@ -142,7 +142,7 @@ disqusShortname = ""  # "seven-demo"
       search = true
     [Params.comment.twikoo]
       enable = false
-      envID = "https://celebrated-youtiao-8a8d79.netlify.app/.netlify/functions/twikoo"
+      envID = "https://subtle-creponne-ece0c2.netlify.app/.netlify/functions/twikoo"
       path = ""
       lang = "en"
       region = ""
@@ -170,19 +170,20 @@ disqusShortname = ""  # "seven-demo"
   lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [menu]
-  [[menu.main]]
-    name = "Home"
-    pre = ""
-    url = "/doc/"
-    weight = 10
+
   [[menu.main]]
     name = "Posts"
     pre = "pen-tool"
     url = "/posts/"
-    weight = 20
+    weight = 10
   [[menu.main]]
     name = "Archive"
     url = "/archive"
+    weight = 20
+  [[menu.main]]
+    name = "Doc"
+    pre = ""
+    url = "/doc/"
     weight = 30
 
 [module]
