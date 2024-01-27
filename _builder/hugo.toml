@@ -134,15 +134,10 @@ disqusShortname = ""  # "seven-demo"
     enable = true
     # Note: only works if waline or twikoo is enabled.
     enableCounts = true
-    [Params.comment.waline]
-      enable = true
-      serverURL = "https://seven-demo.comment.supcat.cn/.netlify/functions/comment"
-      lang = "en"
-      reaction = true
-      search = true
+
     [Params.comment.twikoo]
-      enable = false
-      envID = "https://subtle-creponne-ece0c2.netlify.app/.netlify/functions/twikoo"
+      enable = true
+      envID = "https://sensational-kataifi-4ebf86.netlify.app/.netlify/functions/twikoo"
       path = ""
       lang = "en"
       region = ""
