@@ -1,10 +1,10 @@
 ---
 layout: posts
-title: "SeamlessM4T语音翻译微调之路"
+title: "SeamlessM4T语音翻译微调"
 subtitle: ""
 description: "粤语微调示例"
 excerpt: ""
-date: 2023-12-13 12:00:00
+date: 2024-01-26 12:00:00
 author: "rickyang"
 image: "/images/posts/10.jpg"
 published: true
