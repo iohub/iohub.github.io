@@ -6,8 +6,22 @@
     <description>Recent content in Tags on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Feb 2024 21:10:43 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2024 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nccl</title>
+      <link>https://iohub.github.io/tags/nccl/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/nccl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>torch</title>
+      <link>https://iohub.github.io/tags/torch/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/torch/</guid>
+      <description></description>
+    </item>
     <item>
       <title>huggingface</title>
       <link>https://iohub.github.io/tags/huggingface/</link>

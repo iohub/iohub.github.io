@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>AI on LifeIO</title>
-    <link>https://iohub.github.io/categories/ai/</link>
-    <description>Recent content in AI on LifeIO</description>
+    <title>nccl on LifeIO</title>
+    <link>https://iohub.github.io/tags/nccl/</link>
+    <description>Recent content in nccl on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Jun 2024 12:00:00 +0000</lastBuildDate>
-    <atom:link href="https://iohub.github.io/categories/ai/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/tags/nccl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>pytorch多机分布式训练</title>
       <link>https://iohub.github.io/2024/06/05/torch-nccl/</link>
       <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/2024/06/05/torch-nccl/</guid>
       <description>0. 环境准备pip install transformers datasets peft tensorboard # 安装flash-attation pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.8/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 1. Master节点# 配置RDMA网卡 export NCCL_IB_HCA=mlx5_1 # 配置nccl日志 export NCCL_DEBUG=INFO # 在mast</description>
-    </item>
-    <item>
-      <title>SeamlessM4T语音翻译微调</title>
-      <link>https://iohub.github.io/2024/01/26/finetune-seamlessm4t/</link>
-      <pubDate>Fri, 26 Jan 2024 12:00:00 +0000</pubDate>
-      <guid>https://iohub.github.io/2024/01/26/finetune-seamlessm4t/</guid>
-      <description>TL;DR 训练脚本及推理WebUI 1. 环境安装git clone https://github.com/facebookresearch/seamless_communication cd seamless_communication pip install . 2. 数据处理2.1 下载google/fleurs语料cd /media/ssd/ GIT_LFS_SKIP_SMUDGE=1 git clone https://hf-mirror.com/google/fleurs cd fleurs # pull 英文语料 git lfs</description>
     </item>
   </channel>
 </rss>

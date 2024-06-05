@@ -6,8 +6,22 @@
     <description>Recent content in Categories on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Feb 2024 21:10:43 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2024 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI</title>
+      <link>https://iohub.github.io/categories/ai/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>模型微调</title>
+      <link>https://iohub.github.io/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</guid>
+      <description></description>
+    </item>
     <item>
       <title>algorithm</title>
       <link>https://iohub.github.io/categories/algorithm/</link>
@@ -27,20 +41,6 @@
       <link>https://iohub.github.io/categories/parsing/</link>
       <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/parsing/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI</title>
-      <link>https://iohub.github.io/categories/ai/</link>
-      <pubDate>Fri, 26 Jan 2024 12:00:00 +0000</pubDate>
-      <guid>https://iohub.github.io/categories/ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>模型微调</title>
-      <link>https://iohub.github.io/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</link>
-      <pubDate>Fri, 26 Jan 2024 12:00:00 +0000</pubDate>
-      <guid>https://iohub.github.io/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</guid>
       <description></description>
     </item>
     <item>
