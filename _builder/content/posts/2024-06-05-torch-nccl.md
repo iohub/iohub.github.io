@@ -30,6 +30,8 @@ pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.
 
 ```sh
 # 配置RDMA网卡
+epoxrt NCCL_SOCKET_FAMILY=AF_INET
+epoxrt NCCL_SOCKET_IFNAME=eno3p1
 export NCCL_IB_HCA=mlx5_1
 # 配置nccl日志
 export NCCL_DEBUG=INFO
@@ -49,7 +51,9 @@ torchrun --nproc_per_node=2 \ # 每个节点的进程数，即每个节点的GPU
 
 ```sh
 # 配置RDMA网卡
-export NCCL_IB_HCA=mlx5_1
+epoxrt NCCL_SOCKET_FAMILY=AF_INET
+epoxrt NCCL_SOCKET_IFNAME=eno2p1
+export NCCL_IB_HCA=roce01
 # 配置nccl日志
 export NCCL_DEBUG=INFO
 # 在master执行训练

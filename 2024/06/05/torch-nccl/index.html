@@ -438,7 +438,7 @@
               d="M534.016 342.016l0 180.010667 148.010667 89.984-29.994667 52.010667-182.016-109.994667 0-212.010667 64 0zM896 432l-290.005333 0 118.016-120.021333q-88.021333-88.021333-210.986667-89.002667t-210.986667 84.992q-86.016 88.021333-86.016 208t86.016 208 210.005333 88.021333 212.010667-88.021333q86.016-86.016 86.016-208l86.016 0q0 157.994667-112 267.989333-112 112-272 112t-272-112q-112-109.994667-112-267.008t112-269.013333 269.994667-112 269.994667 112l116.010667-120.021333 0 304z"></path>
           </svg>
           <span class="ms-3"
-            >Updated on June 5 2024</span
+            >Updated on June 6 2024</span
           >
         </div>
       </li>
@@ -459,7 +459,7 @@
             <path
               d="M760.744759 112.25055 267.815093 112.25055c-42.271756 0-76.659961 34.399461-76.659961 76.670194l0 91.080391 0 297.006438 0 232.745878c0 42.271756 34.388205 76.670194 76.659961 76.670194l401.851321 0c42.270732 0 76.658937-34.398438 76.658937-76.670194L746.325351 280.000112c0-42.271756-34.388205-76.671217-76.658937-76.671217L267.815093 203.328895c-11.085476 0-21.60404 2.424212-31.120788 6.670933l0-21.080108c0-17.165961 13.964036-31.131021 31.120788-31.131021l492.929666 0c17.156752 0 31.119765 13.96506 31.119765 31.131021l0 620.832707c0 12.586666 10.1952 22.77061 22.771633 22.77061 12.573363 0 22.76754-10.183943 22.76754-22.77061L837.403696 188.91972C837.403696 146.648988 803.018561 112.25055 760.744759 112.25055zM453.364043 397.762189l34.512025 0 83.119069 247.542886-39.646975 0-22.704095-72.100108-75.068719 0-21.225417 72.100108-37.279045 0L453.364043 397.762189zM479.225037 478.278991c-3.333932-10.773368-6.225795-20.557198-8.626471-29.262464-1.958608 8.516977-4.214998 16.98893-6.78145 25.360598l-19.790742 63.673182 53.589522 0L479.225037 478.278991z" />
           </svg>
-          <span class="ms-3">227 words</span>
+          <span class="ms-3">235 words</span>
         </div>
       </li>
     
@@ -537,6 +537,8 @@
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装flash-attation</span>
 </span></span><span style="display:flex;"><span>pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.8/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
 </span></span></code></pre></div><h2 class="group head-tag" id="1-master节点">1. Master节点<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#1-master%e8%8a%82%e7%82%b9"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 配置RDMA网卡</span>
+</span></span><span style="display:flex;"><span>epoxrt NCCL_SOCKET_FAMILY<span style="color:#f92672">=</span>AF_INET
+</span></span><span style="display:flex;"><span>epoxrt NCCL_SOCKET_IFNAME<span style="color:#f92672">=</span>eno3p1
 </span></span><span style="display:flex;"><span>export NCCL_IB_HCA<span style="color:#f92672">=</span>mlx5_1
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 配置nccl日志</span>
 </span></span><span style="display:flex;"><span>export NCCL_DEBUG<span style="color:#f92672">=</span>INFO
@@ -549,7 +551,9 @@
 </span></span><span style="display:flex;"><span>    finetune.py xxx
 </span></span><span style="display:flex;"><span>    
 </span></span></code></pre></div><h2 class="group head-tag" id="2-slaver节点">2. Slaver节点<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#2-slaver%e8%8a%82%e7%82%b9"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 配置RDMA网卡</span>
-</span></span><span style="display:flex;"><span>export NCCL_IB_HCA<span style="color:#f92672">=</span>mlx5_1
+</span></span><span style="display:flex;"><span>epoxrt NCCL_SOCKET_FAMILY<span style="color:#f92672">=</span>AF_INET
+</span></span><span style="display:flex;"><span>epoxrt NCCL_SOCKET_IFNAME<span style="color:#f92672">=</span>eno2p1
+</span></span><span style="display:flex;"><span>export NCCL_IB_HCA<span style="color:#f92672">=</span>roce01
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 配置nccl日志</span>
 </span></span><span style="display:flex;"><span>export NCCL_DEBUG<span style="color:#f92672">=</span>INFO
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 在master执行训练</span>

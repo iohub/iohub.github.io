@@ -13,7 +13,7 @@
       <link>https://iohub.github.io/2024/06/05/torch-nccl/</link>
       <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/2024/06/05/torch-nccl/</guid>
-      <description>0. 环境准备pip install transformers datasets peft tensorboard # 安装flash-attation pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.8/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 1. Master节点# 配置RDMA网卡 export NCCL_IB_HCA=mlx5_1 # 配置nccl日志 export NCCL_DEBUG=INFO # 在mast</description>
+      <description>0. 环境准备pip install transformers datasets peft tensorboard # 安装flash-attation pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.8/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 1. Master节点# 配置RDMA网卡 epoxrt NCCL_SOCKET_FAMILY=AF_INET epoxrt NCCL_SOCKET_IFNAME=eno3p1 export NCCL_IB_HCA=mlx5_1 # 配置nccl日志 export NCCL_DEBUG=INFO # 在</description>
     </item>
   </channel>
 </rss>
