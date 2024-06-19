@@ -6,8 +6,22 @@
     <description>Recent content in Tags on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Jun 2024 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jun 2024 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>quantization</title>
+      <link>https://iohub.github.io/tags/quantization/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/quantization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>starcoder</title>
+      <link>https://iohub.github.io/tags/starcoder/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/starcoder/</guid>
+      <description></description>
+    </item>
     <item>
       <title>lora</title>
       <link>https://iohub.github.io/tags/lora/</link>

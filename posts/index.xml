@@ -6,8 +6,15 @@
     <description>Recent content in Posts on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Jun 2024 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jun 2024 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>starcoder2量化效果评估</title>
+      <link>https://iohub.github.io/2024/06/18/starcoder2-eval/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/2024/06/18/starcoder2-eval/</guid>
+      <description>TL;DR 模型 量化方式 human-eval pass@1 human-eval pass@10 显存占用 starcoder2-15b - 22.5% 67.7% 30G starcoder2-15b Q8_0 23.2% 66.4% 15G starcoder2-15b Q5_K_M 15.5% 56.7% 12G 结论： 对模型进行 8-bit量化（Q8_0）显存占用减半，human-eval评测</description>
+    </item>
     <item>
       <title>transformers恢复训练填坑</title>
       <link>https://iohub.github.io/2024/06/06/resume-train/</link>

@@ -3,21 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://iohub.github.io/categories/</loc>
-    <lastmod>2024-06-06T22:15:46+08:00</lastmod>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/</loc>
-    <lastmod>2024-06-06T22:15:46+08:00</lastmod>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/posts/</loc>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/quantization/</loc>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/categories/quantization/</loc>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/starcoder/</loc>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/2024/06/18/starcoder2-eval/</loc>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/</loc>
+    <lastmod>2024-06-19T20:13:02+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/tags/lora/</loc>
     <lastmod>2024-06-06T22:15:46+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/categories/peft/</loc>
-    <lastmod>2024-06-06T22:15:46+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/posts/</loc>
-    <lastmod>2024-06-06T22:15:46+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/tags/</loc>
     <lastmod>2024-06-06T22:15:46+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/tags/torch/</loc>
