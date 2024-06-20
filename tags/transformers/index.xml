@@ -2,25 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>transformers on LifeIO</title>
-    <link>https://iohub.github.io/categories/transformers/</link>
+    <link>https://iohub.github.io/tags/transformers/</link>
     <description>Recent content in transformers on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 12:00:00 +0000</lastBuildDate>
-    <atom:link href="https://iohub.github.io/categories/transformers/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/tags/transformers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>修复Seq2SeqTrainer训练奔溃问题</title>
       <link>https://iohub.github.io/2024/06/20/index/</link>
       <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/2024/06/20/index/</guid>
       <description>TL;DR修改transformer代码，src/transformers/tokenization_utils_base.py if isinstance(device, str) or is_torch_device(device) or</description>
-    </item>
-    <item>
-      <title>transformers恢复训练填坑</title>
-      <link>https://iohub.github.io/2024/06/06/resume-train/</link>
-      <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
-      <guid>https://iohub.github.io/2024/06/06/resume-train/</guid>
-      <description>0. 问题现象根据官方文档描述，设置resume_from_checkpoint参数为待恢复的检查点。 trainer.train(resume_from_checkpoint=&amp;#39;finetuned/checkpoint-5000&amp;#39;) 恢复训练后发现train loss、eva</description>
     </item>
   </channel>
 </rss>

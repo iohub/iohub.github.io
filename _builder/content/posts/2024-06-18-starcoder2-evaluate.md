@@ -107,11 +107,8 @@ samples = [
 write_jsonl("samples.jsonl", samples)
 ```
 
-- 填坑
-openai提交的代码有点随意，官方的评估脚本上有语法错误，需手工修复。
-
-未修复代码 human_eval/execution.py
-```python
+- 填坑: 官方的评估脚本上有语法错误，需手工修复`human_eval/execution.py`。
+```diff
 def check_correctness(problem: Dict, completion: str, timeout: float,
                       completion_id: Optional[int] = None) -> Dict:
     """
@@ -121,7 +118,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
     :param completion_id: an optional completion ID so we can match
         the results later even if execution finishes asynchronously.
     """
-
++   result = []
     def unsafe_execute():
 
         with create_tempdir():
@@ -157,56 +154,13 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
 # information on how OpenAI sandboxes its code, see the accompanying paper.
 # Once you have read this disclaimer and taken appropriate precautions, 
 # uncomment the following line and proceed at your own risk:
-#                         exec(check_program, exec_globals)
-                result.append("passed") # result未定义
+- #                         exec(check_program, exec_globals)
+-               result.append("passed")
++                           exec(check_program, exec_globals)
++                           result.append("passed")
             except TimeoutException:
                 result.append("timed out")
             except BaseException as e:
                 result.append(f"failed: {e}")
 
-```
-
-已代码 human_eval/execution.py
-```python
-def check_correctness(problem: Dict, completion: str, timeout: float,
-                      completion_id: Optional[int] = None) -> Dict:
-    """
-    Evaluates the functional correctness of a completion by running the test
-    suite provided in the problem. 
-
-    :param completion_id: an optional completion ID so we can match
-        the results later even if execution finishes asynchronously.
-    """
-    result = []
-    def unsafe_execute():
-
-        with create_tempdir():
-
-            # These system calls are needed when cleaning up tempdir.
-            import os
-            import shutil
-            rmtree = shutil.rmtree
-            rmdir = os.rmdir
-            chdir = os.chdir
-
-            # Disable functionalities that can make destructive changes to the test.
-            reliability_guard()
-
-            # Construct the check program and run it.
-            check_program = (
-                problem["prompt"] + completion + "\n" +
-                problem["test"] + "\n" +
-                f"check({problem['entry_point']})"
-            )
-
-            try:
-                exec_globals = {}
-                with swallow_io():
-                    with time_limit(timeout):
-                        exec(check_program, exec_globals)
-                        result.append("passed")
-            except TimeoutException:
-                result.append("timed out")
-            except BaseException as e:
-                result.append(f"failed: {e}")
 ```
