@@ -24,10 +24,18 @@ is_recommend: true
 | starcoder2-15b | - | 22.5% | 67.7% | 30G |
 | starcoder2-15b | Q8_0 | 23.2% | 66.4% | 15G |
 | starcoder2-15b | Q5_K_M | 15.5% | 56.7% | 12G |
+| starcoder2-15b | AWQ | 14.3% | 52.4% | 8G | 
 
 **结论**： 
 1. 对模型进行 8-bit量化（Q8_0）显存占用减半，human-eval评测效果与未量化模型接近，量化损失较小。
 2. 对模型进行5-bit & 6-bit 混合量化，相对8-bit量化损失较大，节省的显存空间也不多，条件允许建议优先使用8-bit量化。
+
+- PS: DeepSeek-Coder-V2-Instruct 量化效果
+| 模型 | 量化方式 | human-eval pass@1 | human-eval pass@10 | 显存占用 |
+|-------|-------|-------|-------|-------|-------|
+| DeepSeek-Coder-V2-Instruct-16b | - | 62.2% | 84.1% | 32G |
+| DeepSeek-Coder-V2-Instruct-16b | Q8_0 | 61.6% | 84.7% | 17G |
+| DeepSeek-Coder-V2-Instruct-16b | Q5_K_M | 60.2% | 84.1% | 13G |
 
 **参考**
 - **llama.cpp量化方式**
