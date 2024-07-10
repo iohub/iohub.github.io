@@ -19,6 +19,8 @@ is_recommend: true
 
 ## TL;DR
 
+已提交[PR](https://github.com/huggingface/transformers/pull/31418)到transformers，新版本不再有该问题。
+
 修改transformer代码，`src/transformers/tokenization_utils_base.py`
 ```diff
         if isinstance(device, str) or is_torch_device(device) or isinstance(device, int):
