@@ -6,8 +6,15 @@
     <description>Recent content in AI on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jul 2024 21:29:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jul 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/categories/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用NVIDIA Nsight对llamacpp进行性能分析</title>
+      <link>https://iohub.github.io/2025/07/14/nsys-analysis-llamacpp/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/2025/07/14/nsys-analysis-llamacpp/</guid>
+      <description>使用NVIDIA Nsight Systems对llamacpp进行性能分析环境准备在开始之前，请确保您已准备以下内容： 已安装 NVIDIA Nsight Systems 一块兼容的 NVIDIA GPU llamacpp 可执行</description>
+    </item>
     <item>
       <title>pytorch多机分布式训练</title>
       <link>https://iohub.github.io/2024/06/05/torch-nccl/</link>

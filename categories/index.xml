@@ -6,8 +6,22 @@
     <description>Recent content in Categories on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jul 2024 21:42:14 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jul 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI</title>
+      <link>https://iohub.github.io/categories/ai/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>mlsys</title>
+      <link>https://iohub.github.io/categories/mlsys/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/mlsys/</guid>
+      <description></description>
+    </item>
     <item>
       <title>transformers</title>
       <link>https://iohub.github.io/categories/transformers/</link>
@@ -27,13 +41,6 @@
       <link>https://iohub.github.io/categories/peft/</link>
       <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/peft/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI</title>
-      <link>https://iohub.github.io/categories/ai/</link>
-      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
-      <guid>https://iohub.github.io/categories/ai/</guid>
       <description></description>
     </item>
     <item>

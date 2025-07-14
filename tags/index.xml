@@ -6,8 +6,22 @@
     <description>Recent content in Tags on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jul 2024 21:42:14 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jul 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cuda</title>
+      <link>https://iohub.github.io/tags/cuda/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/cuda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>llamacpp</title>
+      <link>https://iohub.github.io/tags/llamacpp/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/llamacpp/</guid>
+      <description></description>
+    </item>
     <item>
       <title>bugfix</title>
       <link>https://iohub.github.io/tags/bugfix/</link>
