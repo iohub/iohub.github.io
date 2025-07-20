@@ -6,8 +6,29 @@
     <description>Recent content in Categories on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Jul 2025 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jul 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://iohub.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>finetune</title>
+      <link>https://iohub.github.io/categories/finetune/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/finetune/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>https://iohub.github.io/categories/llm/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>unsloth</title>
+      <link>https://iohub.github.io/categories/unsloth/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/categories/unsloth/</guid>
+      <description></description>
+    </item>
     <item>
       <title>AI</title>
       <link>https://iohub.github.io/categories/ai/</link>

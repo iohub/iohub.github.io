@@ -1,0 +1,1830 @@
+<!doctype html>
+<html class="scroll-smooth" lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>
+      使用Unsloth高效微调Gemma-3模型 | LifeIO
+    </title><meta name="application-name" content="Seven Demo" />
+<meta name="apple-mobile-web-app-title" content="Seven Demo" />
+
+
+  <meta name="title" content="使用Unsloth高效微调Gemma-3模型" />
+
+
+
+  <meta name="description" content="Unsloth微调实践指南" />
+<meta name="theme-color" content="#ffffff" /><link rel="icon" href="/favicon.svg" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+
+
+
+
+  
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.0.0/themes/reset-min.css"
+    integrity="sha256-2AeJLzExpZvqLUxMfcs+4DWcMwNfpnjUeAAvEtPr0wU="
+    crossorigin="anonymous" />
+
+  
+  
+  
+    
+  
+  <link href="/css/search.min.c917ecb2b8beb2932aef36e1e2ae39686862be3719edb975e142d4755c322461.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link href="/css/styles.min.f33843b2de6e4fbc84ed92c9fecb42bd8ccb9782515cab33b039be10e42e932f.css" rel="stylesheet" />
+
+<link href="/css/custom.min.a3576bac66c3a82b69d83286136700cfa409d13273e51b6505482a06e6dd109d.css" rel="stylesheet" />
+  
+  
+  
+    
+  
+  <link href="/css/image-preview.min.efb5024b06063b21933b7f8d942a808f5ca19d586b6240f4472b144108b0e0f9.css" rel="stylesheet" /><script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+<script>
+  
+  if (
+    localStorage.getItem("color-theme") === "dark" ||
+    (!("color-theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+</script>
+
+  </head>
+  <body class="flex h-screen flex-col bg-white dark:bg-gray-900"><nav
+  id="navbar"
+  class="fixed start-0 top-0 z-20 flex w-full justify-center border-b border-gray-200 bg-white/85 backdrop-blur-md md:h-38 dark:border-gray-700 dark:bg-gray-900/85">
+  <div
+    class="mx-auto flex w-[1280px] flex-wrap items-center justify-between place-self-center object-center p-4">
+    
+    
+    <a
+      href="https://iohub.github.io/"
+      class="flex items-center justify-start space-x-3 rtl:space-x-reverse">
+      
+      <p class="w-[120px]">
+        
+        
+          
+        
+        <img
+          id="logo-light-icon"
+          src="/images/logo.svg"
+          class="h-[56px]"
+          alt="Logo" />
+        <img
+          id="logo-dark-icon"
+          src="/images/logo-footer.svg"
+          class="hidden h-[56px]"
+          alt="Logo" />
+      </p></a>
+
+    
+    <div class="flex items-center space-x-3 md:order-2 rtl:space-x-reverse">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="h-10 w-10 p-2.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+        <svg
+          id="theme-toggle-dark-icon"
+          class="hidden h-5 w-5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg
+          id="theme-toggle-light-icon"
+          class="hidden h-5 w-5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+
+      
+      
+        <button
+          type="button"
+          id="search-icon"
+          class="bg-blue-700 p-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none md:p-5 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <svg
+            t="1702210633165"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4364"
+            width="16"
+            height="16">
+            <path
+              d="M426.666667 768a339.285333 339.285333 0 0 0 208.938666-72.021333l187.562667 187.562666 60.330667-60.330666-187.562667-187.562667A339.285333 339.285333 0 0 0 768 426.666667c0-188.202667-153.130667-341.333333-341.333333-341.333334s-341.333333 153.130667-341.333334 341.333334 153.130667 341.333333 341.333334 341.333333z m0-597.333333c141.184 0 256 114.816 256 256s-114.816 256-256 256-256-114.816-256-256 114.816-256 256-256z"
+              fill="#ffffff"
+              p-id="4365"></path>
+          </svg>
+        </button>
+      
+
+      
+      <button
+        data-collapse-toggle="navbar-sticky"
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none md:hidden dark:text-gray-400 dark:hover:bg-gray-700"
+        aria-controls="navbar-sticky"
+        aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14">
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15" />
+        </svg>
+      </button>
+    </div>
+
+    <div
+  class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
+  id="navbar-sticky">
+  <ul
+    class="mt-4 flex flex-col rounded-lg border border-gray-300 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800/50 md:dark:bg-transparent">
+    
+      <li>
+        
+          <a
+            aria-current="page"
+            class="block rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+            href="/posts/">
+            
+            Posts
+          </a>
+        
+      </li>
+    
+      <li>
+        
+          <a
+            aria-current="page"
+            class="block rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+            href="/archive">
+            
+            Archive
+          </a>
+        
+      </li>
+    
+      <li>
+        
+          <a
+            aria-current="page"
+            class="block rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+            href="/doc/">
+            
+            Doc
+          </a>
+        
+      </li>
+    
+
+    
+      <button
+        id="dropdownNavbarLink-category"
+        data-dropdown-toggle="dropdownNavbar-category"
+        class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-gray-900 hover:bg-gray-100 md:w-auto md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500">
+        Category
+        <svg
+          class="ms-2.5 h-2.5 w-2.5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6">
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 4 4 4-4" />
+        </svg>
+      </button>
+
+      <div
+        id="dropdownNavbar-category"
+        class="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white font-normal shadow dark:divide-gray-600 dark:bg-gray-800">
+        <ul
+          class="py-2 text-sm text-gray-700 dark:text-gray-400"
+          aria-labelledby="dropdownLargeButton">
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/ai/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >AI</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/algorithm/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >algorithm</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/compiler/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >compiler</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/finetune/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >finetune</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/llm/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >LLM</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/mlsys/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >mlsys</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/parsing/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >parsing</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/peft/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >peft</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/quantization/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >quantization</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/transformers/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >transformers</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/unsloth/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >unsloth</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >使用文档</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >填坑日常</a
+              >
+            </li>
+          
+            <li>
+              <a
+                href="https://iohub.github.io/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >模型微调</a
+              >
+            </li>
+          
+        </ul>
+      </div>
+    
+  </ul>
+</div>
+</div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let navbarDom = document.getElementById("navbar");
+    let isNavScrolled = false;
+
+    if (window.innerWidth >= 768) {
+      navbarDom.classList.add("navbar-init");
+
+      var scrollTop = 0;
+
+      window.addEventListener("scroll", function () {
+        scrollTop = window.pageYOffset;
+
+        if (scrollTop >= 10 && !isNavScrolled) {
+          isNavScrolled = true;
+          navbarDom.classList.add("navbar-scroll");
+        } else if (scrollTop < 10 && isNavScrolled) {
+          isNavScrolled = false;
+          navbarDom.classList.remove("navbar-scroll");
+        }
+      });
+    } else {
+      navbarDom.classList.remove("navbar-init");
+    }
+  });
+</script>
+
+  
+  <div
+    id="single-page-container"
+    class="mx-auto my-5 mt-22 w-full rounded-b-lg border px-5 md:mt-[151px] md:max-w-5xl dark:border-gray-700">
+    <div class="flex w-full justify-between">
+      <div id="post-container" class="w-full">
+        
+        <div
+          id="post-title"
+          data-popover-target="popover-animation"
+          data-popover-offset="0"
+          data-popover-placement="bottom"
+          class="px-3 py-10 text-center text-3xl font-bold tracking-wide text-black dark:text-white">
+          使用Unsloth高效微调Gemma-3模型
+        </div><div
+  data-popover
+  id="popover-animation"
+  role="tooltip"
+  class="invisible absolute z-10 inline-block w-full border border-gray-200 bg-white/90 text-sm text-gray-500 opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 md:max-w-5xl dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400">
+  <div
+    class="border-b border-gray-200 bg-gray-100 px-5 py-2 dark:border-gray-600 dark:bg-gray-700">
+    <h3 class="font-semibold text-gray-900 dark:text-white">
+      Meta info of this page
+    </h3>
+  </div>
+
+  
+  <ul class="px-3 py-2">
+    
+    
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M170.666667 469.333333h256a42.666667 42.666667 0 0 0 42.666666-42.666666V170.666667a42.666667 42.666667 0 0 0-42.666666-42.666667H170.666667a42.666667 42.666667 0 0 0-42.666667 42.666667v256a42.666667 42.666667 0 0 0 42.666667 42.666666z m426.666666 0h256a42.666667 42.666667 0 0 0 42.666667-42.666666V170.666667a42.666667 42.666667 0 0 0-42.666667-42.666667h-256a42.666667 42.666667 0 0 0-42.666666 42.666667v256a42.666667 42.666667 0 0 0 42.666666 42.666666zM170.666667 896h256a42.666667 42.666667 0 0 0 42.666666-42.666667v-256a42.666667 42.666667 0 0 0-42.666666-42.666666H170.666667a42.666667 42.666667 0 0 0-42.666667 42.666666v256a42.666667 42.666667 0 0 0 42.666667 42.666667z m554.666666 0c94.122667 0 170.666667-76.544 170.666667-170.666667s-76.544-170.666667-170.666667-170.666666-170.666667 76.544-170.666666 170.666666 76.544 170.666667 170.666666 170.666667z" />
+          </svg>
+
+          <div class="flew ms-3 flex items-center space-x-1 text-center">
+            
+              <a class="rounded-md border px-2" href="https://iohub.github.io/categories/llm/"
+                ><span>LLM</span></a
+              >
+            
+              <a class="rounded-md border px-2" href="https://iohub.github.io/categories/finetune/"
+                ><span>finetune</span></a
+              >
+            
+              <a class="rounded-md border px-2" href="https://iohub.github.io/categories/unsloth/"
+                ><span>unsloth</span></a
+              >
+            
+          </div>
+        </div>
+      </li>
+    
+
+    
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M773.2 178.1v91c0 49.5-40.3 89.8-89.8 89.8-24.1 0-46.7-9.4-63.7-26.5-16.8-17-26.1-39.4-26.1-63.2v-90.8-0.3H433.8v91.1c0 49.5-40.3 89.8-89.8 89.8-49.2 0-89.2-40.3-89.2-89.8v-90.8-0.2C163.6 180.2 90 255 90 346.7v379.9c0 93 75.6 168.6 168.6 168.6h510.7c93 0 168.6-75.6 168.6-168.6v-380c0-91.6-73.5-166.4-164.7-168.5zM408.7 739.4c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-141c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m169.4 281.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-141c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m169.4 281.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.5c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z" />
+            <path
+              d="M344.1 316.2c25.6 0 47-20.8 47-47v-90.8c0.5-26.2-20.8-47-46.5-47s-47 20.8-47 47v90.8c0 25.6 20.8 47 46.5 47zM683.4 316.2c25.6 0 47-20.8 47-47v-90.8c-0.5-26.2-21.4-47-47-47s-47 20.8-47 47v90.8c0 25.6 20.8 47 47 47z" />
+          </svg>
+          <span class="ms-3"
+            >Plublished on July 20 2025</span
+          >
+        </div>
+      </li>
+
+      <li>
+        
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M534.016 342.016l0 180.010667 148.010667 89.984-29.994667 52.010667-182.016-109.994667 0-212.010667 64 0zM896 432l-290.005333 0 118.016-120.021333q-88.021333-88.021333-210.986667-89.002667t-210.986667 84.992q-86.016 88.021333-86.016 208t86.016 208 210.005333 88.021333 212.010667-88.021333q86.016-86.016 86.016-208l86.016 0q0 157.994667-112 267.989333-112 112-272 112t-272-112q-112-109.994667-112-267.008t112-269.013333 269.994667-112 269.994667 112l116.010667-120.021333 0 304z"></path>
+          </svg>
+          <span class="ms-3"
+            >Updated on July 20 2025</span
+          >
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M760.744759 112.25055 267.815093 112.25055c-42.271756 0-76.659961 34.399461-76.659961 76.670194l0 91.080391 0 297.006438 0 232.745878c0 42.271756 34.388205 76.670194 76.659961 76.670194l401.851321 0c42.270732 0 76.658937-34.398438 76.658937-76.670194L746.325351 280.000112c0-42.271756-34.388205-76.671217-76.658937-76.671217L267.815093 203.328895c-11.085476 0-21.60404 2.424212-31.120788 6.670933l0-21.080108c0-17.165961 13.964036-31.131021 31.120788-31.131021l492.929666 0c17.156752 0 31.119765 13.96506 31.119765 31.131021l0 620.832707c0 12.586666 10.1952 22.77061 22.771633 22.77061 12.573363 0 22.76754-10.183943 22.76754-22.77061L837.403696 188.91972C837.403696 146.648988 803.018561 112.25055 760.744759 112.25055zM453.364043 397.762189l34.512025 0 83.119069 247.542886-39.646975 0-22.704095-72.100108-75.068719 0-21.225417 72.100108-37.279045 0L453.364043 397.762189zM479.225037 478.278991c-3.333932-10.773368-6.225795-20.557198-8.626471-29.262464-1.958608 8.516977-4.214998 16.98893-6.78145 25.360598l-19.790742 63.673182 53.589522 0L479.225037 478.278991z" />
+          </svg>
+          <span class="ms-3">1595 words</span>
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M502.784 75.264c-245.76 0-443.904 198.144-443.904 443.904S259.584 962.56 502.784 962.56c245.76 0 443.904-198.144 443.904-443.904s-200.192-443.392-443.904-443.392z m289.28 578.048c-6.656 13.824-18.432 20.48-31.744 20.48-4.608 0-9.216 0-13.824-2.048L484.864 552.96c-11.264-4.608-20.48-18.432-20.48-31.744v-245.76c0-18.432 15.872-34.304 34.304-34.304s34.304 15.872 34.304 34.304v225.28l241.152 109.056c17.92 6.656 24.576 25.088 17.92 43.52z" />
+          </svg>
+          <span class="ms-3">4 minutes</span>
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M455.68 404.032l91.264 529.152s67.456-69.44 123.136-117.888L792.512 979.2c4.928 6.656 15.68 7.104 23.872 1.088l52.288-38.208c8.256-6.016 10.944-16.32 5.952-22.976L755.52 759.68c62.208-25.088 164.672-53.632 164.672-53.632L455.68 404.032zM308.352 648.384L172.48 747.712c-20.544 15.04-24.256 43.968-8 65.408 16.256 21.376 46.272 27.008 66.752 12.032l135.872-99.328c20.992-15.36 24.512-45.504 8.256-66.88-16.192-21.44-46.016-25.92-67.008-10.56z m641.344-409.408C933.44 217.6 904.064 212.8 882.624 228.48l-134.912 98.688c-21.44 15.68-25.152 44.672-8.896 66.048 16.256 21.376 46.272 27.008 67.712 11.328l134.912-98.688c21.44-15.68 24.512-45.504 8.256-66.88z m-630.4-102.144c-15.936-20.928-45.248-25.728-66.752-10.048-20.096 14.72-24.256 43.968-8.32 64.896L349.76 330.496c15.936 20.992 45.696 25.408 65.792 10.688 21.44-15.68 25.216-44.608 9.28-65.6L319.296 136.832zM585.792 301.76c26.176 4.224 50.24-13.376 53.632-39.232L660.608 94.72c3.392-25.792-14.976-49.984-41.536-54.656-26.176-4.224-50.24 13.376-53.632 39.168l-21.248 167.872c-3.264 25.856 15.104 49.984 41.6 54.656zM329.728 489.024c2.56-25.92-15.808-50.048-41.536-54.656L118.144 406.4c-27.072-3.584-50.688 13.696-53.632 39.232-3.904 26.944 14.464 51.072 41.536 54.656l170.048 27.968c25.728 4.48 49.408-12.8 53.632-39.232z" />
+          </svg>
+          <p class="ms-3">
+            <span
+              id="twikoo_visitors"
+              class="page-info-pageview-count"
+              data-path="/2025/07/20/unsloth-finetune-gemma3/"
+              >...</span
+            >
+            views
+          </p>
+        </div>
+      </li>
+    
+  </ul>
+
+  <div data-popper-arrow></div>
+</div>
+
+        
+          
+          
+            <div id="post-feature" class="-mx-5">
+              <img
+                class="h-60 w-full object-cover md:h-120"
+                src="https://iohub.github.io/images/posts/20.jpg"
+                alt="preview image"
+                srcset="" />
+            </div>
+          
+        
+
+        
+        <div
+          id="single-content"
+          class="format mx-auto max-w-none px-1 py-5 md:format-base dark:format-invert format-figure:flex format-figure:flex-col format-figure:items-center format-img:cursor-zoom-in md:px-3 lg:px-10 dark:text-gray-300">
+          <h1 class="group head-tag" id="使用unsloth高效微调gemma-3模型完整实践指南">使用Unsloth高效微调Gemma-3模型：完整实践指南<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e4%bd%bf%e7%94%a8unsloth%e9%ab%98%e6%95%88%e5%be%ae%e8%b0%83gemma-3%e6%a8%a1%e5%9e%8b%e5%ae%8c%e6%95%b4%e5%ae%9e%e8%b7%b5%e6%8c%87%e5%8d%97"></a></h1><h2 class="group head-tag" id="概述">概述<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%a6%82%e8%bf%b0"></a></h2><p>在大语言模型微调领域，效率和性能的平衡一直是开发者关注的焦点。Unsloth作为一个高效的微调框架，通过优化内存使用和训练速度，让我们能够在有限的硬件资源上实现高质量的模型微调。本文将详细介绍如何使用Unsloth对Gemma-3模型进行微调，并提供完整的代码实现和最佳实践。</p>
+<h2 class="group head-tag" id="目录概览">目录概览<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%9b%ae%e5%bd%95%e6%a6%82%e8%a7%88"></a></h2><p>我们的微调项目包含以下核心组件：</p>
+<pre tabindex="0"><code>gemma3/
+├── unsloth-finetune-gemma3.py    # 主要微调脚本
+├── run-unsloth-finetune.sh       # 运行脚本
+├── start_tensorboard.sh          # TensorBoard监控脚本
+├── requirements.txt              # 依赖配置
+├── training_logs/                # 训练日志目录
+└── training_outputs/             # 模型输出目录
+</code></pre><h2 class="group head-tag" id="环境配置与依赖管理">环境配置与依赖管理<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae%e4%b8%8e%e4%be%9d%e8%b5%96%e7%ae%a1%e7%90%86"></a></h2><h3 class="group head-tag" id="核心依赖">核心依赖<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%a0%b8%e5%bf%83%e4%be%9d%e8%b5%96"></a></h3><p>项目使用了以下关键依赖：</p>
+<ul>
+<li><strong>unsloth</strong>: 高效微调框架</li>
+<li><strong>transformers</strong>: Hugging Face模型库</li>
+<li><strong>trl</strong>: Transformer Reinforcement Learning</li>
+<li><strong>datasets</strong>: 数据集处理</li>
+<li><strong>tensorboard</strong>: 训练监控</li>
+<li><strong>bitsandbytes</strong>: 量化支持</li>
+</ul>
+<h3 class="group head-tag" id="环境设置">环境设置<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%8e%af%e5%a2%83%e8%ae%be%e7%bd%ae"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 设置Hugging Face镜像加速下载</span>
+</span></span><span style="display:flex;"><span>export HF_ENDPOINT<span style="color:#f92672">=</span>https://hf-mirror.com
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 指定GPU设备</span>
+</span></span><span style="display:flex;"><span>export CUDA_VISIBLE_DEVICES<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h2 class="group head-tag" id="模型加载与配置">模型加载与配置<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%a8%a1%e5%9e%8b%e5%8a%a0%e8%bd%bd%e4%b8%8e%e9%85%8d%e7%bd%ae"></a></h2><h3 class="group head-tag" id="模型初始化">模型初始化<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%a8%a1%e5%9e%8b%e5%88%9d%e5%a7%8b%e5%8c%96"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> unsloth <span style="color:#f92672">import</span> FastModel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model, tokenizer <span style="color:#f92672">=</span> FastModel<span style="color:#f92672">.</span>from_pretrained(
+</span></span><span style="display:flex;"><span>    model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/media/do/llmhub/modelhub/gemma-3-4b-it&#34;</span>,
+</span></span><span style="display:flex;"><span>    dtype<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>    max_seq_length<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span>,
+</span></span><span style="display:flex;"><span>    load_in_4bit<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,      <span style="color:#75715e"># 4-bit量化，显著减少内存使用</span>
+</span></span><span style="display:flex;"><span>    load_in_8bit<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>    full_finetuning<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>   <span style="color:#75715e"># 使用PEFT而非全量微调</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 class="group head-tag" id="lora配置">LoRA配置<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#lora%e9%85%8d%e7%bd%ae"></a></h3><p>使用低秩适应(LoRA)技术进行参数高效微调：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> FastModel<span style="color:#f92672">.</span>get_peft_model(
+</span></span><span style="display:flex;"><span>    model,
+</span></span><span style="display:flex;"><span>    finetune_vision_layers<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>    finetune_language_layers<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    finetune_attention_modules<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,   <span style="color:#75715e"># 注意力模块对GRPO训练有益</span>
+</span></span><span style="display:flex;"><span>    finetune_mlp_modules<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    r<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>,                    <span style="color:#75715e"># 秩参数：越大精度越高，但可能过拟合</span>
+</span></span><span style="display:flex;"><span>    lora_alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>,          <span style="color:#75715e"># 推荐 alpha == r</span>
+</span></span><span style="display:flex;"><span>    lora_dropout<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    bias<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;none&#34;</span>,
+</span></span><span style="display:flex;"><span>    random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">3407</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 class="group head-tag" id="数据处理与模板配置">数据处理与模板配置<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86%e4%b8%8e%e6%a8%a1%e6%9d%bf%e9%85%8d%e7%bd%ae"></a></h2><h3 class="group head-tag" id="聊天模板设置">聊天模板设置<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e8%81%8a%e5%a4%a9%e6%a8%a1%e6%9d%bf%e8%ae%be%e7%bd%ae"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> unsloth.chat_templates <span style="color:#f92672">import</span> get_chat_template
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tokenizer <span style="color:#f92672">=</span> get_chat_template(
+</span></span><span style="display:flex;"><span>    tokenizer,
+</span></span><span style="display:flex;"><span>    chat_template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gemma-3&#34;</span>,  <span style="color:#75715e"># 使用Gemma-3专用模板</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 class="group head-tag" id="数据格式化">数据格式化<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%95%b0%e6%8d%ae%e6%a0%bc%e5%bc%8f%e5%8c%96"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">formatting_prompts_func</span>(examples):
+</span></span><span style="display:flex;"><span>    convos <span style="color:#f92672">=</span> examples[<span style="color:#e6db74">&#34;conversations&#34;</span>]
+</span></span><span style="display:flex;"><span>    texts <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        tokenizer<span style="color:#f92672">.</span>apply_chat_template(
+</span></span><span style="display:flex;"><span>            convo, 
+</span></span><span style="display:flex;"><span>            tokenize<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, 
+</span></span><span style="display:flex;"><span>            add_generation_prompt<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        )<span style="color:#f92672">.</span>removeprefix(<span style="color:#e6db74">&#39;&lt;bos&gt;&#39;</span>) 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> convo <span style="color:#f92672">in</span> convos
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;text&#34;</span>: texts}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载并格式化数据集</span>
+</span></span><span style="display:flex;"><span>dataset <span style="color:#f92672">=</span> load_dataset(<span style="color:#e6db74">&#34;mlabonne/FineTome-100k&#34;</span>, split<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;train&#34;</span>)
+</span></span><span style="display:flex;"><span>dataset <span style="color:#f92672">=</span> standardize_data_formats(dataset)
+</span></span><span style="display:flex;"><span>dataset <span style="color:#f92672">=</span> dataset<span style="color:#f92672">.</span>map(formatting_prompts_func, batched<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span></code></pre></div><h2 class="group head-tag" id="训练配置优化">训练配置优化<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e8%ae%ad%e7%bb%83%e9%85%8d%e7%bd%ae%e4%bc%98%e5%8c%96"></a></h2><h3 class="group head-tag" id="sfttrainer配置">SFTTrainer配置<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#sfttrainer%e9%85%8d%e7%bd%ae"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> trl <span style="color:#f92672">import</span> SFTTrainer, SFTConfig
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>trainer <span style="color:#f92672">=</span> SFTTrainer(
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">=</span>model,
+</span></span><span style="display:flex;"><span>    tokenizer<span style="color:#f92672">=</span>tokenizer,
+</span></span><span style="display:flex;"><span>    train_dataset<span style="color:#f92672">=</span>dataset,
+</span></span><span style="display:flex;"><span>    eval_dataset<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">=</span>SFTConfig(
+</span></span><span style="display:flex;"><span>        dataset_text_field<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span>,
+</span></span><span style="display:flex;"><span>        output_dir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./training_outputs&#34;</span>,
+</span></span><span style="display:flex;"><span>        logging_dir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./training_logs&#34;</span>,
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 批次配置</span>
+</span></span><span style="display:flex;"><span>        per_device_train_batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>        gradient_accumulation_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,  <span style="color:#75715e"># 梯度累积模拟更大批次</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 训练步数</span>
+</span></span><span style="display:flex;"><span>        max_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>,                   <span style="color:#75715e"># 快速验证设置</span>
+</span></span><span style="display:flex;"><span>        warmup_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 优化器配置</span>
+</span></span><span style="display:flex;"><span>        learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">2e-4</span>,            <span style="color:#75715e"># 短训练用2e-4，长训练建议2e-5</span>
+</span></span><span style="display:flex;"><span>        optim<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;adamw_8bit&#34;</span>,           <span style="color:#75715e"># 8-bit优化器节省内存</span>
+</span></span><span style="display:flex;"><span>        weight_decay<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>,
+</span></span><span style="display:flex;"><span>        lr_scheduler_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;linear&#34;</span>,
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 日志和保存</span>
+</span></span><span style="display:flex;"><span>        logging_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        save_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>        save_strategy<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;steps&#34;</span>,
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 监控配置</span>
+</span></span><span style="display:flex;"><span>        report_to<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tensorboard&#34;</span>,
+</span></span><span style="display:flex;"><span>        run_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gemma3-finetune&#34;</span>,
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 性能优化</span>
+</span></span><span style="display:flex;"><span>        dataloader_num_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>        seed<span style="color:#f92672">=</span><span style="color:#ae81ff">3407</span>,
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 class="group head-tag" id="响应专用训练">响应专用训练<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%93%8d%e5%ba%94%e4%b8%93%e7%94%a8%e8%ae%ad%e7%bb%83"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> unsloth.chat_templates <span style="color:#f92672">import</span> train_on_responses_only
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>trainer <span style="color:#f92672">=</span> train_on_responses_only(
+</span></span><span style="display:flex;"><span>    trainer,
+</span></span><span style="display:flex;"><span>    instruction_part<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;start_of_turn&gt;user</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>    response_part<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;start_of_turn&gt;model</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 class="group head-tag" id="性能优化策略">性能优化策略<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96%e7%ad%96%e7%95%a5"></a></h2><h3 class="group head-tag" id="内存优化">内存优化<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%86%85%e5%ad%98%e4%bc%98%e5%8c%96"></a></h3><ol>
+<li><strong>动态编译限制配置</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 解决dynamo重编译限制问题</span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>_dynamo<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>cache_size_limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>_dynamo<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>accumulated_cache_size_limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">256</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 备选方案：完全禁用torch编译</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># torch._dynamo.config.disable = True</span>
+</span></span></code></pre></div><ol start="2">
+<li>
+<p><strong>量化策略</strong></p>
+<ul>
+<li>4-bit量化：显著减少内存占用</li>
+<li>8-bit优化器：进一步优化内存使用</li>
+</ul>
+</li>
+<li>
+<p><strong>梯度累积</strong></p>
+<ul>
+<li>使用小批次 + 梯度累积模拟大批次效果</li>
+<li>平衡内存使用和训练效果</li>
+</ul>
+</li>
+</ol>
+<h2 class="group head-tag" id="监控与可视化">监控与可视化<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%9b%91%e6%8e%a7%e4%b8%8e%e5%8f%af%e8%a7%86%e5%8c%96"></a></h2><h3 class="group head-tag" id="tensorboard集成">TensorBoard集成<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#tensorboard%e9%9b%86%e6%88%90"></a></h3><p>项目提供了自动化的TensorBoard启动脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e"># 检查并安装TensorBoard</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ! command -v tensorboard &amp;&gt; /dev/null; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;安装TensorBoard...&#34;</span>
+</span></span><span style="display:flex;"><span>    pip install tensorboard
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建必要目录</span>
+</span></span><span style="display:flex;"><span>mkdir -p ./training_logs
+</span></span><span style="display:flex;"><span>mkdir -p ./training_outputs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启动TensorBoard</span>
+</span></span><span style="display:flex;"><span>tensorboard --logdir<span style="color:#f92672">=</span>./training_logs --port<span style="color:#f92672">=</span><span style="color:#ae81ff">6006</span> --host<span style="color:#f92672">=</span>0.0.0.0
+</span></span></code></pre></div><p>通过访问 <code>http://localhost:6006</code> 可以实时监控：</p>
+<ul>
+<li>训练损失变化</li>
+<li>学习率调度</li>
+<li>梯度分布</li>
+<li>模型参数变化</li>
+</ul>
+<h2 class="group head-tag" id="最佳实践建议">最佳实践建议<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5%e5%bb%ba%e8%ae%ae"></a></h2><h3 class="group head-tag" id="1-参数调优">1. 参数调优<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#1-%e5%8f%82%e6%95%b0%e8%b0%83%e4%bc%98"></a></h3><ul>
+<li><strong>学习率</strong>：短期训练使用2e-4，长期训练建议2e-5</li>
+<li><strong>LoRA秩</strong>：从8开始，根据任务复杂度调整</li>
+<li><strong>批次大小</strong>：通过梯度累积平衡内存和效果</li>
+</ul>
+<h3 class="group head-tag" id="2-数据质量">2. 数据质量<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#2-%e6%95%b0%e6%8d%ae%e8%b4%a8%e9%87%8f"></a></h3><ul>
+<li>确保数据格式符合模型期望</li>
+<li>使用高质量、多样化的训练数据</li>
+<li>考虑数据的平衡性和代表性</li>
+</ul>
+<h3 class="group head-tag" id="3-监控要点">3. 监控要点<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#3-%e7%9b%91%e6%8e%a7%e8%a6%81%e7%82%b9"></a></h3><ul>
+<li>关注训练损失收敛情况</li>
+<li>监控GPU内存使用率</li>
+<li>定期保存检查点</li>
+</ul>
+<h3 class="group head-tag" id="4-资源管理">4. 资源管理<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#4-%e8%b5%84%e6%ba%90%e7%ae%a1%e7%90%86"></a></h3><ul>
+<li>合理设置CUDA设备</li>
+<li>使用适当的量化策略</li>
+<li>优化数据加载器的工作进程数</li>
+</ul>
+<h2 class="group head-tag" id="运行流程">运行流程<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e8%bf%90%e8%a1%8c%e6%b5%81%e7%a8%8b"></a></h2><h3 class="group head-tag" id="1-环境准备">1. 环境准备<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#1-%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 安装依赖</span>
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启动TensorBoard监控</span>
+</span></span><span style="display:flex;"><span>./start_tensorboard.sh
+</span></span></code></pre></div><h3 class="group head-tag" id="2-开始训练">2. 开始训练<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#2-%e5%bc%80%e5%a7%8b%e8%ae%ad%e7%bb%83"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 运行微调脚本</span>
+</span></span><span style="display:flex;"><span>./run-unsloth-finetune.sh
+</span></span></code></pre></div><h3 class="group head-tag" id="3-监控训练">3. 监控训练<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#3-%e7%9b%91%e6%8e%a7%e8%ae%ad%e7%bb%83"></a></h3><ul>
+<li>通过TensorBoard查看训练进度</li>
+<li>监控控制台输出的内存使用情况</li>
+<li>检查训练日志文件</li>
+</ul>
+<h2 class="group head-tag" id="结论">结论<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%bb%93%e8%ae%ba"></a></h2><p>Unsloth框架为大语言模型微调提供了高效、易用的解决方案。通过合理配置LoRA参数、优化内存使用、集成监控工具，我们能够在有限的硬件资源上实现高质量的模型微调。</p>
+<p>关键优势：</p>
+<ul>
+<li><strong>内存效率</strong>：4-bit量化 + LoRA大幅减少内存需求</li>
+<li><strong>训练速度</strong>：优化的计算图和缓存机制</li>
+<li><strong>易用性</strong>：简洁的API和丰富的预设模板</li>
+<li><strong>监控支持</strong>：完整的TensorBoard集成</li>
+</ul>
+<p>这个实践案例展示了如何系统性地构建一个完整的微调流程，从环境配置到模型部署，为实际项目提供了可靠的参考框架。</p>
+<h2 class="group head-tag" id="扩展资源">扩展资源<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%89%a9%e5%b1%95%e8%b5%84%e6%ba%90"></a></h2><ul>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://github.com/unslothai/unsloth"
+  target="_blank"
+  >Unsloth官方文档</a
+>
+</li>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://arxiv.org/abs/2106.09685"
+  target="_blank"
+  >LoRA论文原文</a
+>
+</li>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://huggingface.co/google/gemma-3-4b-it"
+  target="_blank"
+  >Gemma模型详细信息</a
+>
+</li>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://huggingface.co/datasets/mlabonne/FineTome-100k"
+  target="_blank"
+  >FineTome数据集</a
+>
+</li>
+</ul>
+
+        </div>
+
+        
+        <hr class="mx-1 my-1 md:mx-3 lg:mx-10" />
+
+        
+        <div
+          class="flex flex-col justify-start px-1 pb-5 pt-1 md:px-3 lg:flex-row lg:justify-between lg:px-10">
+          
+          
+          
+            <div class="flex flex-row flex-wrap items-center">
+              
+                <a
+                  class="mx-1 my-0.5 rounded-lg border border-gray-200 px-1.5 py-1 text-center text-xs text-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600"
+                  href="https://iohub.github.io/tags/finetune/"
+                  >finetune</a
+                >
+              
+                <a
+                  class="mx-1 my-0.5 rounded-lg border border-gray-200 px-1.5 py-1 text-center text-xs text-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600"
+                  href="https://iohub.github.io/tags/unsloth/"
+                  >unsloth</a
+                >
+              
+            </div>
+          
+
+        </div>
+      </div>
+    </div>
+
+    
+    
+      <div id="post-comment">
+
+
+
+
+  <div id="twikoo-comment"></div>
+  <script
+    defer
+    src="https://cdn.staticfile.org/twikoo/1.6.29/twikoo.all.min.js"
+    crossorigin="anonymous"></script>
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <script
+    defer
+    type="module"
+    src="/js/comment-twikoo.min.c9897800a9414d7de6a754483c8a72170d51ba68d3b375021abd5b21ccdbd520.js"></script>
+
+
+
+
+  
+
+</div>
+    
+  </div>
+<div data-dial-init class="group fixed bottom-24 end-8 md:end-20">
+  <div
+    id="speed-dial-menu-bottom-right"
+    class="mb-4 flex hidden flex-col items-center space-y-2">
+    
+    
+      <button
+        id="to-top-button"
+        type="button"
+        data-tooltip-target="tooltip-top"
+        data-tooltip-placement="left"
+        class="flex hidden h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M629.333333 853.333333h-234.666666c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h234.666666c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32zM842.666667 360.533333L535.466667 113.066667c-12.8-8.533333-27.733333-8.533333-40.533334 0L183.466667 360.533333c-6.4 6.4-12.8 14.933333-12.8 23.466667 0 2.133333 0 6.4 2.133333 8.533333 2.133333 12.8 14.933333 21.333333 27.733333 21.333334h155.733334v236.8c0 19.2 12.8 29.866667 32 29.866666h249.6c21.333333 0 34.133333-12.8 34.133333-29.866666v-234.666667h151.466667c12.8 0 25.6-8.533333 27.733333-21.333333s0-25.6-8.533333-34.133334zM629.333333 746.666667h-234.666666c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h234.666666c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32z"></path>
+        </svg>
+        <span class="sr-only">Top</span>
+      </button>
+      <div
+        id="tooltip-top"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Top
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+    
+
+    
+      
+      <button
+        type="button"
+        data-tooltip-target="tooltip-toc"
+        data-tooltip-placement="left"
+        data-drawer-target="drawer-body-scrolling-toc"
+        data-drawer-show="drawer-body-scrolling-toc"
+        data-drawer-body-scrolling="true"
+        aria-controls="drawer-body-scrolling-toc"
+        class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1">
+          <path
+            d="M901.8 313.5H354.4c-32 0-58.2-26.2-58.2-58.2v-18.1c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 246.2m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+          <path
+            d="M901.8 579.3H354.4c-32 0-58.2-26.2-58.2-58.2V503c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 512m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+          <path
+            d="M901.8 845.1H354.4c-32 0-58.2-26.2-58.2-58.2v-18.1c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 777.8m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+        </svg>
+
+        <span class="sr-only">Catelog</span>
+      </button>
+      <div
+        id="tooltip-toc"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Catelog
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+
+      
+      
+        <button
+          id="to-comment-button"
+          type="button"
+          data-tooltip-target="tooltip-comment"
+          data-tooltip-placement="left"
+          class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+          <svg
+            class="h-5 w-5"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M940.373333 896H83.626667c-17.066667 0-32.426667 13.653333-32.426667 32.426667 0 17.066667 13.653333 32.426667 32.426667 32.426666h858.453333c17.066667 0 32.426667-13.653333 32.426667-32.426666-1.706667-17.066667-15.36-32.426667-34.133334-32.426667zM201.386667 752.64H341.333333c10.24 0 20.48-3.413333 27.306667-11.946667L839.68 273.066667c15.36-15.36 15.36-40.96 0-56.32L699.733333 75.093333c-6.826667-6.826667-17.066667-11.946667-27.306666-11.946666-10.24 0-20.48 3.413333-27.306667 11.946666L174.08 546.133333c-6.826667 6.826667-11.946667 17.066667-11.946667 27.306667v139.946667c0 22.186667 18.773333 39.253333 39.253334 39.253333z"></path>
+          </svg>
+          <span class="sr-only">Comment</span>
+        </button>
+        <div
+          id="tooltip-comment"
+          role="tooltip"
+          class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+          
+            <p id="speed-comment-count-id" class="whitespace-nowrap">Comment</p>
+          
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+      
+    
+
+
+    
+    <button
+      type="button"
+      data-drawer-target="drawer-body-scrolling"
+      data-drawer-show="drawer-body-scrolling"
+      data-drawer-body-scrolling="true"
+      aria-controls="drawer-body-scrolling"
+      data-tooltip-target="tooltip-tags"
+      data-tooltip-placement="left"
+      class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+      <svg
+        class="h-5 w-5"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M96.512 454.272h839.84a78.752 78.752 0 0 1 78.752 78.752v8.704a78.752 78.752 0 0 1-78.752 78.752H96.512a78.752 78.752 0 0 1-78.752-78.752v-8.704a78.752 78.752 0 0 1 78.752-78.752zM571.872 232.672H904.32a55.424 55.424 0 0 1 0 110.848H571.872a55.424 55.424 0 0 1 0-110.848zM350.208 731.36h332.448a55.424 55.424 0 0 1 0 110.848H350.208a55.424 55.424 0 0 1 0-110.848zM128.544 177.248h221.664a55.424 55.424 0 0 1 0 110.848H128.544a55.424 55.424 0 0 1 0-110.848z"
+          p-id="22696"></path>
+      </svg>
+      <span class="sr-only">Tags</span>
+    </button>
+    <div
+      id="tooltip-tags"
+      role="tooltip"
+      class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+      Tags
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+
+    
+    
+      <button
+        id="to-bottom-button"
+        type="button"
+        data-tooltip-target="tooltip-bottom"
+        data-tooltip-placement="left"
+        class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M635.733333 341.333333c19.2 0 32 12.8 32 29.866667v236.8h155.733334c12.8 0 25.6 8.533333 27.733333 21.333333 2.133333 4.266667 2.133333 6.4 2.133333 10.666667 0 8.533333-6.4 19.2-12.8 25.6L529.066667 910.933333c-12.8 8.533333-27.733333 8.533333-40.533334 0L181.333333 663.466667c-8.533333-8.533333-12.8-21.333333-8.533333-34.133334 2.133333-12.8 14.933333-21.333333 27.733333-21.333333h151.466667V371.2c0-19.2 12.8-29.866667 34.133333-29.866667h249.6z m-6.4-128c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32h-234.666666c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h234.666666z m0-106.666666c17.066667 0 32 14.933333 32 32S646.4 170.666667 629.333333 170.666667h-234.666666c-17.066667 0-32-14.933333-32-32S377.6 106.666667 394.666667 106.666667h234.666666z"></path>
+        </svg>
+        <span class="sr-only">Bottom</span>
+      </button>
+      <div
+        id="tooltip-bottom"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Bottom
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+    
+  </div>
+
+  <button
+    type="button"
+    data-dial-toggle="speed-dial-menu-bottom-right"
+    aria-controls="speed-dial-menu-bottom-right"
+    aria-expanded="false"
+    class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-700 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <svg
+      class="h-5 w-5 transition-transform group-hover:rotate-45"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 18 18">
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 1v16M1 9h16" />
+    </svg>
+    <span class="sr-only">Open actions menu</span>
+  </button>
+</div>
+<div
+  id="drawer-body-scrolling"
+  class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform md:w-80 lg:w-96 dark:bg-gray-800"
+  tabindex="-1"
+  aria-labelledby="drawer-body-scrolling-label">
+  <h5
+    id="drawer-body-scrolling-label"
+    class="text-base font-semibold uppercase text-gray-500 dark:text-gray-400">
+    TAGS
+  </h5>
+  <button
+    type="button"
+    data-drawer-hide="drawer-body-scrolling"
+    aria-controls="drawer-body-scrolling"
+    class="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg
+      class="h-3 w-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 14 14">
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+    </svg>
+    <span class="sr-only">Close tags</span>
+  </button>
+
+  <div class="overflow-y-auto py-3">
+    <div class="flex flex-wrap justify-center gap-2 p-3">
+      
+        <a
+          href="https://iohub.github.io/tags/bugfix/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">bugfix</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/cuda/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">cuda</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/doc/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">doc</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/finetune/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">finetune</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/huggingface/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">huggingface</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >3</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/llamacpp/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">llamacpp</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/lora/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">lora</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/nccl/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">nccl</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/python/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">python</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >3</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/quantization/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">quantization</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/starcoder/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">starcoder</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/torch/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">torch</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >2</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/transformers/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">transformers</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/unsloth/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">unsloth</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+        <a
+          href="https://iohub.github.io/tags/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/"
+          class="group flex items-center rounded-lg border p-2 text-xs text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <span class="flex-1 whitespace-nowrap">配置参数</span>
+          <span
+            class="ms-2 inline-flex h-2 w-2 items-center justify-center rounded-full bg-blue-100 p-2 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+            >1</span
+          >
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+<div
+  id="drawer-body-scrolling-toc"
+  class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800 md:w-80 lg:w-96"
+  tabindex="-1"
+  aria-labelledby="drawer-body-scrolling-toc-label">
+  <h5
+    id="drawer-body-scrolling-toc-label"
+    class="text-base font-semibold text-gray-500 dark:text-gray-400">
+    On this page
+  </h5>
+  <button
+    type="button"
+    data-drawer-hide="drawer-body-scrolling-toc"
+    aria-controls="drawer-body-scrolling-toc"
+    class="absolute end-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg
+      class="h-3 w-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 14 14">
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+    </svg>
+    <span class="sr-only">Close menu</span>
+  </button>
+  <div class="overflow-y-auto py-4">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#目录概览">目录概览</a></li>
+    <li><a href="#环境配置与依赖管理">环境配置与依赖管理</a>
+      <ul>
+        <li><a href="#核心依赖">核心依赖</a></li>
+        <li><a href="#环境设置">环境设置</a></li>
+      </ul>
+    </li>
+    <li><a href="#模型加载与配置">模型加载与配置</a>
+      <ul>
+        <li><a href="#模型初始化">模型初始化</a></li>
+        <li><a href="#lora配置">LoRA配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据处理与模板配置">数据处理与模板配置</a>
+      <ul>
+        <li><a href="#聊天模板设置">聊天模板设置</a></li>
+        <li><a href="#数据格式化">数据格式化</a></li>
+      </ul>
+    </li>
+    <li><a href="#训练配置优化">训练配置优化</a>
+      <ul>
+        <li><a href="#sfttrainer配置">SFTTrainer配置</a></li>
+        <li><a href="#响应专用训练">响应专用训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#性能优化策略">性能优化策略</a>
+      <ul>
+        <li><a href="#内存优化">内存优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#监控与可视化">监控与可视化</a>
+      <ul>
+        <li><a href="#tensorboard集成">TensorBoard集成</a></li>
+      </ul>
+    </li>
+    <li><a href="#最佳实践建议">最佳实践建议</a>
+      <ul>
+        <li><a href="#1-参数调优">1. 参数调优</a></li>
+        <li><a href="#2-数据质量">2. 数据质量</a></li>
+        <li><a href="#3-监控要点">3. 监控要点</a></li>
+        <li><a href="#4-资源管理">4. 资源管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#运行流程">运行流程</a>
+      <ul>
+        <li><a href="#1-环境准备">1. 环境准备</a></li>
+        <li><a href="#2-开始训练">2. 开始训练</a></li>
+        <li><a href="#3-监控训练">3. 监控训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#结论">结论</a></li>
+    <li><a href="#扩展资源">扩展资源</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+
+
+  
+
+<script type="module" src="/js/to-top-or-bottom.min.38b6a1a23c3859c79a2a6eb832cb844e469e3832c6c820c96e1ee83522ad1c2d.js"></script>
+<script>
+  document.getElementById("to-comment-button").addEventListener("click", () => {
+    console.log("go to comments");
+    window.scrollTo({
+      top: document.getElementById("post-comment").offsetTop - 100,
+      behavior: "smooth",
+    });
+  });
+</script>
+
+<div
+  id="img-zoom"
+  class="m-h-screen fixed inset-0 left-0 top-0 z-30 mx-auto hidden h-full w-full cursor-zoom-out items-center justify-center bg-black/90"
+>
+  <div id="img-content" class="my-20 h-5/6 w-11/12 bg-contain bg-center bg-no-repeat opacity-100 md:w-10/12"></div>
+</div>
+
+
+
+
+    
+<div
+  id="search-overlay"
+  class="fixed inset-0 z-50 hidden bg-gray-900/90 backdrop-blur-lg dark:bg-gray-900/80"></div>
+<section id="search-section" class="z-50 flex hidden h-dvh w-full flex-col">
+  
+  <div
+    class="flex h-dvh w-full flex-col overflow-auto md:mx-auto md:w-2/3 lg:max-w-2xl">
+    
+    <div
+      id="searchBoxDiv"
+      class="sticky top-[-88px] z-50 flex flex-row justify-between px-8 pt-[88px]">
+      <div id="searchBox" class="my-6 flex w-full flex-row items-center"></div>
+    </div>
+
+    
+    <div class="h-[30rem] overflow-auto">
+      <div id="searchResults" class="my-3 px-6"></div>
+      <div
+        id="NotSearchResults"
+        class="hidden flex-col items-center justify-around space-y-4 px-6 py-10">
+        <p class="font-Oswald text-lg font-bold tracking-wide text-gray-500">
+          No search content
+        </p>
+      </div>
+      <div
+        id="searchError"
+        class="hidden flex-col items-center justify-around space-y-4 px-6 py-10 text-center ">
+        <p class="font-Oswald text-lg font-bold text-red-500">
+          Oop ! Error occur ...
+        </p>
+      </div>
+      <div
+        id="searchLoading"
+        class="hidden flex-col items-center justify-around px-6 py-10">
+        <svg
+          t="1689331200868"
+          class="icon animate-spin"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="51409"
+          width="128"
+          height="128">
+          <path
+            d="M512 170.666667v85.333333a256 256 0 1 1-223.573333 131.2L213.930667 345.6A341.333333 341.333333 0 1 0 512 170.666667z"
+            fill="#bfbfbf"
+            opacity=".3"
+            p-id="51410"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <div
+    class="bottom-0 flex flex-col items-center justify-center space-y-2 py-8 font-Oswald text-xs font-bold text-gray-600">
+    <div class="hidden md:block">Press ESC to cancle</div>
+    <div class="flex items-center">
+      <span class="">Powered by &nbsp;</span>
+      <img src="/images/default/algolia-logo.svg" alt="" class="h-4" />
+    </div>
+  </div>
+</section>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.2/dist/algoliasearch-lite.umd.js"
+  integrity="sha256-X2G+vjV8i6Jj2NSGFTvy6Z4q2AlmF5aH0HiIpWJ8eU4="
+  crossorigin="anonymous"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.56.3/dist/instantsearch.production.min.js"
+  integrity="sha256-mWvjWAfZylKMOg+S3HLq+wng1HHRnl2Idr2r8NsUzIU="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+
+<script src="/js/search.min.3059d56d0f82f599aef21375a07d20f05fbffed10a16f7f7292a2ad825032e01.js"></script>
+<footer
+  class="mx-auto flex w-full max-w-screen-xl flex-col-reverse items-center gap-y-3 border-t border-gray-200 py-6 dark:border-gray-700 md:px-12 lg:flex-row lg:justify-between">
+  
+  <div
+    class="flex flex-col items-center justify-between space-y-3 text-xs text-gray-500 dark:text-gray-200 lg:items-start">
+    
+    <div class="items-center font-Montserrat font-thin">
+      &copy;
+      
+      
+      
+        2022 -
+        2025
+      
+
+      Seven. All Rights Reserved
+    </div>
+  </div>
+
+  
+  <div
+    class="flex flex-row items-center font-Montserrat text-xs font-thin text-gray-500 dark:text-gray-200">
+    <span>Powered By</span>
+    <a href="https://gohugo.io/" aria-label="hugo link">
+      <img
+        src="/images/default/hugo-logo-wide.svg"
+        alt="Hugo"
+        class="mx-1 h-3" />
+    </a>
+    <span> &#8739; Based on Theme</span>
+    <a
+      href="https://github.com/mrhelloboy/seven"
+      aria-label="The github address of seven theme"
+      class="">
+      <img
+        id="footer-theme-light-logo"
+        src="/images/default/seven-logo.svg"
+        alt="seven theme logo"
+        class="mx-1 h-5" />
+
+      <img
+        id="footer-theme-dark-logo"
+        src="/images/default/seven-logo-dark.svg"
+        alt="seven theme logo"
+        class="mx-1 hidden h-5" />
+    </a>
+  </div>
+
+  
+  <div
+    class="mt-4 flex space-x-5 rtl:space-x-reverse sm:justify-center md:mt-0">
+    
+      
+      
+
+      
+
+      
+
+      
+    
+      
+        <a
+          href="mailto:rickyang.pro@gmail.com"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M513 583.8l448.5-448.5c-11.6-4.7-24.3-7.3-37.5-7.3H100c-12.7 0-24.9 2.4-36.1 6.7L513 583.8z"
+              p-id="88208"></path>
+            <path
+              d="M513 674.3L14.6 175.9C5.3 191.1 0 208.9 0 228v568c0 55.2 44.8 100 100 100h824c55.2 0 100-44.8 100-100V228c0-18.5-5.1-35.9-13.9-50.8L513 674.3z"
+              p-id="88209"></path>
+          </svg>
+          <span class="sr-only">Email page</span>
+        </a>
+      
+      
+
+      
+
+      
+
+      
+    
+      
+      
+        <a
+          href=""
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 8 19">
+            <path
+              fill-rule="evenodd"
+              d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
+              clip-rule="evenodd" />
+          </svg>
+          <span class="sr-only">Facebook page</span>
+        </a>
+      
+
+      
+
+      
+
+      
+    
+      
+      
+
+      
+
+      
+        <a
+          href="https://github.com/iohub"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z"
+              clip-rule="evenodd" />
+          </svg>
+          <span class="sr-only">GitHub account</span>
+        </a>
+      
+
+      
+    
+      
+      
+
+      
+
+      
+
+      
+        <button
+          data-popover-target="wechat-popover-no-arrow"
+          type="button"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 1184 1024"
+            fill="currentColor"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="1495">
+            <path
+              d="M331.424 263.424q0-23.424-14.272-37.728t-37.728-14.272q-24.576 0-43.424 14.56t-18.848 37.44q0 22.272 18.848 36.864t43.424 14.56q23.424 0 37.728-14.016t14.272-37.44zM756 553.152q0-16-14.56-28.576t-37.44-12.576q-15.424 0-28.288 12.864t-12.864 28.288q0 16 12.864 28.864t28.288 12.864q22.848 0 37.44-12.576t14.56-29.152zM621.152 263.424q0-23.424-14.016-37.728t-37.44-14.272q-24.576 0-43.424 14.56t-18.848 37.44q0 22.272 18.848 36.864t43.424 14.56q23.424 0 37.44-14.016t14.016-37.44zM984 553.152q0-16-14.848-28.576t-37.152-12.576q-15.424 0-28.288 12.864t-12.864 28.288q0 16 12.864 28.864t28.288 12.864q22.272 0 37.152-12.576t14.848-29.152zM832 326.272q-17.728-2.272-40-2.272-96.576 0-177.728 44t-127.712 119.136-46.56 164.288q0 44.576 13.152 86.848-20 1.728-38.848 1.728-14.848 0-28.576-0.864t-31.424-3.712-25.44-4-31.136-6.016-28.576-6.016l-144.576 72.576 41.152-124.576q-165.728-116-165.728-280 0-96.576 55.712-177.728t150.848-127.712 207.712-46.56q100.576 0 190.016 37.728t149.728 104.288 78.016 148.864zM1170.272 646.848q0 66.848-39.136 127.712t-106.016 110.56l31.424 103.424-113.728-62.272q-85.728 21.152-124.576 21.152-96.576 0-177.728-40.288t-127.712-109.44-46.56-150.848 46.56-150.848 127.712-109.44 177.728-40.288q92 0 173.152 40.288t130.016 109.728 48.864 150.56z"
+              p-id="1496"></path>
+          </svg>
+        </button>
+
+        <div
+          data-popover
+          id="wechat-popover-no-arrow"
+          role="tooltip"
+          class="invisible absolute z-10 inline-block hidden w-52 overflow-hidden rounded-lg border border-gray-100 bg-white text-sm text-gray-500 opacity-0 shadow-sm transition-opacity duration-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
+          <ul class="text-sm text-gray-700 dark:text-gray-200">
+            
+              <li>
+                <img src="/images/society/wechat/wechat.jpg" alt="" />
+              </li>
+            
+          </ul>
+        </div>
+      
+    
+      
+      
+
+      
+        <a
+          href=""
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+          <svg
+            class="h-4 w-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="M12.186 8.672 18.743.947h-2.927l-5.005 5.9-4.44-5.9H0l7.434 9.876-6.986 8.23h2.927l5.434-6.4 4.82 6.4H20L12.186 8.672Zm-2.267 2.671L8.544 9.515 3.2 2.42h2.2l4.312 5.719 1.375 1.828 5.731 7.613h-2.2l-4.699-6.237Z" />
+          </svg>
+
+          <span class="sr-only">X page</span>
+        </a>
+      
+
+      
+
+      
+    
+
+    
+    
+      <a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+  <svg
+    class="h-4 w-4"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 21 16">
+    <path
+      d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
+  </svg>
+  <span class="sr-only">Discord community</span>
+</a>
+
+<a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+  <svg
+    class="h-4 w-4"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 20 20">
+    <path
+      fill-rule="evenodd"
+      d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.094 20.094 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM8 1.707a8.821 8.821 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.758 45.758 0 0 0 8 1.707ZM1.642 8.262a8.57 8.57 0 0 1 4.73-5.981A53.998 53.998 0 0 1 9.54 7.222a32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.64 31.64 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM10 18.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 13.113 11a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z"
+      clip-rule="evenodd" />
+  </svg>
+  <span class="sr-only">Dribbble account</span>
+</a>
+
+    
+
+  </div>
+</footer>
+
+<script>
+  var matches = document.querySelectorAll("button[data-popover-target]");
+  for (var i = 0; i < matches.length; i++) {
+    let id = matches[i].getAttribute("data-popover-target");
+
+    matches[i].addEventListener("mouseenter", function () {
+      document.getElementById(id).classList.remove("hidden");
+    });
+
+    matches[i].addEventListener("mouseleave", function () {
+      document.getElementById(id).classList.add("hidden");
+    });
+  }
+</script>
+
+
+  
+
+<script src="/js/dark-mode.min.f4601e5679d2fc365123dbb2569483af6ba487a6873fd698326ba052b1868055.js" defer></script>
+
+  
+    
+    
+      
+    
+    <script src="/js/toc.min.5e217e8df7eeeecad3818ba808f44ec8bb744f6a71d6445164c1d804dab77b55.js"></script>
+  
+
+  
+
+  
+  
+    
+  
+  <script src="/js/zoom-img.min.b2135ae71b015677ea50e12f6b206c51a0530f747f50506c1db398dd410fcb49.js" defer></script>
+
+  
+  
+    
+  
+  <script src="/js/link-to-top.min.5076255797b394d888abffc233d1cc417a576c3908cd84108f0e0da6d48c2cc5.js" defer></script>
+
+  
+    <script>
+      document.querySelectorAll("pre > code").forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement("button");
+        copybutton.classList.add("copy-code");
+        copybutton.innerHTML = "Copy";
+
+        function copyingDone() {
+          copybutton.innerHTML = "Copied";
+          setTimeout(() => {
+            copybutton.innerHTML = "Copy";
+          }, 2000);
+        }
+
+        copybutton.addEventListener("click", (cb) => {
+          if ("clipboard" in navigator) {
+            navigator.clipboard.writeText(codeblock.textContent);
+            copyingDone();
+            return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+            document.execCommand("copy");
+            copyingDone();
+          } catch (e) {}
+          selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+          
+        } else if (
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode
+            .nodeName == "TABLE"
+        ) {
+          
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(
+            copybutton,
+          );
+        } else {
+          
+          codeblock.parentNode.appendChild(copybutton);
+        }
+      });
+    </script>
+  
+
+  <script
+    data-goatcounter="https://seven-demo.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

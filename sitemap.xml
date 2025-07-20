@@ -2,28 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://iohub.github.io/categories/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/finetune/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/categories/finetune/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/categories/llm/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/posts/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/unsloth/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/categories/unsloth/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/2025/07/20/unsloth-finetune-gemma3/</loc>
+    <lastmod>2025-07-20T16:53:25+08:00</lastmod>
+  </url><url>
     <loc>https://iohub.github.io/categories/ai/</loc>
     <lastmod>2025-07-14T23:28:13+08:00</lastmod>
   </url><url>
-    <loc>https://iohub.github.io/categories/</loc>
-    <lastmod>2025-07-14T23:28:13+08:00</lastmod>
-  </url><url>
     <loc>https://iohub.github.io/tags/cuda/</loc>
-    <lastmod>2025-07-14T23:28:13+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/</loc>
     <lastmod>2025-07-14T23:28:13+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/tags/llamacpp/</loc>
     <lastmod>2025-07-14T23:28:13+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/categories/mlsys/</loc>
-    <lastmod>2025-07-14T23:28:13+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/posts/</loc>
-    <lastmod>2025-07-14T23:28:13+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/tags/</loc>
     <lastmod>2025-07-14T23:28:13+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/2025/07/14/nsys-analysis-llamacpp/</loc>
