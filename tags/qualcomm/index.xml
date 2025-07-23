@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>llamacpp on LifeIO</title>
-    <link>https://iohub.github.io/tags/llamacpp/</link>
-    <description>Recent content in llamacpp on LifeIO</description>
+    <title>qualcomm on LifeIO</title>
+    <link>https://iohub.github.io/tags/qualcomm/</link>
+    <description>Recent content in qualcomm on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 22 Jul 2025 12:00:00 +0000</lastBuildDate>
-    <atom:link href="https://iohub.github.io/tags/llamacpp/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://iohub.github.io/tags/qualcomm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>在高通Adreno GPU上使用OpenCL运行llama.cpp</title>
       <link>https://iohub.github.io/2025/07/22/llamacpp-on-qualcomm-adreno/</link>
       <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/2025/07/22/llamacpp-on-qualcomm-adreno/</guid>
       <description>前言随着大语言模型（LLM）在移动设备上的应用需求日益增长，如何在Android设备上高效运行这些模型成为了开发者关注的焦点。本文将详细介绍</description>
-    </item>
-    <item>
-      <title>使用NVIDIA Nsight对llamacpp进行性能分析</title>
-      <link>https://iohub.github.io/2025/07/14/nsys-analysis-llamacpp/</link>
-      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
-      <guid>https://iohub.github.io/2025/07/14/nsys-analysis-llamacpp/</guid>
-      <description>使用NVIDIA Nsight Systems对llamacpp进行性能分析环境准备在开始之前，请确保您已准备以下内容： 已安装 NVIDIA Nsight Systems 一块兼容的 NVIDIA GPU llamacpp 可执行</description>
     </item>
   </channel>
 </rss>

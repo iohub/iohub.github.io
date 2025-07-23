@@ -7,4 +7,5 @@
 {"description":"使用human-eval评测代码模型","objectID":"c7edcb94fafb819ae6eb326f8d774b63","permalink":"https://iohub.github.io/2024/06/18/starcoder2-eval/","tags":["quantization","starcoder"],"title":"starcoder2量化效果评估"}
 {"description":"修复GLM4训练错误：AttributeError: 'NoneType' object has no attribute 'to'","objectID":"8422a4c426d8a023ff9688c9b7e97d7a","permalink":"https://iohub.github.io/2024/06/20/index/","tags":["bugfix","transformers"],"title":"修复Seq2SeqTrainer训练奔溃问题"}
 {"description":"Unsloth微调实践指南","objectID":"ff4cce3756bd5126340412441254fa4c","permalink":"https://iohub.github.io/2025/07/20/unsloth-finetune-gemma3/","tags":["finetune","unsloth"],"title":"使用Unsloth高效微调Gemma-3模型"}
+{"description":"高性能移动端大语言模型部署指南","objectID":"de92b9b7cf9b2388112faa755aad2180","permalink":"https://iohub.github.io/2025/07/22/llamacpp-on-qualcomm-adreno/","tags":["llamacpp","qualcomm"],"title":"在高通Adreno GPU上使用OpenCL运行llama.cpp"}
 {"description":"Nsight使用示例","objectID":"e91e1a4903f38a4cc3fb95823983f3c7","permalink":"https://iohub.github.io/2025/07/14/nsys-analysis-llamacpp/","tags":["llamacpp","cuda"],"title":"使用NVIDIA Nsight对llamacpp进行性能分析"}

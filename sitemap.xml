@@ -3,24 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://iohub.github.io/categories/</loc>
-    <lastmod>2025-07-20T21:28:39+08:00</lastmod>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/llamacpp/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/categories/llm/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/posts/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/qualcomm/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/tags/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
+  </url><url>
+    <loc>https://iohub.github.io/2025/07/22/llamacpp-on-qualcomm-adreno/</loc>
+    <lastmod>2025-07-23T22:23:47+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/tags/finetune/</loc>
     <lastmod>2025-07-20T21:28:39+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/categories/finetune/</loc>
-    <lastmod>2025-07-20T21:28:39+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/</loc>
-    <lastmod>2025-07-20T21:28:39+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/categories/llm/</loc>
-    <lastmod>2025-07-20T21:28:39+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/posts/</loc>
-    <lastmod>2025-07-20T21:28:39+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/tags/</loc>
     <lastmod>2025-07-20T21:28:39+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/tags/unsloth/</loc>
@@ -36,9 +45,6 @@
     <lastmod>2025-07-14T23:28:13+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/tags/cuda/</loc>
-    <lastmod>2025-07-14T23:28:13+08:00</lastmod>
-  </url><url>
-    <loc>https://iohub.github.io/tags/llamacpp/</loc>
     <lastmod>2025-07-14T23:28:13+08:00</lastmod>
   </url><url>
     <loc>https://iohub.github.io/categories/mlsys/</loc>

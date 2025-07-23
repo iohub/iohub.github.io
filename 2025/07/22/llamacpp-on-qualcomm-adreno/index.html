@@ -7,19 +7,16 @@
       id="viewport"
       content="width=device-width, initial-scale=1.0" />
     <title>
-      
-  tag - nccl |
-  LifeIO
-
+      在高通Adreno GPU上使用OpenCL运行llama.cpp | LifeIO
     </title><meta name="application-name" content="Seven Demo" />
 <meta name="apple-mobile-web-app-title" content="Seven Demo" />
 
 
-  <meta name="title" content="nccl" />
+  <meta name="title" content="在高通Adreno GPU上使用OpenCL运行llama.cpp" />
 
 
 
-  <meta name="description" content="Seven Demo" />
+  <meta name="description" content="高性能移动端大语言模型部署指南" />
 <meta name="theme-color" content="#ffffff" /><link rel="icon" href="/favicon.svg" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
 
 
@@ -53,7 +50,13 @@
 
 <link href="/css/styles.min.f33843b2de6e4fbc84ed92c9fecb42bd8ccb9782515cab33b039be10e42e932f.css" rel="stylesheet" />
 
-<link href="/css/custom.min.a3576bac66c3a82b69d83286136700cfa409d13273e51b6505482a06e6dd109d.css" rel="stylesheet" /><script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+<link href="/css/custom.min.a3576bac66c3a82b69d83286136700cfa409d13273e51b6505482a06e6dd109d.css" rel="stylesheet" />
+  
+  
+  
+    
+  
+  <link href="/css/image-preview.min.efb5024b06063b21933b7f8d942a808f5ca19d586b6240f4472b144108b0e0f9.css" rel="stylesheet" /><script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 <script>
   
   if (
@@ -388,51 +391,405 @@
     }
   });
 </script>
-<section class="mx-auto mt-22 w-full grow bg-white dark:bg-gray-900 md:mt-38"><div class="mx-auto flex w-full flex-col p-4 md:max-w-screen-md">
+
   
-    <div
-      class="flew-row mb-1 flex flex-wrap items-center space-x-2 rounded-lg border p-4 text-2xl font-bold text-neutral-700 dark:border-gray-700 dark:text-neutral-300">
-      <p>Tag</p>
-      <div class="h-2 w-2 rounded-full bg-green-600"></div>
-      <p>Nccl</p>
-    </div>
-  
-  <ul
-    class="relative flex flex-col gap-12 py-12 pl-6 text-sm before:absolute before:left-6 before:top-0 before:h-full before:-translate-x-1/2 before:border before:border-dashed before:border-slate-200 after:absolute after:bottom-6 after:left-6 after:top-6 after:-translate-x-1/2 after:border after:border-slate-200 lg:pl-0 lg:before:left-[8.5rem] lg:after:left-[8.5rem]">
-    
-      <li
-  class="relative pl-6 before:absolute before:left-0 before:top-2 before:z-10 before:h-2 before:w-2 before:-translate-x-1/2 before:rounded-full before:bg-emerald-500 before:ring-2 before:ring-white lg:flex lg:gap-12 lg:pl-0 lg:before:left-[8.5rem]">
-  <h4
-    class="hidden font-Oswald text-base font-light leading-7 text-gray-500 lg:block lg:w-28 lg:text-right dark:text-gray-100">
-    2024-06-05
-  </h4>
   <div
-    class="flex flex-1 flex-col gap-2 rounded-lg border p-4 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-    <span
-      class="font-Oswald font-light text-gray-500 lg:hidden dark:text-gray-100"
-      >2024-06-05</span
-    >
-    <a
-      href="https://iohub.github.io/2024/06/05/torch-nccl/"
-      class="text-base font-medium leading-7 text-gray-800 hover:text-blue-600 dark:text-gray-50 dark:hover:text-blue-500"
-      >pytorch多机分布式训练</a
-    >
-
-    
-      <p class="line-clamp-3 flex-wrap text-gray-500 dark:text-gray-400">使用nccl在RDMA网卡执行训练</p>
-    
-
+    id="single-page-container"
+    class="mx-auto my-5 mt-22 w-full rounded-b-lg border px-5 md:mt-[151px] md:max-w-5xl dark:border-gray-700">
+    <div class="flex w-full justify-between">
+      <div id="post-container" class="w-full">
+        
+        <div
+          id="post-title"
+          data-popover-target="popover-animation"
+          data-popover-offset="0"
+          data-popover-placement="bottom"
+          class="px-3 py-10 text-center text-3xl font-bold tracking-wide text-black dark:text-white">
+          在高通Adreno GPU上使用OpenCL运行llama.cpp
+        </div><div
+  data-popover
+  id="popover-animation"
+  role="tooltip"
+  class="invisible absolute z-10 inline-block w-full border border-gray-200 bg-white/90 text-sm text-gray-500 opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 md:max-w-5xl dark:border-gray-600 dark:bg-gray-800/90 dark:text-gray-400">
+  <div
+    class="border-b border-gray-200 bg-gray-100 px-5 py-2 dark:border-gray-600 dark:bg-gray-700">
+    <h3 class="font-semibold text-gray-900 dark:text-white">
+      Meta info of this page
+    </h3>
   </div>
-</li>
 
+  
+  <ul class="px-3 py-2">
+    
+    
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M170.666667 469.333333h256a42.666667 42.666667 0 0 0 42.666666-42.666666V170.666667a42.666667 42.666667 0 0 0-42.666666-42.666667H170.666667a42.666667 42.666667 0 0 0-42.666667 42.666667v256a42.666667 42.666667 0 0 0 42.666667 42.666666z m426.666666 0h256a42.666667 42.666667 0 0 0 42.666667-42.666666V170.666667a42.666667 42.666667 0 0 0-42.666667-42.666667h-256a42.666667 42.666667 0 0 0-42.666666 42.666667v256a42.666667 42.666667 0 0 0 42.666666 42.666666zM170.666667 896h256a42.666667 42.666667 0 0 0 42.666666-42.666667v-256a42.666667 42.666667 0 0 0-42.666666-42.666666H170.666667a42.666667 42.666667 0 0 0-42.666667 42.666666v256a42.666667 42.666667 0 0 0 42.666667 42.666667z m554.666666 0c94.122667 0 170.666667-76.544 170.666667-170.666667s-76.544-170.666667-170.666667-170.666666-170.666667 76.544-170.666666 170.666666 76.544 170.666667 170.666666 170.666667z" />
+          </svg>
+
+          <div class="flew ms-3 flex items-center space-x-1 text-center">
+            
+              <a class="rounded-md border px-2" href="https://iohub.github.io/categories/llm/"
+                ><span>LLM</span></a
+              >
+            
+          </div>
+        </div>
+      </li>
+    
+
+    
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M773.2 178.1v91c0 49.5-40.3 89.8-89.8 89.8-24.1 0-46.7-9.4-63.7-26.5-16.8-17-26.1-39.4-26.1-63.2v-90.8-0.3H433.8v91.1c0 49.5-40.3 89.8-89.8 89.8-49.2 0-89.2-40.3-89.2-89.8v-90.8-0.2C163.6 180.2 90 255 90 346.7v379.9c0 93 75.6 168.6 168.6 168.6h510.7c93 0 168.6-75.6 168.6-168.6v-380c0-91.6-73.5-166.4-164.7-168.5zM408.7 739.4c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-141c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m169.4 281.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-141c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-43.8-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m169.4 281.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.6c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z m0-140.5c0 24.6-19.8 44.4-44.4 44.4h-39.5c-24.6 0-44.4-19.8-44.4-44.4v-10.7c0-24.6 19.8-44.4 44.4-44.4h39.5c24.6 0 44.4 19.8 44.4 44.4v10.7z" />
+            <path
+              d="M344.1 316.2c25.6 0 47-20.8 47-47v-90.8c0.5-26.2-20.8-47-46.5-47s-47 20.8-47 47v90.8c0 25.6 20.8 47 46.5 47zM683.4 316.2c25.6 0 47-20.8 47-47v-90.8c-0.5-26.2-21.4-47-47-47s-47 20.8-47 47v90.8c0 25.6 20.8 47 47 47z" />
+          </svg>
+          <span class="ms-3"
+            >Plublished on July 22 2025</span
+          >
+        </div>
+      </li>
+
+      <li>
+        
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M534.016 342.016l0 180.010667 148.010667 89.984-29.994667 52.010667-182.016-109.994667 0-212.010667 64 0zM896 432l-290.005333 0 118.016-120.021333q-88.021333-88.021333-210.986667-89.002667t-210.986667 84.992q-86.016 88.021333-86.016 208t86.016 208 210.005333 88.021333 212.010667-88.021333q86.016-86.016 86.016-208l86.016 0q0 157.994667-112 267.989333-112 112-272 112t-272-112q-112-109.994667-112-267.008t112-269.013333 269.994667-112 269.994667 112l116.010667-120.021333 0 304z"></path>
+          </svg>
+          <span class="ms-3"
+            >Updated on July 23 2025</span
+          >
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M760.744759 112.25055 267.815093 112.25055c-42.271756 0-76.659961 34.399461-76.659961 76.670194l0 91.080391 0 297.006438 0 232.745878c0 42.271756 34.388205 76.670194 76.659961 76.670194l401.851321 0c42.270732 0 76.658937-34.398438 76.658937-76.670194L746.325351 280.000112c0-42.271756-34.388205-76.671217-76.658937-76.671217L267.815093 203.328895c-11.085476 0-21.60404 2.424212-31.120788 6.670933l0-21.080108c0-17.165961 13.964036-31.131021 31.120788-31.131021l492.929666 0c17.156752 0 31.119765 13.96506 31.119765 31.131021l0 620.832707c0 12.586666 10.1952 22.77061 22.771633 22.77061 12.573363 0 22.76754-10.183943 22.76754-22.77061L837.403696 188.91972C837.403696 146.648988 803.018561 112.25055 760.744759 112.25055zM453.364043 397.762189l34.512025 0 83.119069 247.542886-39.646975 0-22.704095-72.100108-75.068719 0-21.225417 72.100108-37.279045 0L453.364043 397.762189zM479.225037 478.278991c-3.333932-10.773368-6.225795-20.557198-8.626471-29.262464-1.958608 8.516977-4.214998 16.98893-6.78145 25.360598l-19.790742 63.673182 53.589522 0L479.225037 478.278991z" />
+          </svg>
+          <span class="ms-3">2042 words</span>
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M502.784 75.264c-245.76 0-443.904 198.144-443.904 443.904S259.584 962.56 502.784 962.56c245.76 0 443.904-198.144 443.904-443.904s-200.192-443.392-443.904-443.392z m289.28 578.048c-6.656 13.824-18.432 20.48-31.744 20.48-4.608 0-9.216 0-13.824-2.048L484.864 552.96c-11.264-4.608-20.48-18.432-20.48-31.744v-245.76c0-18.432 15.872-34.304 34.304-34.304s34.304 15.872 34.304 34.304v225.28l241.152 109.056c17.92 6.656 24.576 25.088 17.92 43.52z" />
+          </svg>
+          <span class="ms-3">5 minutes</span>
+        </div>
+      </li>
+    
+
+    
+    
+      <li>
+        <div
+          class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <svg
+            class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M455.68 404.032l91.264 529.152s67.456-69.44 123.136-117.888L792.512 979.2c4.928 6.656 15.68 7.104 23.872 1.088l52.288-38.208c8.256-6.016 10.944-16.32 5.952-22.976L755.52 759.68c62.208-25.088 164.672-53.632 164.672-53.632L455.68 404.032zM308.352 648.384L172.48 747.712c-20.544 15.04-24.256 43.968-8 65.408 16.256 21.376 46.272 27.008 66.752 12.032l135.872-99.328c20.992-15.36 24.512-45.504 8.256-66.88-16.192-21.44-46.016-25.92-67.008-10.56z m641.344-409.408C933.44 217.6 904.064 212.8 882.624 228.48l-134.912 98.688c-21.44 15.68-25.152 44.672-8.896 66.048 16.256 21.376 46.272 27.008 67.712 11.328l134.912-98.688c21.44-15.68 24.512-45.504 8.256-66.88z m-630.4-102.144c-15.936-20.928-45.248-25.728-66.752-10.048-20.096 14.72-24.256 43.968-8.32 64.896L349.76 330.496c15.936 20.992 45.696 25.408 65.792 10.688 21.44-15.68 25.216-44.608 9.28-65.6L319.296 136.832zM585.792 301.76c26.176 4.224 50.24-13.376 53.632-39.232L660.608 94.72c3.392-25.792-14.976-49.984-41.536-54.656-26.176-4.224-50.24 13.376-53.632 39.168l-21.248 167.872c-3.264 25.856 15.104 49.984 41.6 54.656zM329.728 489.024c2.56-25.92-15.808-50.048-41.536-54.656L118.144 406.4c-27.072-3.584-50.688 13.696-53.632 39.232-3.904 26.944 14.464 51.072 41.536 54.656l170.048 27.968c25.728 4.48 49.408-12.8 53.632-39.232z" />
+          </svg>
+          <p class="ms-3">
+            <span
+              id="twikoo_visitors"
+              class="page-info-pageview-count"
+              data-path="/2025/07/22/llamacpp-on-qualcomm-adreno/"
+              >...</span
+            >
+            views
+          </p>
+        </div>
+      </li>
     
   </ul>
-  
 
-
-
+  <div data-popper-arrow></div>
 </div>
 
+        
+          
+          
+            <div id="post-feature" class="-mx-5">
+              <img
+                class="h-60 w-full object-cover md:h-120"
+                src="https://iohub.github.io/images/posts/3.jpg"
+                alt="preview image"
+                srcset="" />
+            </div>
+          
+        
+
+        
+        <div
+          id="single-content"
+          class="format mx-auto max-w-none px-1 py-5 md:format-base dark:format-invert format-figure:flex format-figure:flex-col format-figure:items-center format-img:cursor-zoom-in md:px-3 lg:px-10 dark:text-gray-300">
+          <h2 class="group head-tag" id="前言">前言<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e5%89%8d%e8%a8%80"></a></h2><p>随着大语言模型（LLM）在移动设备上的应用需求日益增长，如何在Android设备上高效运行这些模型成为了开发者关注的焦点。本文将详细介绍如何在搭载高通骁龙芯片的Android设备上，通过OpenCL技术在Adreno GPU上运行llama.cpp，实现高性能的大语言模型推理。</p>
+<h2 class="group head-tag" id="opencl在adreno-gpu上的优势">OpenCL在Adreno GPU上的优势<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#opencl%e5%9c%a8adreno-gpu%e4%b8%8a%e7%9a%84%e4%bc%98%e5%8a%bf"></a></h2><h3 class="group head-tag" id="opencl技术简介">OpenCL技术简介<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#opencl%e6%8a%80%e6%9c%af%e7%ae%80%e4%bb%8b"></a></h3><p>OpenCL（开放计算语言）是由Khronos Group开发的广泛采用的行业标准，它允许开发者编写高效且可移植的并行编程代码，可在CPU、GPU、NPU、FPGA等各种设备上运行，而无需深入了解这些设备的具体实现细节。OpenCL在GPU上的应用特别强大，使开发者能够充分利用现代GPU的并行计算能力，应用于图像/视频/视觉信号处理以及卷积神经网络（CNN）和大语言模型（LLM）等AI工作负载。</p>
+<h3 class="group head-tag" id="高通在opencl标准化中的贡献">高通在OpenCL标准化中的贡献<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e9%ab%98%e9%80%9a%e5%9c%a8opencl%e6%a0%87%e5%87%86%e5%8c%96%e4%b8%ad%e7%9a%84%e8%b4%a1%e7%8c%ae"></a></h3><p>作为Khronos Group中OpenCL工作组的重要成员，高通技术公司积极参与OpenCL标准化工作。作为移动GPU上OpenCL标准的早期采用者之一，高通在各种SoC设备上支持OpenCL，包括：</p>
+<ul>
+<li>高端、中端和低端Android智能手机</li>
+<li>IoT设备（如无人机）</li>
+<li>汽车平台</li>
+<li>Windows on Snapdragon (WoS)设备</li>
+</ul>
+<p>高通还提供了全面的工具集（Snapdragon Profiler）、OpenCL SDK示例和OpenCL编程指南，帮助开发者在Adreno GPU上开始使用OpenCL。</p>
+<h3 class="group head-tag" id="llamacpp-opencl后端的关键特性">llama.cpp OpenCL后端的关键特性<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#llamacpp-opencl%e5%90%8e%e7%ab%af%e7%9a%84%e5%85%b3%e9%94%ae%e7%89%b9%e6%80%a7"></a></h3><p><strong>性能提升</strong>：新的后端显著提升了llama.cpp在Adreno GPU上的性能，实现更快的计算和更高效的处理。</p>
+<p><strong>更广泛的兼容性</strong>：该后端针对Adreno GPU进行了高度优化，同时也可在所有支持OpenCL 3.0标准（带子组支持）的GPU上运行，确保更广泛的兼容性和可访问性。</p>
+<h2 class="group head-tag" id="支持的模型和平台">支持的模型和平台<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%94%af%e6%8c%81%e7%9a%84%e6%a8%a1%e5%9e%8b%e5%92%8c%e5%b9%b3%e5%8f%b0"></a></h2><h3 class="group head-tag" id="测试验证的模型">测试验证的模型<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%b5%8b%e8%af%95%e9%aa%8c%e8%af%81%e7%9a%84%e6%a8%a1%e5%9e%8b"></a></h3><p>经过严格测试，以下大语言模型已确认在llama.cpp OpenCL后端上表现良好：</p>
+<ul>
+<li><strong>llama系列</strong>：包括llama 2和3模型，参数量为70亿（7B）和80亿（8B）等</li>
+<li><strong>Gemma系列</strong>：Gemma 1&amp;2 2B模型、Phi3 mini</li>
+<li><strong>Mistral系列</strong>：Mistral 7B模型</li>
+<li><strong>DeepSeek R1</strong>：蒸馏模型</li>
+<li><strong>其他</strong>：Qwen 1&amp;2 7B、百川7B</li>
+</ul>
+<h3 class="group head-tag" id="支持的硬件平台">支持的硬件平台<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%94%af%e6%8c%81%e7%9a%84%e7%a1%ac%e4%bb%b6%e5%b9%b3%e5%8f%b0"></a></h3><p>该后端已在多款搭载骁龙SoC的高端设备上进行测试：</p>
+<ul>
+<li><strong>Windows 11笔记本电脑</strong>：搭载骁龙X Elite和骁龙X Plus芯片</li>
+<li><strong>Android智能手机</strong>：搭载骁龙8 Gen 1、2、3和最新的骁龙8 Elite</li>
+</ul>
+<h2 class="group head-tag" id="android平台构建步骤详解">Android平台构建步骤详解<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#android%e5%b9%b3%e5%8f%b0%e6%9e%84%e5%bb%ba%e6%ad%a5%e9%aa%a4%e8%af%a6%e8%a7%a3"></a></h2><h3 class="group head-tag" id="环境准备">环境准备<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87"></a></h3><p>在开始构建之前，您需要准备以下软件和硬件环境：</p>
+<p><strong>软件要求</strong>：</p>
+<ul>
+<li>Ubuntu 22.04</li>
+<li>Python3、CMake、Make和Ninja</li>
+<li>C/C++编译器</li>
+<li>Android NDK版本26.3.11579264</li>
+</ul>
+<p><strong>硬件要求</strong>：</p>
+<ul>
+<li>搭载高通骁龙8 Gen 1、2、3或Elite移动平台的Android设备</li>
+</ul>
+<h3 class="group head-tag" id="步骤1安装android-ndk">步骤1：安装Android NDK<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%ad%a5%e9%aa%a41%e5%ae%89%e8%a3%85android-ndk"></a></h3><p>首先，我们需要安装Android NDK。以下是<code>install-ndk.sh</code>脚本的内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~ 
+</span></span><span style="display:flex;"><span>wget https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>unzip commandlinetools-linux-8512546_latest.zip <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>mkdir -p ~/android-sdk/cmdline-tools <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>mv cmdline-tools latest <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>mv latest ~/android-sdk/cmdline-tools/ <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>rm -rf commandlinetools-linux-8512546_latest.zip 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>yes | ~/android-sdk/cmdline-tools/latest/bin/sdkmanager <span style="color:#e6db74">&#34;ndk;26.3.11579264&#34;</span>
+</span></span></code></pre></div><p>这个脚本执行以下操作：</p>
+<ol>
+<li>下载Android命令行工具</li>
+<li>解压并组织目录结构</li>
+<li>使用SDK管理器安装指定版本的NDK</li>
+</ol>
+<h3 class="group head-tag" id="步骤2安装opencl头文件和icd加载器">步骤2：安装OpenCL头文件和ICD加载器<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%ad%a5%e9%aa%a42%e5%ae%89%e8%a3%85opencl%e5%a4%b4%e6%96%87%e4%bb%b6%e5%92%8cicd%e5%8a%a0%e8%bd%bd%e5%99%a8"></a></h3><p>由于NDK发行版中没有直接提供运行OpenCL所需的文件，我们需要从官方Khronos OpenCL仓库下载OpenCL头文件和ICD加载器。<code>install-opencl.sh</code>脚本完成这个任务：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p ~/dev/llm
+</span></span><span style="display:flex;"><span>cd ~/dev/llm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下载并安装OpenCL头文件</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/KhronosGroup/OpenCL-Headers
+</span></span><span style="display:flex;"><span>cd OpenCL-Headers
+</span></span><span style="display:flex;"><span>cp -r CL ~/android-sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd ~/dev/llm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下载并构建OpenCL ICD加载器</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader
+</span></span><span style="display:flex;"><span>cd OpenCL-ICD-Loader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 修复缺失的stdlib.h包含</span>
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;/#include &lt;unistd.h&gt;/a #include &lt;stdlib.h&gt;&#39;</span> loader/linux/icd_linux_envvars.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir -p build_ndk26
+</span></span><span style="display:flex;"><span>cd build_ndk26
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置编译器标志以处理Android NDK问题</span>
+</span></span><span style="display:flex;"><span>export CFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-D_Nonnull= -D_Nullable= -D__BIONIC_COMPLICATED_NULLNESS= -D__INTRODUCED_IN= -D__BIONIC_AVAILABILITY= -D__BIONIC_FORTIFY_INLINE= -D__BIONIC_FORTIFY_VARIADIC= -Wno-nullability-completeness -Wno-availability -Wno-attributes -Wno-builtin-declaration-mismatch -Wno-implicit-function-declaration -Wno-int-conversion&#34;</span>
+</span></span><span style="display:flex;"><span>export CXXFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-D_Nonnull= -D_Nullable= -D__BIONIC_COMPLICATED_NULLNESS= -D__INTRODUCED_IN= -D__BIONIC_AVAILABILITY= -D__BIONIC_FORTIFY_INLINE= -D__BIONIC_FORTIFY_VARIADIC= -Wno-nullability-completeness -Wno-availability -Wno-attributes -Wno-builtin-declaration-mismatch -Wno-implicit-function-declaration -Wno-int-conversion&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用CMake配置构建</span>
+</span></span><span style="display:flex;"><span>cmake .. -G Ninja -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DCMAKE_TOOLCHAIN_FILE<span style="color:#f92672">=</span>$HOME/android-sdk/ndk/26.3.11579264/build/cmake/android.toolchain.cmake <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DOPENCL_ICD_LOADER_HEADERS_DIR<span style="color:#f92672">=</span>$HOME/android-sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_ABI<span style="color:#f92672">=</span>arm64-v8a <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_PLATFORM<span style="color:#f92672">=</span><span style="color:#ae81ff">24</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_STL<span style="color:#f92672">=</span>c++_shared <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DCMAKE_C_FLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CFLAGS<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DCMAKE_CXX_FLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CXXFLAGS<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ninja
+</span></span><span style="display:flex;"><span>cp libOpenCL.so ~/android-sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android
+</span></span></code></pre></div><p>这个脚本的关键步骤包括：</p>
+<ol>
+<li><strong>下载OpenCL头文件</strong>：从Khronos官方仓库获取最新的OpenCL头文件</li>
+<li><strong>构建ICD加载器</strong>：编译OpenCL ICD加载器库</li>
+<li><strong>处理Android NDK兼容性</strong>：通过编译器标志解决Android NDK的特定问题</li>
+<li><strong>交叉编译配置</strong>：针对ARM64架构进行交叉编译</li>
+</ol>
+<h3 class="group head-tag" id="步骤3构建llamacpp">步骤3：构建llama.cpp<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%ad%a5%e9%aa%a43%e6%9e%84%e5%bb%ballamacpp"></a></h3><p>最后，使用<code>build-llamacpp.sh</code>脚本构建带有Adreno OpenCL后端的llama.cpp：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/dev/llm 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>git clone https://github.com/ggerganov/llama.cpp <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+</span></span><span style="display:flex;"><span>cd llama.cpp
+</span></span><span style="display:flex;"><span>mkdir -p build-android <span style="color:#f92672">&amp;&amp;</span> cd build-android 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>cmake .. -G Ninja <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DCMAKE_TOOLCHAIN_FILE<span style="color:#f92672">=</span>$HOME/android-sdk/ndk/26.3.11579264/build/cmake/android.toolchain.cmake <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_ABI<span style="color:#f92672">=</span>arm64-v8a <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_PLATFORM<span style="color:#f92672">=</span>android-28 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DBUILD_SHARED_LIBS<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DGGML_OPENCL<span style="color:#f92672">=</span>ON <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DLLAMA_CURL<span style="color:#f92672">=</span>OFF 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>ninja
+</span></span></code></pre></div><p>构建配置说明：</p>
+<ul>
+<li><strong>GGML_OPENCL=ON</strong>：启用OpenCL支持</li>
+<li><strong>ANDROID_ABI=arm64-v8a</strong>：目标架构为ARM64</li>
+<li><strong>ANDROID_PLATFORM=android-28</strong>：最低Android API级别</li>
+<li><strong>BUILD_SHARED_LIBS=OFF</strong>：构建静态库以简化部署</li>
+</ul>
+<h3 class="group head-tag" id="调试技巧">调试技巧<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e8%b0%83%e8%af%95%e6%8a%80%e5%b7%a7"></a></h3><ul>
+<li>使用<code>adb logcat</code>查看Android设备上的运行时日志</li>
+<li>通过Snapdragon Profiler分析GPU使用情况</li>
+<li>检查OpenCL设备枚举是否正确</li>
+</ul>
+<h2 class="group head-tag" id="扩展资料">扩展资料<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%89%a9%e5%b1%95%e8%b5%84%e6%96%99"></a></h2><ul>
+<li>
+<a
+  class="after:content-['_↗']"
+  href="https://www.qualcomm.com/developer/blog/2024/11/introducing-new-opn-cl-gpu-backend-llama-cpp-for-qualcomm-adreno-gpu"
+  target="_blank"
+  >官方原文</a
+>
+</li>
+</ul>
+
+        </div>
+
+        
+        <hr class="mx-1 my-1 md:mx-3 lg:mx-10" />
+
+        
+        <div
+          class="flex flex-col justify-start px-1 pb-5 pt-1 md:px-3 lg:flex-row lg:justify-between lg:px-10">
+          
+          
+          
+            <div class="flex flex-row flex-wrap items-center">
+              
+                <a
+                  class="mx-1 my-0.5 rounded-lg border border-gray-200 px-1.5 py-1 text-center text-xs text-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600"
+                  href="https://iohub.github.io/tags/llamacpp/"
+                  >llamacpp</a
+                >
+              
+                <a
+                  class="mx-1 my-0.5 rounded-lg border border-gray-200 px-1.5 py-1 text-center text-xs text-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600"
+                  href="https://iohub.github.io/tags/qualcomm/"
+                  >qualcomm</a
+                >
+              
+            </div>
+          
+
+        </div>
+      </div>
+    </div>
+
+    
+    
+      <div id="post-comment">
+
+
+
+
+  <div id="twikoo-comment"></div>
+  <script
+    defer
+    src="https://cdn.staticfile.org/twikoo/1.6.29/twikoo.all.min.js"
+    crossorigin="anonymous"></script>
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <script
+    defer
+    type="module"
+    src="/js/comment-twikoo.min.c9897800a9414d7de6a754483c8a72170d51ba68d3b375021abd5b21ccdbd520.js"></script>
+
+
+
+
+  
+
+</div>
+    
+  </div>
 <div data-dial-init class="group fixed bottom-24 end-8 md:end-20">
   <div
     id="speed-dial-menu-bottom-right"
@@ -466,6 +823,78 @@
       </div>
     
 
+    
+      
+      <button
+        type="button"
+        data-tooltip-target="tooltip-toc"
+        data-tooltip-placement="left"
+        data-drawer-target="drawer-body-scrolling-toc"
+        data-drawer-show="drawer-body-scrolling-toc"
+        data-drawer-body-scrolling="true"
+        aria-controls="drawer-body-scrolling-toc"
+        class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          version="1.1">
+          <path
+            d="M901.8 313.5H354.4c-32 0-58.2-26.2-58.2-58.2v-18.1c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 246.2m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+          <path
+            d="M901.8 579.3H354.4c-32 0-58.2-26.2-58.2-58.2V503c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 512m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+          <path
+            d="M901.8 845.1H354.4c-32 0-58.2-26.2-58.2-58.2v-18.1c0-32 26.2-58.2 58.2-58.2h547.4c32 0 58.2 26.2 58.2 58.2v18.1c0 32-26.2 58.2-58.2 58.2z"></path>
+          <path
+            d="M131.3 777.8m-67.3 0a67.3 67.3 0 1 0 134.6 0 67.3 67.3 0 1 0-134.6 0Z"></path>
+        </svg>
+
+        <span class="sr-only">Catelog</span>
+      </button>
+      <div
+        id="tooltip-toc"
+        role="tooltip"
+        class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+        Catelog
+        <div class="tooltip-arrow" data-popper-arrow></div>
+      </div>
+
+      
+      
+        <button
+          id="to-comment-button"
+          type="button"
+          data-tooltip-target="tooltip-comment"
+          data-tooltip-placement="left"
+          class="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-400">
+          <svg
+            class="h-5 w-5"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M940.373333 896H83.626667c-17.066667 0-32.426667 13.653333-32.426667 32.426667 0 17.066667 13.653333 32.426667 32.426667 32.426666h858.453333c17.066667 0 32.426667-13.653333 32.426667-32.426666-1.706667-17.066667-15.36-32.426667-34.133334-32.426667zM201.386667 752.64H341.333333c10.24 0 20.48-3.413333 27.306667-11.946667L839.68 273.066667c15.36-15.36 15.36-40.96 0-56.32L699.733333 75.093333c-6.826667-6.826667-17.066667-11.946667-27.306666-11.946666-10.24 0-20.48 3.413333-27.306667 11.946666L174.08 546.133333c-6.826667 6.826667-11.946667 17.066667-11.946667 27.306667v139.946667c0 22.186667 18.773333 39.253333 39.253334 39.253333z"></path>
+          </svg>
+          <span class="sr-only">Comment</span>
+        </button>
+        <div
+          id="tooltip-comment"
+          role="tooltip"
+          class="tooltip invisible absolute z-10 inline-block w-auto rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
+          
+            <p id="speed-comment-count-id" class="whitespace-nowrap">Comment</p>
+          
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+      
     
 
 
@@ -781,7 +1210,34 @@
     <span class="sr-only">Close menu</span>
   </button>
   <div class="overflow-y-auto py-4">
-    
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#opencl在adreno-gpu上的优势">OpenCL在Adreno GPU上的优势</a>
+      <ul>
+        <li><a href="#opencl技术简介">OpenCL技术简介</a></li>
+        <li><a href="#高通在opencl标准化中的贡献">高通在OpenCL标准化中的贡献</a></li>
+        <li><a href="#llamacpp-opencl后端的关键特性">llama.cpp OpenCL后端的关键特性</a></li>
+      </ul>
+    </li>
+    <li><a href="#支持的模型和平台">支持的模型和平台</a>
+      <ul>
+        <li><a href="#测试验证的模型">测试验证的模型</a></li>
+        <li><a href="#支持的硬件平台">支持的硬件平台</a></li>
+      </ul>
+    </li>
+    <li><a href="#android平台构建步骤详解">Android平台构建步骤详解</a>
+      <ul>
+        <li><a href="#环境准备">环境准备</a></li>
+        <li><a href="#步骤1安装android-ndk">步骤1：安装Android NDK</a></li>
+        <li><a href="#步骤2安装opencl头文件和icd加载器">步骤2：安装OpenCL头文件和ICD加载器</a></li>
+        <li><a href="#步骤3构建llamacpp">步骤3：构建llama.cpp</a></li>
+        <li><a href="#调试技巧">调试技巧</a></li>
+      </ul>
+    </li>
+    <li><a href="#扩展资料">扩展资料</a></li>
+  </ul>
+</nav>
   </div>
 </div>
 
@@ -800,7 +1256,14 @@
   });
 </script>
 
-</section>
+<div
+  id="img-zoom"
+  class="m-h-screen fixed inset-0 left-0 top-0 z-30 mx-auto hidden h-full w-full cursor-zoom-out items-center justify-center bg-black/90"
+>
+  <div id="img-content" class="my-20 h-5/6 w-11/12 bg-contain bg-center bg-no-repeat opacity-100 md:w-10/12"></div>
+</div>
+
+
 
 
     
@@ -1149,6 +1612,83 @@
   
 
 <script src="/js/dark-mode.min.f4601e5679d2fc365123dbb2569483af6ba487a6873fd698326ba052b1868055.js" defer></script>
+
+  
+    
+    
+      
+    
+    <script src="/js/toc.min.5e217e8df7eeeecad3818ba808f44ec8bb744f6a71d6445164c1d804dab77b55.js"></script>
+  
+
+  
+
+  
+  
+    
+  
+  <script src="/js/zoom-img.min.b2135ae71b015677ea50e12f6b206c51a0530f747f50506c1db398dd410fcb49.js" defer></script>
+
+  
+  
+    
+  
+  <script src="/js/link-to-top.min.5076255797b394d888abffc233d1cc417a576c3908cd84108f0e0da6d48c2cc5.js" defer></script>
+
+  
+    <script>
+      document.querySelectorAll("pre > code").forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement("button");
+        copybutton.classList.add("copy-code");
+        copybutton.innerHTML = "Copy";
+
+        function copyingDone() {
+          copybutton.innerHTML = "Copied";
+          setTimeout(() => {
+            copybutton.innerHTML = "Copy";
+          }, 2000);
+        }
+
+        copybutton.addEventListener("click", (cb) => {
+          if ("clipboard" in navigator) {
+            navigator.clipboard.writeText(codeblock.textContent);
+            copyingDone();
+            return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+            document.execCommand("copy");
+            copyingDone();
+          } catch (e) {}
+          selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+          
+        } else if (
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode
+            .nodeName == "TABLE"
+        ) {
+          
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(
+            copybutton,
+          );
+        } else {
+          
+          codeblock.parentNode.appendChild(copybutton);
+        }
+      });
+    </script>
+  
 
   <script
     data-goatcounter="https://seven-demo.goatcounter.com/count"
