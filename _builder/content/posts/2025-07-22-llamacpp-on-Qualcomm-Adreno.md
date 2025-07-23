@@ -156,21 +156,60 @@ cp libOpenCL.so ~/android-sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x
 最后，使用`build-llamacpp.sh`脚本构建带有Adreno OpenCL后端的llama.cpp：
 
 ```bash
+#!/bin/bash
+
+# 设置错误时退出
+set -e
+
+# 清理环境变量，避免干扰
+unset CC CXX
+
+# 设置 Android NDK 路径
+export ANDROID_NDK_ROOT=$HOME/android-sdk/ndk/26.3.11579264
+export NDK_ROOT=$ANDROID_NDK_ROOT
+
+# 检查 NDK 是否存在
+if [ ! -d "$ANDROID_NDK_ROOT" ]; then
+    echo "Error: Android NDK not found at $ANDROID_NDK_ROOT"
+    echo "Please make sure Android NDK is installed correctly"
+    exit 1
+fi
+
 cd ~/dev/llm 
- 
-git clone https://github.com/ggerganov/llama.cpp && \ 
+
+# git clone https://github.com/ggerganov/llama.cpp && \ 
 cd llama.cpp
+
+# 完全清理构建目录
+rm -rf build-android
 mkdir -p build-android && cd build-android 
- 
-cmake .. -G Ninja \
-  -DCMAKE_TOOLCHAIN_FILE=$HOME/android-sdk/ndk/26.3.11579264/build/cmake/android.toolchain.cmake \
-  -DANDROID_ABI=arm64-v8a \
-  -DANDROID_PLATFORM=android-28 \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DGGML_OPENCL=ON \
-  -DLLAMA_CURL=OFF 
- 
+
+# 配置 CMake，明确指定交叉编译
+cmake .. \
+    -G Ninja \
+    -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
+    -DCMAKE_SYSTEM_NAME=Android \
+    -DANDROID_ABI=arm64-v8a \
+    -DANDROID_PLATFORM=android-28 \
+    -DANDROID_NDK=$ANDROID_NDK_ROOT \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DGGML_OPENCL=ON \
+    -DLLAMA_CURL=OFF \
+    -DCMAKE_MAKE_PROGRAM=ninja
+
+# 构建
 ninja
+
+# 验证编译结果
+echo "Build completed. Checking binary architecture..."
+if [ -f "bin/llama-cli" ]; then
+    echo "Architecture check for llama-cli:"
+    file bin/llama-cli
+    readelf -h bin/llama-cli | grep Machine
+else
+    echo "Warning: llama-cli binary not found"
+fi 
 ```
 
 构建配置说明：
@@ -178,6 +217,27 @@ ninja
 - **ANDROID_ABI=arm64-v8a**：目标架构为ARM64
 - **ANDROID_PLATFORM=android-28**：最低Android API级别
 - **BUILD_SHARED_LIBS=OFF**：构建静态库以简化部署
+
+##### 验证编译产物
+
+确认是AArch64平台二进制产物
+
+```
+(base) ➜  do@do  ~/dev/llm/llama.cpp/build-android/bin git:(master) readelf -h ./llama-cli
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           AArch64
+  Version:                           0x1
+
+```
+
+
 
 
 ### 调试技巧

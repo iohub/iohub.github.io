@@ -511,7 +511,7 @@
             <path
               d="M760.744759 112.25055 267.815093 112.25055c-42.271756 0-76.659961 34.399461-76.659961 76.670194l0 91.080391 0 297.006438 0 232.745878c0 42.271756 34.388205 76.670194 76.659961 76.670194l401.851321 0c42.270732 0 76.658937-34.398438 76.658937-76.670194L746.325351 280.000112c0-42.271756-34.388205-76.671217-76.658937-76.671217L267.815093 203.328895c-11.085476 0-21.60404 2.424212-31.120788 6.670933l0-21.080108c0-17.165961 13.964036-31.131021 31.120788-31.131021l492.929666 0c17.156752 0 31.119765 13.96506 31.119765 31.131021l0 620.832707c0 12.586666 10.1952 22.77061 22.771633 22.77061 12.573363 0 22.76754-10.183943 22.76754-22.77061L837.403696 188.91972C837.403696 146.648988 803.018561 112.25055 760.744759 112.25055zM453.364043 397.762189l34.512025 0 83.119069 247.542886-39.646975 0-22.704095-72.100108-75.068719 0-21.225417 72.100108-37.279045 0L453.364043 397.762189zM479.225037 478.278991c-3.333932-10.773368-6.225795-20.557198-8.626471-29.262464-1.958608 8.516977-4.214998 16.98893-6.78145 25.360598l-19.790742 63.673182 53.589522 0L479.225037 478.278991z" />
           </svg>
-          <span class="ms-3">2042 words</span>
+          <span class="ms-3">2273 words</span>
         </div>
       </li>
     
@@ -683,21 +683,60 @@
 <li><strong>交叉编译配置</strong>：针对ARM64架构进行交叉编译</li>
 </ol>
 <h3 class="group head-tag" id="步骤3构建llamacpp">步骤3：构建llama.cpp<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e6%ad%a5%e9%aa%a43%e6%9e%84%e5%bb%ballamacpp"></a></h3><p>最后，使用<code>build-llamacpp.sh</code>脚本构建带有Adreno OpenCL后端的llama.cpp：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/dev/llm 
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>git clone https://github.com/ggerganov/llama.cpp <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\ </span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置错误时退出</span>
+</span></span><span style="display:flex;"><span>set -e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 清理环境变量，避免干扰</span>
+</span></span><span style="display:flex;"><span>unset CC CXX
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Android NDK 路径</span>
+</span></span><span style="display:flex;"><span>export ANDROID_NDK_ROOT<span style="color:#f92672">=</span>$HOME/android-sdk/ndk/26.3.11579264
+</span></span><span style="display:flex;"><span>export NDK_ROOT<span style="color:#f92672">=</span>$ANDROID_NDK_ROOT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 检查 NDK 是否存在</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -d <span style="color:#e6db74">&#34;</span>$ANDROID_NDK_ROOT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Error: Android NDK not found at </span>$ANDROID_NDK_ROOT<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Please make sure Android NDK is installed correctly&#34;</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd ~/dev/llm 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># git clone https://github.com/ggerganov/llama.cpp &amp;&amp; \ </span>
 </span></span><span style="display:flex;"><span>cd llama.cpp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 完全清理构建目录</span>
+</span></span><span style="display:flex;"><span>rm -rf build-android
 </span></span><span style="display:flex;"><span>mkdir -p build-android <span style="color:#f92672">&amp;&amp;</span> cd build-android 
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>cmake .. -G Ninja <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DCMAKE_TOOLCHAIN_FILE<span style="color:#f92672">=</span>$HOME/android-sdk/ndk/26.3.11579264/build/cmake/android.toolchain.cmake <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_ABI<span style="color:#f92672">=</span>arm64-v8a <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DANDROID_PLATFORM<span style="color:#f92672">=</span>android-28 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DBUILD_SHARED_LIBS<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DGGML_OPENCL<span style="color:#f92672">=</span>ON <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -DLLAMA_CURL<span style="color:#f92672">=</span>OFF 
-</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 配置 CMake，明确指定交叉编译</span>
+</span></span><span style="display:flex;"><span>cmake .. <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -G Ninja <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_TOOLCHAIN_FILE<span style="color:#f92672">=</span>$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_SYSTEM_NAME<span style="color:#f92672">=</span>Android <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DANDROID_ABI<span style="color:#f92672">=</span>arm64-v8a <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DANDROID_PLATFORM<span style="color:#f92672">=</span>android-28 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DANDROID_NDK<span style="color:#f92672">=</span>$ANDROID_NDK_ROOT <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DBUILD_SHARED_LIBS<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DGGML_OPENCL<span style="color:#f92672">=</span>ON <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DLLAMA_CURL<span style="color:#f92672">=</span>OFF <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -DCMAKE_MAKE_PROGRAM<span style="color:#f92672">=</span>ninja
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 构建</span>
 </span></span><span style="display:flex;"><span>ninja
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 验证编译结果</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Build completed. Checking binary architecture...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f <span style="color:#e6db74">&#34;bin/llama-cli&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Architecture check for llama-cli:&#34;</span>
+</span></span><span style="display:flex;"><span>    file bin/llama-cli
+</span></span><span style="display:flex;"><span>    readelf -h bin/llama-cli | grep Machine
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Warning: llama-cli binary not found&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span> 
 </span></span></code></pre></div><p>构建配置说明：</p>
 <ul>
 <li><strong>GGML_OPENCL=ON</strong>：启用OpenCL支持</li>
@@ -705,7 +744,19 @@
 <li><strong>ANDROID_PLATFORM=android-28</strong>：最低Android API级别</li>
 <li><strong>BUILD_SHARED_LIBS=OFF</strong>：构建静态库以简化部署</li>
 </ul>
-<h3 class="group head-tag" id="调试技巧">调试技巧<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e8%b0%83%e8%af%95%e6%8a%80%e5%b7%a7"></a></h3><ul>
+<h5 class="group head-tag" id="验证编译产物">验证编译产物<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e9%aa%8c%e8%af%81%e7%bc%96%e8%af%91%e4%ba%a7%e7%89%a9"></a></h5><p>确认是AArch64平台二进制产物</p>
+<pre tabindex="0"><code>(base) ➜  do@do  ~/dev/llm/llama.cpp/build-android/bin git:(master) readelf -h ./llama-cli
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2&#39;s complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           AArch64
+  Version:                           0x1
+</code></pre><h3 class="group head-tag" id="调试技巧">调试技巧<a data-title-of-head class="group-hover:after:content-['__#'] no-underline hover:text-blue-700" href="#%e8%b0%83%e8%af%95%e6%8a%80%e5%b7%a7"></a></h3><ul>
 <li>使用<code>adb logcat</code>查看Android设备上的运行时日志</li>
 <li>通过Snapdragon Profiler分析GPU使用情况</li>
 <li>检查OpenCL设备枚举是否正确</li>
