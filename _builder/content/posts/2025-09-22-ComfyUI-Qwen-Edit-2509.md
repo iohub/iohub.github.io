@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: "ComfyUI Qwen-Image-Edit-2509 安装使用指南"
+title: "ComfyUI Qwen-Image-Edit-2509使用指南"
 subtitle: ""
 description: "Qwen-Image-Edit-2509 Window部署指南"
 excerpt: ""
@@ -18,7 +18,7 @@ is_recommend: true
 ---
 
 
-# ComfyUI Qwen-Image-Edit-2509 安装使用指南
+# ComfyUI Qwen-Image-Edit-2509 使用指南
 
 本指南将详细介绍如何通过 Pinokio 安装 ComfyUI 并配置 Qwen-Image-Edit-2509 模型。
 
