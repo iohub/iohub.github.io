@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>填坑日常 on LifeIO</title>
+    <link>http://localhost:1313/categories/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/</link>
+    <description>Recent content in 填坑日常 on LifeIO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Sep 2025 16:52:20 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>解决python自签名证书的 ssl.SSLError问题</title>
+      <link>http://localhost:1313/2018/05/22/authentication-and-authorization-of-microservice/</link>
+      <pubDate>Wed, 13 Dec 2023 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2018/05/22/authentication-and-authorization-of-microservice/</guid>
+      <description>问题现象使用huggingface下载模型数据和第三方依赖时，由于公司网络使用自签名证书，导致https校验失败无法，完成数据下载。报错信息</description>
+    </item>
+  </channel>
+</rss>

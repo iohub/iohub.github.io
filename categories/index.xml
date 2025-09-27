@@ -6,24 +6,24 @@
     <description>Recent content in Categories on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Jul 2025 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Sep 2025 17:12:53 +0800</lastBuildDate>
     <atom:link href="https://iohub.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LLM</title>
       <link>https://iohub.github.io/categories/llm/</link>
-      <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/llm/</guid>
       <description></description>
     </item>
     <item>
-      <title>finetune</title>
+      <title>Finetune</title>
       <link>https://iohub.github.io/categories/finetune/</link>
       <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/finetune/</guid>
       <description></description>
     </item>
     <item>
-      <title>unsloth</title>
+      <title>Unsloth</title>
       <link>https://iohub.github.io/categories/unsloth/</link>
       <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/unsloth/</guid>
@@ -37,28 +37,28 @@
       <description></description>
     </item>
     <item>
-      <title>mlsys</title>
+      <title>Mlsys</title>
       <link>https://iohub.github.io/categories/mlsys/</link>
       <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/mlsys/</guid>
       <description></description>
     </item>
     <item>
-      <title>transformers</title>
+      <title>Transformers</title>
       <link>https://iohub.github.io/categories/transformers/</link>
       <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/transformers/</guid>
       <description></description>
     </item>
     <item>
-      <title>quantization</title>
+      <title>Quantization</title>
       <link>https://iohub.github.io/categories/quantization/</link>
       <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/quantization/</guid>
       <description></description>
     </item>
     <item>
-      <title>peft</title>
+      <title>Peft</title>
       <link>https://iohub.github.io/categories/peft/</link>
       <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/peft/</guid>
@@ -72,21 +72,21 @@
       <description></description>
     </item>
     <item>
-      <title>algorithm</title>
+      <title>Algorithm</title>
       <link>https://iohub.github.io/categories/algorithm/</link>
       <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/algorithm/</guid>
       <description></description>
     </item>
     <item>
-      <title>compiler</title>
+      <title>Compiler</title>
       <link>https://iohub.github.io/categories/compiler/</link>
       <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/compiler/</guid>
       <description></description>
     </item>
     <item>
-      <title>parsing</title>
+      <title>Parsing</title>
       <link>https://iohub.github.io/categories/parsing/</link>
       <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/categories/parsing/</guid>

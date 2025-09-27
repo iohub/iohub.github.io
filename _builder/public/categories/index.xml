@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on LifeIO</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in Categories on LifeIO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Sep 2025 17:12:53 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM</title>
+      <link>http://localhost:1313/categories/llm/</link>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Finetune</title>
+      <link>http://localhost:1313/categories/finetune/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/finetune/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Unsloth</title>
+      <link>http://localhost:1313/categories/unsloth/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/unsloth/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AI</title>
+      <link>http://localhost:1313/categories/ai/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mlsys</title>
+      <link>http://localhost:1313/categories/mlsys/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/mlsys/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Transformers</title>
+      <link>http://localhost:1313/categories/transformers/</link>
+      <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/transformers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Quantization</title>
+      <link>http://localhost:1313/categories/quantization/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/quantization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Peft</title>
+      <link>http://localhost:1313/categories/peft/</link>
+      <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/peft/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>模型微调</title>
+      <link>http://localhost:1313/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Algorithm</title>
+      <link>http://localhost:1313/categories/algorithm/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Compiler</title>
+      <link>http://localhost:1313/categories/compiler/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/compiler/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Parsing</title>
+      <link>http://localhost:1313/categories/parsing/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/parsing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>填坑日常</title>
+      <link>http://localhost:1313/categories/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/</link>
+      <pubDate>Wed, 13 Dec 2023 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/%E5%A1%AB%E5%9D%91%E6%97%A5%E5%B8%B8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>使用文档</title>
+      <link>http://localhost:1313/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
+      <guid>http://localhost:1313/categories/%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -177,5 +177,6 @@ Pinokio 使用共享模型文件夹来节省磁盘空间。模型、LoRA、嵌�
 
 ### Refs
 
-- 访问 [ComfyUI 官方文档](https://docs.comfy.org/)
-
+- [ComfyUI 官方文档](https://docs.comfy.org/)
+- [Qwen Image Edit - GGUF/Fp8/BF16/LoRA Support in ComfyUI](https://www.stablediffusiontutorials.com/2025/08/qwen-image-edit.html)
+- [Qwen Image Edit 2509 GGUF/fp8/Bf16 Multi Image Editing](https://www.stablediffusiontutorials.com/2025/09/qwen-image-edit-2509.html)

@@ -1,0 +1,1 @@
+.modal{touch-action:none;position:fixed;z-index:99;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,.75);-webkit-user-select:none;-moz-user-select:none;user-select:none}.modal>img{position:absolute;padding:0;margin:0;transform:translateZ(0)}

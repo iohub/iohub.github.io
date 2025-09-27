@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on LifeIO</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on LifeIO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Sep 2025 17:12:53 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ComfyUI Qwen-Image-Edit-2509 安装使用指南</title>
+      <link>http://localhost:1313/2025/09/22/comfyui-qwen-edit-2509/</link>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2025/09/22/comfyui-qwen-edit-2509/</guid>
+      <description>ComfyUI Qwen-Image-Edit-2509 安装使用指南本指南将详细介绍如何通过 Pinokio 安装 ComfyUI 并配置 Qwen-Image-Edit-2509 模型。 系统要求 显存要求: 至少 24GB VRAM（使用 BF16/FP8 版本）4 操作系统: Windows、ma</description>
+    </item>
+    <item>
+      <title>在高通Adreno GPU上使用OpenCL运行llama.cpp</title>
+      <link>http://localhost:1313/2025/07/22/llamacpp-on-qualcomm-adreno/</link>
+      <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2025/07/22/llamacpp-on-qualcomm-adreno/</guid>
+      <description>前言随着大语言模型（LLM）在移动设备上的应用需求日益增长，如何在Android设备上高效运行这些模型成为了开发者关注的焦点。本文将详细介绍</description>
+    </item>
+    <item>
+      <title>使用Unsloth高效微调Gemma-3模型</title>
+      <link>http://localhost:1313/2025/07/20/unsloth-finetune-gemma3/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2025/07/20/unsloth-finetune-gemma3/</guid>
+      <description>使用Unsloth高效微调Gemma-3模型：完整实践指南概述在大语言模型微调领域，效率和性能的平衡一直是开发者关注的焦点。Unsloth作</description>
+    </item>
+    <item>
+      <title>使用NVIDIA Nsight对llamacpp进行性能分析</title>
+      <link>http://localhost:1313/2025/07/14/nsys-analysis-llamacpp/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2025/07/14/nsys-analysis-llamacpp/</guid>
+      <description>使用NVIDIA Nsight Systems对llamacpp进行性能分析环境准备在开始之前，请确保您已准备以下内容： 已安装 NVIDIA Nsight Systems 一块兼容的 NVIDIA GPU llamacpp 可执行</description>
+    </item>
+    <item>
+      <title>修复Seq2SeqTrainer训练奔溃问题</title>
+      <link>http://localhost:1313/2024/06/20/index/</link>
+      <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/06/20/index/</guid>
+      <description>TL;DR已提交 PR 到transformers，新版本不再有该问题。 修改transformer代码，src/transformers/toke</description>
+    </item>
+    <item>
+      <title>starcoder2量化效果评估</title>
+      <link>http://localhost:1313/2024/06/18/starcoder2-eval/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/06/18/starcoder2-eval/</guid>
+      <description>TL;DR 模型 量化方式 human-eval pass@1 human-eval pass@10 显存占用 starcoder2-15b - 22.5% 67.7% 30G starcoder2-15b Q8_0 23.2% 66.4% 15G starcoder2-15b Q5_K_M 15.5% 56.7% 12G starcoder2-15b AWQ 14.3% 52.4% 8G 结论： 对模型进行 8-bit量化（Q8_0）显存占用减半，human-e</description>
+    </item>
+    <item>
+      <title>transformers恢复训练填坑</title>
+      <link>http://localhost:1313/2024/06/06/resume-train/</link>
+      <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/06/06/resume-train/</guid>
+      <description>0. 问题现象根据官方文档描述，设置resume_from_checkpoint参数为待恢复的检查点。 trainer.train(resume_from_checkpoint=&amp;#39;finetuned/checkpoint-5000&amp;#39;) 恢复训练后发现train loss、eva</description>
+    </item>
+    <item>
+      <title>pytorch多机分布式训练</title>
+      <link>http://localhost:1313/2024/06/05/torch-nccl/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/06/05/torch-nccl/</guid>
+      <description>0. 环境准备pip install transformers datasets peft tensorboard # 安装flash-attation pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.8/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 1. Master节点# 配置RDMA网卡 epoxrt NCCL_SOCKET_FAMILY=AF_INET epoxrt NCCL_SOCKET_IFNAME=eno3p1 export NCCL_IB_HCA=mlx5_1 # 配置nccl日志 export NCCL_DEBUG=INFO # 在</description>
+    </item>
+    <item>
+      <title>gravity pratt parsing</title>
+      <link>http://localhost:1313/2024/02/04/gravity_pratt_parsing/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/02/04/gravity_pratt_parsing/</guid>
+      <description>TL;DR代码路径 compiler-&amp;gt;ast = gravity_parser_run() -&amp;gt; parser_run() -&amp;gt; parse_statement() -&amp;gt; parse_expression_statement() 解析分发函数 static gnode_t *parse_statement (gravity_parser_t *parser) { DEBUG_PARSER(&amp;#34;parse_statement&amp;#34;); // label_statement // flow_statement // loop_statement // jump_statement // compound_statement // declaration_statement // empty_statement // import_statement // expression_statement (default) DECLARE_LEXER; gtoken_t token = gravity_lexer_peek(lexer); if (token_iserror(token)) return parse_error(parser); if (token_islabel_statement(token)) return parse_label_statement(parser); else if (token_isflow_statement(token)) return parse_flow_statement(parser); else if</description>
+    </item>
+    <item>
+      <title>SeamlessM4T语音翻译微调</title>
+      <link>http://localhost:1313/2024/01/26/finetune-seamlessm4t/</link>
+      <pubDate>Fri, 26 Jan 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/01/26/finetune-seamlessm4t/</guid>
+      <description>TL;DR 训练脚本及推理WebUI 1. 环境安装git clone https://github.com/facebookresearch/seamless_communication cd seamless_communication pip install . 2. 数据处理2.1 下载google/fleurs语料cd /media/ssd/ GIT_LFS_SKIP_SMUDGE=1 git clone https://hf-mirror.com/google/fleurs cd fleurs # pull 英文语料 git lfs</description>
+    </item>
+    <item>
+      <title>解决python自签名证书的 ssl.SSLError问题</title>
+      <link>http://localhost:1313/2018/05/22/authentication-and-authorization-of-microservice/</link>
+      <pubDate>Wed, 13 Dec 2023 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2018/05/22/authentication-and-authorization-of-microservice/</guid>
+      <description>问题现象使用huggingface下载模型数据和第三方依赖时，由于公司网络使用自签名证书，导致https校验失败无法，完成数据下载。报错信息</description>
+    </item>
+  </channel>
+</rss>

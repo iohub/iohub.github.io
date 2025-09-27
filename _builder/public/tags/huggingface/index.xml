@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Huggingface on LifeIO</title>
+    <link>http://localhost:1313/tags/huggingface/</link>
+    <description>Recent content in Huggingface on LifeIO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Sep 2025 16:52:20 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/huggingface/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gravity pratt parsing</title>
+      <link>http://localhost:1313/2024/02/04/gravity_pratt_parsing/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/02/04/gravity_pratt_parsing/</guid>
+      <description>TL;DR代码路径 compiler-&amp;gt;ast = gravity_parser_run() -&amp;gt; parser_run() -&amp;gt; parse_statement() -&amp;gt; parse_expression_statement() 解析分发函数 static gnode_t *parse_statement (gravity_parser_t *parser) { DEBUG_PARSER(&amp;#34;parse_statement&amp;#34;); // label_statement // flow_statement // loop_statement // jump_statement // compound_statement // declaration_statement // empty_statement // import_statement // expression_statement (default) DECLARE_LEXER; gtoken_t token = gravity_lexer_peek(lexer); if (token_iserror(token)) return parse_error(parser); if (token_islabel_statement(token)) return parse_label_statement(parser); else if (token_isflow_statement(token)) return parse_flow_statement(parser); else if</description>
+    </item>
+    <item>
+      <title>SeamlessM4T语音翻译微调</title>
+      <link>http://localhost:1313/2024/01/26/finetune-seamlessm4t/</link>
+      <pubDate>Fri, 26 Jan 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2024/01/26/finetune-seamlessm4t/</guid>
+      <description>TL;DR 训练脚本及推理WebUI 1. 环境安装git clone https://github.com/facebookresearch/seamless_communication cd seamless_communication pip install . 2. 数据处理2.1 下载google/fleurs语料cd /media/ssd/ GIT_LFS_SKIP_SMUDGE=1 git clone https://hf-mirror.com/google/fleurs cd fleurs # pull 英文语料 git lfs</description>
+    </item>
+    <item>
+      <title>解决python自签名证书的 ssl.SSLError问题</title>
+      <link>http://localhost:1313/2018/05/22/authentication-and-authorization-of-microservice/</link>
+      <pubDate>Wed, 13 Dec 2023 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/2018/05/22/authentication-and-authorization-of-microservice/</guid>
+      <description>问题现象使用huggingface下载模型数据和第三方依赖时，由于公司网络使用自签名证书，导致https校验失败无法，完成数据下载。报错信息</description>
+    </item>
+  </channel>
+</rss>

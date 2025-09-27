@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>peft on LifeIO</title>
+    <title>Peft on LifeIO</title>
     <link>https://iohub.github.io/categories/peft/</link>
-    <description>Recent content in peft on LifeIO</description>
+    <description>Recent content in Peft on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Jun 2024 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Sep 2025 16:52:20 +0800</lastBuildDate>
     <atom:link href="https://iohub.github.io/categories/peft/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>transformers恢复训练填坑</title>

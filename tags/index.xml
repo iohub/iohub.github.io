@@ -6,108 +6,122 @@
     <description>Recent content in Tags on LifeIO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Jul 2025 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Sep 2025 17:12:53 +0800</lastBuildDate>
     <atom:link href="https://iohub.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>llamacpp</title>
+      <title>ComfyUI</title>
+      <link>https://iohub.github.io/tags/comfyui/</link>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/comfyui/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Qwen-Image-Edit-2509</title>
+      <link>https://iohub.github.io/tags/qwen-image-edit-2509/</link>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+      <guid>https://iohub.github.io/tags/qwen-image-edit-2509/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Llamacpp</title>
       <link>https://iohub.github.io/tags/llamacpp/</link>
       <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/llamacpp/</guid>
       <description></description>
     </item>
     <item>
-      <title>qualcomm</title>
+      <title>Qualcomm</title>
       <link>https://iohub.github.io/tags/qualcomm/</link>
       <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/qualcomm/</guid>
       <description></description>
     </item>
     <item>
-      <title>finetune</title>
+      <title>Finetune</title>
       <link>https://iohub.github.io/tags/finetune/</link>
       <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/finetune/</guid>
       <description></description>
     </item>
     <item>
-      <title>unsloth</title>
+      <title>Unsloth</title>
       <link>https://iohub.github.io/tags/unsloth/</link>
       <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/unsloth/</guid>
       <description></description>
     </item>
     <item>
-      <title>cuda</title>
+      <title>Cuda</title>
       <link>https://iohub.github.io/tags/cuda/</link>
       <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/cuda/</guid>
       <description></description>
     </item>
     <item>
-      <title>bugfix</title>
+      <title>Bugfix</title>
       <link>https://iohub.github.io/tags/bugfix/</link>
       <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/bugfix/</guid>
       <description></description>
     </item>
     <item>
-      <title>transformers</title>
+      <title>Transformers</title>
       <link>https://iohub.github.io/tags/transformers/</link>
       <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/transformers/</guid>
       <description></description>
     </item>
     <item>
-      <title>quantization</title>
+      <title>Quantization</title>
       <link>https://iohub.github.io/tags/quantization/</link>
       <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/quantization/</guid>
       <description></description>
     </item>
     <item>
-      <title>starcoder</title>
+      <title>Starcoder</title>
       <link>https://iohub.github.io/tags/starcoder/</link>
       <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/starcoder/</guid>
       <description></description>
     </item>
     <item>
-      <title>lora</title>
+      <title>Lora</title>
       <link>https://iohub.github.io/tags/lora/</link>
       <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/lora/</guid>
       <description></description>
     </item>
     <item>
-      <title>torch</title>
+      <title>Torch</title>
       <link>https://iohub.github.io/tags/torch/</link>
       <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/torch/</guid>
       <description></description>
     </item>
     <item>
-      <title>nccl</title>
+      <title>Nccl</title>
       <link>https://iohub.github.io/tags/nccl/</link>
       <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/nccl/</guid>
       <description></description>
     </item>
     <item>
-      <title>huggingface</title>
+      <title>Huggingface</title>
       <link>https://iohub.github.io/tags/huggingface/</link>
       <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/huggingface/</guid>
       <description></description>
     </item>
     <item>
-      <title>python</title>
+      <title>Python</title>
       <link>https://iohub.github.io/tags/python/</link>
       <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
       <guid>https://iohub.github.io/tags/python/</guid>
       <description></description>
     </item>
     <item>
-      <title>doc</title>
+      <title>Doc</title>
       <link>https://iohub.github.io/tags/doc/</link>
       <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
       <guid>https://iohub.github.io/tags/doc/</guid>

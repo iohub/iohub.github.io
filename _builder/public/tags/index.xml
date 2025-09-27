@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on LifeIO</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on LifeIO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Sep 2025 17:12:53 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ComfyUI</title>
+      <link>http://localhost:1313/tags/comfyui/</link>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/comfyui/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Qwen-Image-Edit-2509</title>
+      <link>http://localhost:1313/tags/qwen-image-edit-2509/</link>
+      <pubDate>Mon, 22 Sep 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/qwen-image-edit-2509/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Llamacpp</title>
+      <link>http://localhost:1313/tags/llamacpp/</link>
+      <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/llamacpp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Qualcomm</title>
+      <link>http://localhost:1313/tags/qualcomm/</link>
+      <pubDate>Tue, 22 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/qualcomm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Finetune</title>
+      <link>http://localhost:1313/tags/finetune/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/finetune/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Unsloth</title>
+      <link>http://localhost:1313/tags/unsloth/</link>
+      <pubDate>Sun, 20 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/unsloth/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cuda</title>
+      <link>http://localhost:1313/tags/cuda/</link>
+      <pubDate>Mon, 14 Jul 2025 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cuda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bugfix</title>
+      <link>http://localhost:1313/tags/bugfix/</link>
+      <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/bugfix/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Transformers</title>
+      <link>http://localhost:1313/tags/transformers/</link>
+      <pubDate>Thu, 20 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/transformers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Quantization</title>
+      <link>http://localhost:1313/tags/quantization/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/quantization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Starcoder</title>
+      <link>http://localhost:1313/tags/starcoder/</link>
+      <pubDate>Tue, 18 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/starcoder/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lora</title>
+      <link>http://localhost:1313/tags/lora/</link>
+      <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/lora/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Torch</title>
+      <link>http://localhost:1313/tags/torch/</link>
+      <pubDate>Thu, 06 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/torch/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Nccl</title>
+      <link>http://localhost:1313/tags/nccl/</link>
+      <pubDate>Wed, 05 Jun 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/nccl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Huggingface</title>
+      <link>http://localhost:1313/tags/huggingface/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/huggingface/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
+      <pubDate>Sun, 04 Feb 2024 12:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Doc</title>
+      <link>http://localhost:1313/tags/doc/</link>
+      <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
+      <guid>http://localhost:1313/tags/doc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>配置参数</title>
+      <link>http://localhost:1313/tags/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Fri, 14 Jul 2023 20:59:47 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
