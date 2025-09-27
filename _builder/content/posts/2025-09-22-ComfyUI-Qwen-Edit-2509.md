@@ -24,7 +24,7 @@ is_recommend: true
 
 ## 系统要求
 
-- **显存要求**: 至少 22GB VRAM（使用 BF16/FP8 版本,FP8版本可以在2080Ti 22G魔改卡上运行）
+- **显存要求**: 至少 22GB VRAM（FP8版本可以在2080Ti 22G魔改卡上运行）
 - **操作系统**: Windows、macOS 或 Linux
 - **网络**: 建议配置代理以访问国外资源
 
